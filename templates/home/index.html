@@ -1,0 +1,239 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Bosh sahifa
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/home.css">
+
+
+<div class="home">
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-text">
+
+<h1>
+🔥 Eng yaxshi mahsulotlar
+</h1>
+
+
+<p>
+Sifatli mahsulotlar eng arzon narxlarda
+</p>
+
+
+<a href="#products">
+
+<button>
+Xarid qilish
+</button>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+
+
+<!-- CATEGORIES -->
+
+<h2>
+Kategoriyalar
+</h2>
+
+
+<div class="categories">
+
+
+{% for c in categories %}
+
+<a href="/?category={{c.id}}" class="category">
+
+📦
+
+<span>
+{{c.name}}
+</span>
+
+</a>
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+<!-- PRODUCTS -->
+
+
+<div class="section-title">
+
+
+<h2 id="products">
+Mashhur mahsulotlar
+</h2>
+
+
+<a href="#">
+Barchasi →
+</a>
+
+
+</div>
+
+
+
+<div class="products">
+
+
+{% for p in products %}
+
+
+<div class="product-card">
+
+
+
+<!-- IMAGE -->
+
+<a href="{{url_for('home.product_detail', id=p.id)}}">
+
+
+<div class="product-image">
+
+
+{% if p.image %}
+
+<img src="{{p.image}}">
+
+
+{% else %}
+
+📦
+
+{% endif %}
+
+
+</div>
+
+
+
+<h3>
+{{p.name}}
+</h3>
+
+
+</a>
+
+
+
+<!-- RATING -->
+
+<div class="rating">
+
+
+⭐ {{p.rating or 0}}
+
+
+<span>
+
+({{p.views or 0}} ko'rish)
+
+</span>
+
+
+</div>
+
+
+
+
+<p class="description">
+
+
+{{p.description[:80] if p.description else ""}}
+
+
+</p>
+
+
+
+
+<div class="bottom">
+
+
+<div class="price">
+
+{{p.price}} so'm
+
+</div>
+
+
+<button
+class="favorite-btn"
+data-id="{{p.id}}">
+
+❤️
+
+</button>
+
+
+</div>
+
+
+
+
+<button 
+class="cart-btn"
+onclick="addCart('{{p.id}}')">
+
+
+🛒 Savatga qo'shish
+
+
+</button>
+
+
+
+
+</div>
+
+
+
+{% else %}
+
+
+<h3>
+
+Hozircha mahsulot yo'q
+
+</h3>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+<script src="/static/js/home.js"></script>
+
+
+{% endblock %}

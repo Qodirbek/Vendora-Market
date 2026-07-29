@@ -1,0 +1,316 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Buyurtma tafsilotlari
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/order_detail.css') }}">
+
+
+
+<div class="order-detail-page">
+
+
+<div class="detail-container">
+
+
+
+<!-- HEADER -->
+
+<div class="detail-header">
+
+
+<div>
+
+<h1>
+📦 Buyurtma tafsilotlari
+</h1>
+
+
+<p>
+Buyurtma raqami:
+<b>
+{{ order.order_number }}
+</b>
+</p>
+
+
+</div>
+
+
+
+<div class="status-box">
+
+
+{% if order.status == "Yetkazildi" %}
+
+<span class="done">
+✅ {{order.status}}
+</span>
+
+
+{% elif order.status == "Bekor qilindi" %}
+
+<span class="cancel">
+❌ {{order.status}}
+</span>
+
+
+{% else %}
+
+<span class="waiting">
+⏳ {{order.status}}
+</span>
+
+
+{% endif %}
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<!-- ORDER INFO -->
+
+
+<div class="info-card">
+
+
+<h2>
+📋 Buyurtma ma'lumotlari
+</h2>
+
+
+
+<div class="info-grid">
+
+
+<div>
+<span>
+Buyurtma raqami
+</span>
+
+<b>
+{{order.order_number}}
+</b>
+
+</div>
+
+
+
+<div>
+<span>
+Sana
+</span>
+
+<b>
+{{order.created_at.strftime('%d.%m.%Y %H:%M')}}
+</b>
+
+</div>
+
+
+
+<div>
+<span>
+To'lov turi
+</span>
+
+<b>
+{{order.payment_method}}
+</b>
+
+</div>
+
+
+
+<div>
+<span>
+Jami summa
+</span>
+
+<b class="price">
+{{ "{:,}".format(order.total_price) }} so'm
+</b>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- USER ADDRESS -->
+
+
+<div class="info-card">
+
+
+<h2>
+🚚 Yetkazib berish
+</h2>
+
+
+<div class="address">
+
+
+<p>
+👤 {{order.receiver_name}}
+</p>
+
+
+<p>
+📞 {{order.phone}}
+</p>
+
+
+<p>
+📍 {{order.address}}
+</p>
+
+
+
+{% if order.comment %}
+
+<p>
+💬 {{order.comment}}
+</p>
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- PRODUCTS -->
+
+
+<div class="products-card">
+
+
+<h2>
+🛒 Mahsulotlar
+</h2>
+
+
+
+{% for item in order.items %}
+
+
+
+<div class="product-item">
+
+
+
+{% if item.product_image %}
+
+<img src="{{item.product_image}}">
+
+{% else %}
+
+<div class="no-image">
+📦
+</div>
+
+{% endif %}
+
+
+
+
+<div class="product-info">
+
+
+<h3>
+{{item.product_name}}
+</h3>
+
+
+
+<p>
+Soni:
+<b>
+{{item.quantity}}
+</b>
+</p>
+
+
+
+<p>
+Narxi:
+<b>
+{{ "{:,}".format(item.subtotal) }} so'm
+</b>
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+
+<a href="{{url_for('order.orders')}}" 
+class="back-btn">
+
+⬅ Buyurtmalarga qaytish
+
+</a>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script src="{{ url_for('static', filename='js/order_detail.js') }}"></script>
+
+
+{% endblock %}

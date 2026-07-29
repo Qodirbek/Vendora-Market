@@ -1,0 +1,574 @@
+/* =====================================
+   PROFESSIONAL MOBILE BOTTOM NAV
+===================================== */
+
+
+body{
+    padding-bottom:90px;
+}
+
+
+
+/* MAIN CONTAINER */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:15px;
+
+    transform:translateX(-50%);
+
+
+    width:95%;
+
+    max-width:600px;
+
+    height:75px;
+
+
+    background:
+
+    rgba(255,255,255,.85);
+
+
+    backdrop-filter:
+
+    blur(20px);
+
+
+    -webkit-backdrop-filter:
+
+    blur(20px);
+
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-around;
+
+
+
+    border-radius:30px;
+
+
+
+    box-shadow:
+
+    0 15px 40px rgba(0,0,0,.15);
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,.5);
+
+
+
+    z-index:9999;
+
+
+
+    padding:
+
+    0 10px;
+
+
+}
+
+
+
+/* =====================================
+   ITEMS
+===================================== */
+
+
+.bottom-item{
+
+    width:58px;
+
+    height:58px;
+
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+
+    text-decoration:none;
+
+
+    color:#777;
+
+
+    border-radius:22px;
+
+
+    position:relative;
+
+
+    transition:.35s ease;
+
+
+}
+
+
+
+.bottom-item i{
+
+    font-size:25px;
+
+
+    transition:.35s ease;
+
+
+}
+
+
+
+.bottom-item span{
+
+    font-size:11px;
+
+    margin-top:3px;
+
+    font-weight:600;
+
+
+}
+
+
+
+/* =====================================
+   ACTIVE
+===================================== */
+
+
+.bottom-item.active{
+
+
+    color:#ff6600;
+
+
+
+    background:
+
+
+    linear-gradient(
+
+    145deg,
+
+    #fff1e8,
+
+    #ffffff
+
+    );
+
+
+    box-shadow:
+
+
+    0 8px 20px rgba(255,102,0,.25);
+
+
+}
+
+
+
+.bottom-item.active i{
+
+
+    transform:
+
+
+    translateY(-7px)
+
+    scale(1.2);
+
+
+
+}
+
+
+
+.bottom-item.active::before{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    top:-5px;
+
+
+    width:45px;
+
+
+    height:4px;
+
+
+    background:#ff6600;
+
+
+    border-radius:20px;
+
+
+}
+
+
+
+
+/* =====================================
+   HOVER
+===================================== */
+
+
+.bottom-item:hover{
+
+
+    color:#ff6600;
+
+
+    transform:
+
+
+    translateY(-5px);
+
+
+}
+
+
+
+.bottom-item:hover i{
+
+
+    transform:scale(1.2);
+
+
+}
+
+
+
+
+/* =====================================
+   CART BADGE
+===================================== */
+
+
+.cart-count{
+
+
+    position:absolute;
+
+
+    top:5px;
+
+
+    right:5px;
+
+
+
+    min-width:22px;
+
+    height:22px;
+
+
+
+    padding:0 6px;
+
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    #ff0000,
+
+    #ff6600
+
+    );
+
+
+
+    color:white;
+
+
+
+    font-size:12px;
+
+
+    font-weight:800;
+
+
+
+    border-radius:50%;
+
+
+
+    border:
+
+    2px solid white;
+
+
+
+    animation:
+
+    cartPulse 1.5s infinite;
+
+
+}
+
+
+
+
+@keyframes cartPulse{
+
+
+0%{
+
+transform:scale(1);
+
+}
+
+
+50%{
+
+transform:scale(1.2);
+
+}
+
+
+100%{
+
+transform:scale(1);
+
+}
+
+
+}
+
+
+
+/* =====================================
+   CENTER CART BUTTON
+===================================== */
+
+
+.bottom-cart{
+
+
+    width:65px;
+
+    height:65px;
+
+
+
+    margin-top:-30px;
+
+
+
+    background:
+
+
+    linear-gradient(
+
+    135deg,
+
+    #ff6600,
+
+    #ff3300
+
+    );
+
+
+
+    color:white;
+
+
+
+    border-radius:50%;
+
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+
+    font-size:30px;
+
+
+
+    box-shadow:
+
+
+    0 12px 30px rgba(255,102,0,.45);
+
+
+
+    transition:.3s;
+
+
+}
+
+
+
+.bottom-cart:hover{
+
+
+    transform:
+
+
+    translateY(-8px)
+
+    scale(1.1);
+
+
+}
+
+
+
+
+
+/* =====================================
+   TABLET / DESKTOP
+===================================== */
+
+
+@media(min-width:768px){
+
+
+.bottom-nav{
+
+
+    bottom:25px;
+
+
+    width:520px;
+
+
+    border-radius:35px;
+
+
+}
+
+
+}
+
+
+
+/* =====================================
+   SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.bottom-nav{
+
+
+    height:65px;
+
+}
+
+
+.bottom-item{
+
+
+    width:48px;
+
+    height:48px;
+
+
+}
+
+
+.bottom-item i{
+
+
+    font-size:21px;
+
+
+}
+
+
+.bottom-item span{
+
+
+    display:none;
+
+
+}
+
+
+
+}
+
+
+/* =====================================
+   DARK MODE READY
+===================================== */
+
+
+@media(prefers-color-scheme:dark){
+
+
+.bottom-nav{
+
+
+background:
+
+rgba(25,25,25,.85);
+
+
+
+}
+
+
+
+.bottom-item{
+
+
+color:#aaa;
+
+
+}
+
+
+
+.bottom-item.active{
+
+
+color:#ff8800;
+
+
+}
+
+
+}

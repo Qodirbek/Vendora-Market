@@ -1,0 +1,116 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+
+
+<h1>
+➕ Mahsulot qo'shish
+</h1>
+
+
+<div class="card">
+
+
+<form method="POST"
+enctype="multipart/form-data">
+
+
+<input 
+class="input"
+name="offer_id"
+placeholder="Offer ID">
+
+
+<input
+class="input"
+name="name"
+placeholder="Mahsulot nomi">
+
+
+<input
+class="input"
+name="price"
+placeholder="Narxi">
+
+
+<input
+class="input"
+name="old_price"
+placeholder="Eski narx">
+
+
+<input
+class="input"
+name="discount"
+placeholder="Chegirma">
+
+
+<textarea
+class="input"
+name="description"
+placeholder="Tavsif">
+</textarea>
+
+
+<label>
+Rasm yuklash
+</label>
+
+<input 
+type="file"
+name="image_file">
+
+
+<br>
+
+
+yoki rasm URL:
+
+
+<input
+class="input"
+name="image"
+placeholder="https://...">
+
+
+<select
+class="input"
+name="category_id">
+
+
+<option>
+Kategoriya tanlang
+</option>
+
+
+{% for c in categories %}
+
+<option value="{{c.id}}">
+{{c.name}}
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+<input
+class="input"
+name="stock"
+placeholder="Soni">
+
+
+<button>
+Saqlash
+</button>
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}

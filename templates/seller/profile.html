@@ -1,0 +1,438 @@
+{% extends "seller/base.html" %}
+
+{% block title %}
+Seller Profil
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/seller_profile.css') }}">
+
+
+<div class="profile-page">
+
+
+<!-- HEADER -->
+
+<div class="profile-header">
+
+<div class="avatar">
+👤
+</div>
+
+
+<div class="profile-info">
+
+<h1>
+{{seller.shop_name}}
+</h1>
+
+
+<p>
+Seller ID:
+<b>#{{seller.id}}</b>
+</p>
+
+
+<span class="status {{seller.status}}">
+{{seller.status}}
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- STATISTICS -->
+
+<div class="stats">
+
+
+<div class="stat-card">
+
+<div class="icon">
+💰
+</div>
+
+<div>
+
+<p>
+Balans
+</p>
+
+<h2>
+{{"{:,}".format(seller.balance or 0)}} so'm
+</h2>
+
+</div>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<div class="icon green">
+📦
+</div>
+
+<div>
+
+<p>
+Buyurtmalar
+</p>
+
+<h2>
+{{seller.total_orders or 0}}
+</h2>
+
+</div>
+
+</div>
+
+
+
+
+<div class="stat-card">
+
+<div class="icon orange">
+🛒
+</div>
+
+<div>
+
+<p>
+Sotilgan
+</p>
+
+<h2>
+{{seller.sold_products or 0}}
+</h2>
+
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="icon blue">
+📈
+</div>
+
+<div>
+
+<p>
+Umumiy savdo
+</p>
+
+<h2>
+{{"{:,}".format(seller.total_sales or 0)}} so'm
+</h2>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- INFORMATION -->
+
+
+<div class="info-grid">
+
+
+<div class="box">
+
+<h2>
+👤 Shaxsiy ma'lumot
+</h2>
+
+
+<div class="row">
+<span>
+Ism
+</span>
+
+<b>
+{{seller.name}}
+</b>
+
+</div>
+
+
+
+<div class="row">
+
+<span>
+Telefon
+</span>
+
+<b>
+{{seller.phone}}
+</b>
+
+</div>
+
+
+
+<div class="row">
+
+<span>
+Email
+</span>
+
+<b>
+{{seller.email or "Mavjud emas"}}
+</b>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="box">
+
+
+<h2>
+🏪 Do'kon
+</h2>
+
+
+<div class="row">
+
+<span>
+Nomi
+</span>
+
+<b>
+{{seller.shop_name}}
+</b>
+
+</div>
+
+
+
+<div class="row">
+
+<span>
+Shahar
+</span>
+
+<b>
+{{seller.city or "Mavjud emas"}}
+</b>
+
+</div>
+
+
+<div class="row">
+
+<span>
+Manzil
+</span>
+
+<b>
+{{seller.address or "Mavjud emas"}}
+</b>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>
+💳 Moliya
+</h2>
+
+
+<div class="row">
+
+<span>
+Jami daromad
+</span>
+
+<b>
+{{"{:,}".format(seller.total_income or 0)}} so'm
+</b>
+
+</div>
+
+
+<div class="row">
+
+<span>
+Yechilgan
+</span>
+
+<b>
+{{"{:,}".format(seller.withdrawn_money or 0)}} so'm
+</b>
+
+</div>
+
+
+
+<div class="row">
+
+<span>
+Kutilmoqda
+</span>
+
+<b>
+{{"{:,}".format(seller.pending_withdraw or 0)}} so'm
+</b>
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<!-- ACTIONS -->
+
+
+<div class="actions">
+
+
+<button class="edit-btn" id="editProfile">
+✏️ Profilni tahrirlash
+</button>
+
+
+
+<button class="password-btn">
+🔒 Parolni almashtirish
+</button>
+
+
+
+<button class="logout-btn">
+🚪 Chiqish
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- PRODUCTS -->
+
+
+<div class="products">
+
+
+<h2>
+📦 Mening mahsulotlarim
+</h2>
+
+
+
+<div class="product-grid">
+
+
+{% for product in products %}
+
+
+<div class="product-card">
+
+
+{% if product.image %}
+
+<img src="{{product.image}}">
+
+{% else %}
+
+<div class="no-image">
+📦
+</div>
+
+{% endif %}
+
+
+
+<h3>
+{{product.name}}
+</h3>
+
+
+<p>
+{{"{:,}".format(product.price)}} so'm
+</p>
+
+
+<span>
+{% if product.active %}
+Faol
+{% else %}
+Yopiq
+{% endif %}
+</span>
+
+
+</div>
+
+
+{% else %}
+
+
+<p>
+Mahsulot yo'q
+</p>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<script src="{{ url_for('static', filename='js/seller_profile.js') }}"></script>
+
+
+{% endblock %}

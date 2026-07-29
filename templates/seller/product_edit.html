@@ -1,0 +1,306 @@
+{% extends "seller/base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static',filename='seller/css/product_edit.css') }}">
+
+
+<div class="edit-container">
+
+<div class="page-title">
+    <h1>✏️ Mahsulotni tahrirlash</h1>
+    <p>
+        Mahsulot ma'lumotlarini yangilang
+    </p>
+</div>
+
+
+<form method="POST"
+enctype="multipart/form-data"
+class="edit-form">
+
+
+<!-- IMAGE -->
+
+<div class="card image-card">
+
+<h2>
+📷 Mahsulot rasmi
+</h2>
+
+
+<div class="image-preview">
+
+{% if product.image %}
+
+<img id="preview"
+src="{{product.image}}">
+
+{% else %}
+
+<div class="no-image">
+📦
+</div>
+
+{% endif %}
+
+</div>
+
+
+<input 
+type="file"
+name="image"
+id="imageInput"
+accept="image/*">
+
+
+</div>
+
+
+
+
+<!-- BASIC -->
+
+<div class="card">
+
+<h2>
+📦 Asosiy ma'lumotlar
+</h2>
+
+
+<div class="grid">
+
+
+<div>
+<label>
+Mahsulot nomi
+</label>
+
+<input
+name="name"
+value="{{product.name}}"
+required>
+</div>
+
+
+
+<div>
+
+<label>
+Brend
+</label>
+
+<input
+name="brand"
+value="{{product.brand or ''}}">
+
+</div>
+
+
+
+<div>
+
+<label>
+Narx
+</label>
+
+<input
+type="number"
+name="price"
+value="{{product.price}}">
+
+</div>
+
+
+
+<div>
+
+<label>
+Eski narx
+</label>
+
+<input
+type="number"
+name="old_price"
+value="{{product.old_price or ''}}">
+
+</div>
+
+
+
+<div>
+
+<label>
+Chegirma %
+</label>
+
+<input
+type="number"
+name="discount"
+value="{{product.discount or 0}}">
+
+</div>
+
+
+
+<div>
+
+<label>
+Ombor
+</label>
+
+<input
+type="number"
+name="stock"
+value="{{product.stock}}">
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- CATEGORY -->
+
+<div class="card">
+
+<h2>
+📂 Kategoriya
+</h2>
+
+
+<select name="category_id">
+
+
+{% for c in categories %}
+
+<option
+
+value="{{c.id}}"
+
+{% if product.category_id==c.id %}
+selected
+{% endif %}
+
+>
+
+{{c.name}}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+<!-- DESCRIPTION -->
+
+<div class="card">
+
+<h2>
+📝 Tavsif
+</h2>
+
+
+<textarea
+name="description"
+rows="8">
+
+{{product.description or ''}}
+
+</textarea>
+
+
+</div>
+
+
+
+
+
+
+<!-- SETTINGS -->
+
+<div class="card">
+
+
+<h2>
+⚙ Sozlamalar
+</h2>
+
+
+<div class="switch-box">
+
+
+<label>
+<input 
+type="checkbox"
+name="active"
+
+{% if product.active %}
+checked
+{% endif %}
+>
+
+Mahsulot faol
+
+</label>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="buttons">
+
+
+<a href="/seller/products"
+class="cancel">
+
+⬅ Bekor qilish
+
+</a>
+
+
+
+<button
+class="save">
+
+💾 Saqlash
+
+</button>
+
+
+</div>
+
+
+
+</form>
+
+
+</div>
+
+
+<script src="{{url_for('static',filename='seller/js/product_edit.js')}}"></script>
+
+
+{% endblock %}

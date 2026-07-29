@@ -1,0 +1,42 @@
+{% extends "admin/base.html" %}
+
+
+{% block content %}
+
+<div class="card">
+
+<h2>Yangi mahsulot qo'shish</h2>
+
+
+<form method="POST">
+
+
+<label>Nomi</label>
+<input 
+name="name"
+placeholder="Mahsulot nomi">
+
+
+<label>Narxi</label>
+<input 
+name="price"
+type="number"
+placeholder="Narx">
+
+
+<label>Tavsif</label>
+
+<textarea
+name="description"></textarea>
+
+
+<button class="btn">
+Saqlash
+</button>
+
+
+</form>
+
+</div>
+
+{% endblock %}

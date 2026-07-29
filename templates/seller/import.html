@@ -1,0 +1,71 @@
+{% extends "seller/base.html" %}
+
+
+{% block content %}
+
+
+<div class="card">
+
+<h2>
+📦 Excel orqali mahsulot qo'shish
+</h2>
+
+
+<p>
+Avval namuna faylni yuklab oling:
+</p>
+
+
+<a 
+class="btn btn-primary"
+href="/excel/template">
+
+<i class="fa-solid fa-download"></i>
+
+Excel namuna yuklash
+
+</a>
+
+
+
+<hr>
+
+
+
+<form 
+method="POST"
+enctype="multipart/form-data">
+
+
+<label>
+Excel fayl:
+</label>
+
+
+<input
+type="file"
+name="excel"
+class="form-control"
+required>
+
+
+<br>
+
+
+<button
+class="btn btn-success">
+
+<i class="fa-solid fa-upload"></i>
+
+Yuklash
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+
+<h1>✏️ Mahsulotni tahrirlash</h1>
+
+
+<div class="card">
+
+<form method="POST">
+
+
+<label>Nomi</label>
+<input 
+class="input"
+name="name"
+value="{{product.name}}">
+
+
+<label>Narxi</label>
+<input
+class="input"
+name="price"
+value="{{product.price}}">
+
+
+<label>Eski narx</label>
+<input
+class="input"
+name="old_price"
+value="{{product.old_price}}">
+
+
+<label>Chegirma %</label>
+<input
+class="input"
+name="discount"
+value="{{product.discount}}">
+
+
+<label>Rasm</label>
+<input
+class="input"
+name="image"
+value="{{product.image}}">
+
+
+<label>Tavsif</label>
+
+<textarea
+class="input"
+name="description">{{product.description}}</textarea>
+
+
+<label>Ombor</label>
+
+<input
+class="input"
+name="stock"
+value="{{product.stock}}">
+
+
+<label>Kategoriya</label>
+
+<select name="category_id"
+class="input">
+
+{% for c in categories %}
+
+<option value="{{c.id}}"
+{% if product.category_id==c.id %}
+selected
+{% endif %}
+>
+
+{{c.name}}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+
+<br><br>
+
+<button>
+Saqlash
+</button>
+
+
+</form>
+
+</div>
+
+
+{% endblock %}

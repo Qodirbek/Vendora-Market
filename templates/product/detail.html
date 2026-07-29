@@ -1,0 +1,396 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+{{product.name}}
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/product_detail.css">
+
+
+<div class="product-detail">
+
+
+<!-- IMAGE AREA -->
+
+<div class="product-gallery">
+
+
+<div class="main-image">
+
+{% if product.image %}
+
+<img 
+src="{{product.image}}"
+id="mainProductImage"
+>
+
+{% else %}
+
+📦
+
+{% endif %}
+
+</div>
+
+
+
+<div class="thumbs">
+
+{% for img in product.get_images() %}
+
+<img 
+src="{{img}}"
+onclick="changeImage('{{img}}')"
+>
+
+{% endfor %}
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- INFO -->
+
+
+<div class="product-info">
+
+
+<h1>
+{{product.name}}
+</h1>
+
+
+<div class="rating-box">
+
+<span>
+⭐ {{product.rating or 0}}
+</span>
+
+<a href="#reviews">
+({{product.reviews_count or 0}} ta sharh)
+</a>
+
+</div>
+
+
+
+
+{% if product.old_price %}
+
+<div class="old-price">
+
+{{product.old_price}} so'm
+
+</div>
+
+{% endif %}
+
+
+
+<div class="price">
+
+{{product.price}} so'm
+
+{% if product.discount %}
+
+<span class="discount">
+
+-{{product.discount}}%
+
+</span>
+
+{% endif %}
+
+</div>
+
+
+
+<p class="description">
+
+{{product.description}}
+
+</p>
+
+
+
+
+<div class="info-line">
+
+📦 Omborda:
+
+<b>
+{{product.stock}}
+</b>
+dona
+
+</div>
+
+
+
+<div class="info-line">
+
+🔥 Sotilgan:
+
+<b>
+{{product.sold_count}}
+</b>
+
+</div>
+
+
+
+<div class="info-line">
+
+👁 Ko‘rish:
+
+<b>
+{{product.views}}
+</b>
+
+</div>
+
+
+
+
+<div class="actions">
+
+
+<button 
+class="cart-btn"
+onclick="addToCart('{{product.id}}')">
+
+🛒 Savatga qo‘shish
+
+</button>
+
+
+
+<button 
+class="favorite-btn">
+
+♡ Sevimli
+
+</button>
+
+
+</div>
+
+
+
+{% if product.seller %}
+
+<div class="seller-box">
+
+🏪 Sotuvchi:
+
+<b>
+{{product.seller.name}}
+</b>
+
+</div>
+
+{% endif %}
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+<!-- REVIEWS -->
+
+<section id="reviews">
+
+
+<h2>
+
+💬 Xaridorlar sharhlari
+
+</h2>
+
+
+
+<div class="reviews">
+
+
+{% for r in product.reviews %}
+
+
+<div class="review">
+
+
+<div class="review-head">
+
+<b>
+{{r.user.name}}
+</b>
+
+
+<span>
+
+⭐ {{r.rating}}
+
+</span>
+
+
+</div>
+
+
+<p>
+
+{{r.text}}
+
+</p>
+
+
+</div>
+
+
+{% else %}
+
+
+<div class="empty-review">
+
+Hozircha sharh yo‘q
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+<!-- ADD REVIEW -->
+
+
+<div class="add-review">
+
+
+<h3>
+
+Sharh qoldirish
+
+</h3>
+
+
+
+<form method="POST"
+action="{{url_for('home.add_review',id=product.id)}}">
+
+
+<div class="stars">
+
+<select name="rating">
+
+<option value="5">
+⭐⭐⭐⭐⭐
+</option>
+
+<option value="4">
+⭐⭐⭐⭐
+</option>
+
+<option value="3">
+⭐⭐⭐
+</option>
+
+<option value="2">
+⭐⭐
+</option>
+
+<option value="1">
+⭐
+</option>
+
+</select>
+
+</div>
+
+
+
+
+<textarea
+name="text"
+placeholder="Mahsulot haqida fikringiz..."
+required>
+</textarea>
+
+
+
+<button class="send-review">
+
+Yuborish
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<script>
+
+
+function changeImage(img){
+
+document
+.getElementById("mainProductImage")
+.src = img;
+
+}
+
+
+
+function addToCart(id){
+
+
+fetch(
+"/cart/add/"+id
+)
+
+.then(
+res=>{
+
+alert(
+"Mahsulot savatga qo‘shildi 🛒"
+)
+
+}
+
+)
+
+
+}
+
+
+
+</script>
+
+
+{% endblock %}

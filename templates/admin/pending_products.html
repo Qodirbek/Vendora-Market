@@ -1,0 +1,68 @@
+{% extends "admin/base.html" %}
+
+
+{% block content %}
+
+
+<h1>
+Tasdiqlanishi kutilayotgan mahsulotlar
+</h1>
+
+
+{% for product in products %}
+
+
+<div class="product-card">
+
+
+<h3>
+{{product.name}}
+</h3>
+
+
+<p>
+Narx:
+{{product.price}}
+so'm
+</p>
+
+
+<p>
+Seller:
+{{product.seller.shop_name}}
+</p>
+
+
+<a href="{{url_for('admin.approve_product',id=product.id)}}"
+class="btn success">
+
+Tasdiqlash
+
+</a>
+
+
+
+<a href="{{url_for('admin.reject_product',id=product.id)}}"
+class="btn danger">
+
+Rad etish
+
+</a>
+
+
+</div>
+
+
+{% else %}
+
+
+<p>
+Mahsulot yo'q
+</p>
+
+
+{% endfor %}
+
+
+
+{% endblock %}

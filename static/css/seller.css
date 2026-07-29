@@ -1,0 +1,131 @@
+.excel-page{
+    padding:20px;
+}
+
+
+.excel-card{
+
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+.excel-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+
+}
+
+
+.excel-header h1{
+
+    font-size:28px;
+    font-weight:700;
+
+}
+
+
+
+.excel-header i{
+
+    color:#16a34a;
+
+}
+
+
+
+.excel-download{
+
+    background:#16a34a;
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    text-decoration:none;
+
+}
+
+
+
+.info-box{
+
+    display:flex;
+    gap:15px;
+    background:#eff6ff;
+    padding:20px;
+    border-radius:15px;
+
+}
+
+
+
+.info-box i{
+
+    font-size:30px;
+    color:#2563eb;
+
+}
+
+
+
+.upload-box{
+
+    margin-top:25px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+
+}
+
+
+
+.upload-box input{
+
+    padding:15px;
+    border:2px dashed #ddd;
+    border-radius:15px;
+
+}
+
+
+
+.upload-box button{
+
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:12px;
+    font-size:16px;
+
+}
+
+
+
+.excel-columns{
+
+    margin-top:25px;
+    background:#f8fafc;
+    padding:20px;
+    border-radius:15px;
+
+}
+
+
+
+@media(max-width:700px){
+
+.excel-header{
+
+    flex-direction:column;
+    align-items:start;
+
+}
+
+}

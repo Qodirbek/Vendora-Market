@@ -1,0 +1,270 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+🔍 Qidiruv
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/search.css">
+
+
+<div class="search-page">
+
+
+<!-- SEARCH HEADER -->
+
+<div class="search-box">
+
+<h1>
+🔍 Mahsulot qidirish
+</h1>
+
+
+<form action="/search" method="GET">
+
+<input 
+type="text"
+name="q"
+value="{{ query }}"
+placeholder="Mahsulot nomini yozing..."
+autocomplete="off"
+>
+
+
+<button>
+Qidirish
+</button>
+
+
+</form>
+
+
+</div>
+
+
+
+<!-- RESULT -->
+
+{% if products %}
+
+
+<h2 class="title">
+Topilgan mahsulotlar
+</h2>
+
+
+<div class="products">
+
+
+{% for p in products %}
+
+
+<div class="product-card">
+
+
+<button class="favorite">
+♡
+</button>
+
+
+
+<a href="{{url_for('home.product_detail', id=p.id)}}">
+
+
+<div class="image-box">
+
+
+{% if p.image %}
+
+<img src="{{p.image}}">
+
+{% else %}
+
+📦
+
+{% endif %}
+
+
+</div>
+
+
+
+<h3>
+{{p.name}}
+</h3>
+
+
+<p class="desc">
+{{p.description[:60]}}
+</p>
+
+
+<div class="rating">
+
+⭐ {{p.rating}}
+
+<span>
+({{p.views}})
+</span>
+
+</div>
+
+
+
+<div class="price">
+
+{{p.price}} so'm
+
+</div>
+
+
+</a>
+
+
+<button 
+class="cart-btn"
+onclick="addCart('{{p.id}}')">
+
+🛒 Savatga qo'shish
+
+</button>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+{% else %}
+
+
+<div class="not-found">
+
+
+<div class="icon">
+😔
+</div>
+
+
+<h2>
+Mahsulot topilmadi
+</h2>
+
+
+<p>
+Boshqa nom bilan qidirib ko'ring
+</p>
+
+
+</div>
+
+
+
+{% endif %}
+
+
+
+
+
+<!-- RECOMMEND -->
+
+<section class="recommend">
+
+
+<h2>
+🔥 Sizga tavsiya qilamiz
+</h2>
+
+
+
+<div class="products">
+
+
+{% for p in recommended %}
+
+
+
+<div class="product-card">
+
+
+<a href="{{url_for('home.product_detail', id=p.id)}}">
+
+
+<div class="image-box">
+
+
+{% if p.image %}
+
+<img src="{{p.image}}">
+
+{% else %}
+
+📦
+
+{% endif %}
+
+
+</div>
+
+
+<h3>
+{{p.name}}
+</h3>
+
+
+<div class="rating">
+
+⭐ {{p.rating}}
+
+</div>
+
+
+<div class="price">
+
+{{p.price}} so'm
+
+</div>
+
+
+</a>
+
+
+<button 
+class="cart-btn"
+onclick="addCart('{{p.id}}')">
+
+🛒 Savatga
+
+</button>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+</div>
+
+
+</section>
+
+
+
+</div>
+
+
+
+<script src="/static/js/search.js"></script>
+
+
+{% endblock %}

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Seller bo'lish
+</title>
+
+<link rel="stylesheet" href="/static/seller/css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="auth-container">
+
+
+<div class="auth-card">
+
+
+
+<div class="auth-logo">
+
+<h1>
+🛒 SOTUV
+</h1>
+
+<p>
+Seller sifatida qo'shiling
+</p>
+
+</div>
+
+
+
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert {{category}}">
+
+{{message}}
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+
+
+
+
+
+
+<form method="POST">
+
+
+
+<label>
+Ism va familiya
+</label>
+
+<input
+
+type="text"
+
+name="name"
+
+placeholder="Ismingiz"
+
+required>
+
+
+
+
+
+<label>
+Telefon raqam
+</label>
+
+<input
+
+type="text"
+
+name="phone"
+
+placeholder="+998 90 123 45 67"
+
+required>
+
+
+
+
+
+
+<label>
+Do'kon nomi
+</label>
+
+<input
+
+type="text"
+
+name="shop_name"
+
+placeholder="Masalan: Qodirbek Store"
+
+required>
+
+
+
+
+
+
+
+<label>
+Email (ixtiyoriy)
+</label>
+
+<input
+
+type="email"
+
+name="email"
+
+placeholder="email@gmail.com">
+
+
+
+
+
+
+
+<label>
+Parol
+</label>
+
+
+<div class="input-box">
+
+
+<input
+
+id="password"
+
+type="password"
+
+name="password"
+
+placeholder="Parol"
+
+required>
+
+
+
+<span onclick="showPassword()">
+👁
+</span>
+
+
+</div>
+
+
+
+
+
+
+<div class="remember">
+
+
+<label>
+
+
+<input
+
+type="checkbox"
+
+required>
+
+
+Qoidalar bilan tanishdim
+
+
+</label>
+
+
+</div>
+
+
+
+
+
+
+<button class="auth-btn">
+
+Seller bo'lish
+
+
+</button>
+
+
+
+
+</form>
+
+
+
+
+
+
+
+<div class="auth-footer">
+
+
+<p>
+Allaqachon hisobingiz bormi?
+</p>
+
+
+<a href="/seller/login">
+
+Kirish
+
+</a>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+function showPassword(){
+
+let pass =
+document.getElementById(
+"password"
+);
+
+
+if(pass.type==="password"){
+
+pass.type="text";
+
+}
+
+else{
+
+pass.type="password";
+
+}
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>

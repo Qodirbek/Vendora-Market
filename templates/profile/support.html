@@ -1,0 +1,130 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Qo'llab-quvvatlash
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}">
+
+
+<div class="profile-page">
+
+
+<div class="profile-card">
+
+<div class="profile-title">
+
+<h2>
+💬 Qo'llab-quvvatlash
+</h2>
+
+<p>
+Biz bilan bog'laning
+</p>
+
+</div>
+
+
+<div class="support-box">
+
+
+<div class="support-item">
+
+<div>
+📞
+</div>
+
+<section>
+
+<h3>
+Telefon
+</h3>
+
+<p>
++998 90 123 45 67
+</p>
+
+</section>
+
+</div>
+
+
+
+<div class="support-item">
+
+<div>
+💬
+</div>
+
+<section>
+
+<h3>
+Telegram
+</h3>
+
+<p>
+@SotuvSupport
+</p>
+
+</section>
+
+</div>
+
+
+
+<div class="support-item">
+
+<div>
+📧
+</div>
+
+<section>
+
+<h3>
+Email
+</h3>
+
+<p>
+support@sotuv.uz
+</p>
+
+</section>
+
+</div>
+
+
+</div>
+
+
+
+<form class="message-form">
+
+
+<h3>
+Xabar yuborish
+</h3>
+
+
+<textarea
+placeholder="Muammo yoki savolingizni yozing..."
+></textarea>
+
+
+<button>
+🚀 Yuborish
+</button>
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

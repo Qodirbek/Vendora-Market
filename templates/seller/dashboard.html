@@ -1,0 +1,380 @@
+{% extends "seller/base.html" %}
+
+
+{% block content %}
+
+
+
+<!-- HEADER -->
+
+<div class="page-header">
+
+<div>
+
+<h1>
+👋 Salom, {{seller.name}}
+</h1>
+
+<p>
+Seller kabinetingizga xush kelibsiz
+</p>
+
+</div>
+
+
+<a href="/seller/products/add" class="btn">
+
+➕ Mahsulot qo'shish
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+<!-- STATISTICS -->
+
+
+<div class="stats">
+
+
+
+<div class="stat-card">
+
+<h3>
+💰 Balans
+</h3>
+
+<h1>
+{{ "{:,}".format(seller.balance) }}
+so'm
+</h1>
+
+<p>
+Yechib olish mumkin
+</p>
+
+</div>
+
+
+
+
+
+
+<div class="stat-card">
+
+<h3>
+📦 Mahsulotlar
+</h3>
+
+<h1>
+{{products}}
+</h1>
+
+<p>
+Jami mahsulotlar
+</p>
+
+</div>
+
+
+
+
+
+
+
+<div class="stat-card">
+
+<h3>
+🛒 Buyurtmalar
+</h3>
+
+<h1>
+{{seller.total_orders}}
+</h1>
+
+<p>
+Qabul qilingan
+</p>
+
+</div>
+
+
+
+
+
+
+
+<div class="stat-card">
+
+<h3>
+📈 Sotuv
+</h3>
+
+<h1>
+{{ "{:,}".format(seller.total_sales) }}
+</h1>
+
+<p>
+Umumiy savdo
+</p>
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- SHOP INFO -->
+
+
+<div class="card">
+
+
+<h2>
+🏪 Do'kon ma'lumotlari
+</h2>
+
+
+<div class="shop-profile">
+
+
+{% if seller.shop_logo %}
+
+<img src="{{seller.shop_logo}}">
+
+
+{% else %}
+
+<div class="no-image">
+🏪
+</div>
+
+{% endif %}
+
+
+
+<div>
+
+
+<h3>
+{{seller.shop_name}}
+</h3>
+
+
+<p>
+{{seller.shop_description or "Tavsif kiritilmagan"}}
+</p>
+
+
+<p>
+
+📍 {{seller.city or "Manzil kiritilmagan"}}
+
+</p>
+
+
+<p>
+
+📞 {{seller.phone}}
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- QUICK ACTIONS -->
+
+
+<div class="card">
+
+
+<h2>
+⚡ Tezkor amallar
+</h2>
+
+
+
+<div class="actions">
+
+
+<a href="/seller/products/add" class="btn">
+
+➕ Mahsulot qo'shish
+
+</a>
+
+
+
+<a href="/seller/orders" class="btn">
+
+🛒 Buyurtmalar
+
+</a>
+
+
+
+<a href="/seller/balance" class="btn">
+
+💰 Pul yechish
+
+</a>
+
+
+
+<a href="/seller/profile" class="btn">
+
+👤 Profil
+
+</a>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- RECENT PRODUCTS -->
+
+
+<div class="card">
+
+
+<h2>
+📦 So'nggi mahsulotlar
+</h2>
+
+
+
+{% if seller.products %}
+
+
+
+<table>
+
+
+<tr>
+
+<th>
+Nomi
+</th>
+
+<th>
+Narxi
+</th>
+
+<th>
+Holati
+</th>
+
+</tr>
+
+
+
+{% for product in seller.products[-5:] %}
+
+
+<tr>
+
+
+<td>
+{{product.name}}
+</td>
+
+
+<td>
+{{ "{:,}".format(product.price) }}
+so'm
+</td>
+
+
+
+<td>
+
+
+{% if product.active %}
+
+<span class="status active">
+Faol
+</span>
+
+
+{% else %}
+
+<span class="status">
+
+Kutmoqda
+
+</span>
+
+
+{% endif %}
+
+
+
+</td>
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+</table>
+
+
+
+{% else %}
+
+
+<p>
+Hozircha mahsulot yo'q
+</p>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+{% endblock %}

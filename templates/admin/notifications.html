@@ -1,0 +1,101 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Bildirishnomalar
+{% endblock %}
+
+
+{% block page_title %}
+Bildirishnomalar
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card">
+
+    <h2>
+        🔔 Bildirishnomalar
+    </h2>
+
+
+    {% if notifications %}
+
+    <div class="table-box">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Sarlavha</th>
+                <th>Xabar</th>
+                <th>Sana</th>
+                <th>Holat</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+
+        {% for n in notifications %}
+
+        <tr>
+
+            <td>
+                {{ n.title }}
+            </td>
+
+
+            <td>
+                {{ n.message }}
+            </td>
+
+
+            <td>
+                {{ n.created_at }}
+            </td>
+
+
+            <td>
+
+                {% if n.is_read %}
+
+                <span class="btn">
+                    O'qilgan
+                </span>
+
+                {% else %}
+
+                <a class="btn btn-success"
+                href="{{ url_for('admin.notification_read', id=n.id) }}">
+                    O'qish
+                </a>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    </div>
+
+
+    {% else %}
+
+    <p>
+        Hozircha bildirishnoma yo'q
+    </p>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

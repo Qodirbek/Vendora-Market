@@ -1,0 +1,207 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_order_detail.css') }}">
+
+
+<div class="order-detail">
+
+    <div class="order-header">
+
+        <div>
+            <h1>
+                📦 Buyurtma #{{order.order_number}}
+            </h1>
+
+            <p>
+                Sana:
+                {{order.created_at}}
+            </p>
+        </div>
+
+
+        <div class="status-box">
+            <span>
+                Hozirgi holat
+            </span>
+
+            <b>
+                {{order.status}}
+            </b>
+        </div>
+
+    </div>
+
+
+
+    <div class="customer-card">
+
+        <h2>
+            👤 Xaridor
+        </h2>
+
+        <p>
+            Ism:
+            {{order.receiver_name}}
+        </p>
+
+        <p>
+            Telefon:
+            {{order.phone}}
+        </p>
+
+        <p>
+            Manzil:
+            {{order.address}}
+        </p>
+
+    </div>
+
+
+
+
+    <div class="status-card">
+
+        <h2>
+            ⚙ Status boshqaruvi
+        </h2>
+
+
+        {% if order.status != "Yetkazildi" %}
+
+        <form method="POST"
+        action="{{url_for('admin.change_order_status',id=order.id)}}">
+
+
+        <select name="status">
+
+            <option>
+            Yangi
+            </option>
+
+            <option>
+            Qabul qilindi
+            </option>
+
+            <option>
+            Tayyorlanmoqda
+            </option>
+
+            <option>
+            Yetkazilmoqda
+            </option>
+
+            <option>
+            Yetkazildi
+            </option>
+
+            <option>
+            Bekor qilindi
+            </option>
+
+
+        </select>
+
+
+        <button>
+            🔄 Yangilash
+        </button>
+
+
+        </form>
+
+
+        {% else %}
+
+        <div class="done">
+            ✅ Buyurtma yetkazilgan.
+            Status o'zgarmaydi.
+        </div>
+
+
+        {% endif %}
+
+
+
+    </div>
+
+
+
+
+    <div class="products-card">
+
+        <h2>
+            🛒 Mahsulotlar
+        </h2>
+
+
+        {% for item in order.items %}
+
+        <div class="product-item">
+
+
+            {% if item.product_image %}
+
+            <img src="{{item.product_image}}">
+
+            {% endif %}
+
+
+            <div>
+
+                <h3>
+                {{item.product_name}}
+                </h3>
+
+
+                <p>
+                Soni:
+                {{item.quantity}}
+                </p>
+
+
+                <p>
+                Narxi:
+                {{item.subtotal}} so'm
+                </p>
+
+
+                <p>
+                Seller:
+                {{item.seller_name}}
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+
+
+    <div class="total-card">
+
+        Jami:
+
+        <strong>
+        {{order.total_price}} so'm
+        </strong>
+
+    </div>
+
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/admin_order_detail.js') }}"></script>
+
+
+{% endblock %}

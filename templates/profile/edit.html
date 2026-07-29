@@ -1,0 +1,230 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Profilni tahrirlash
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile_edit.css') }}">
+
+
+
+<div class="profile-edit-page">
+
+
+<div class="edit-card">
+
+
+<div class="edit-header">
+
+
+<div class="avatar">
+
+👤
+
+</div>
+
+
+<h2>
+Profilni tahrirlash
+</h2>
+
+
+<p>
+Shaxsiy ma'lumotlaringizni yangilang
+</p>
+
+
+</div>
+
+
+
+
+
+<form method="POST" id="profileForm">
+
+
+
+<div class="form-group">
+
+
+<label>
+Ism familiya
+</label>
+
+
+<div class="input-box">
+
+<span>
+👤
+</span>
+
+<input 
+type="text"
+name="name"
+value="{{ user.name }}"
+placeholder="Ismingiz"
+required
+>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Telefon raqam
+</label>
+
+
+<div class="input-box disabled">
+
+<span>
+📱
+</span>
+
+
+<input 
+type="text"
+name="phone"
+value="{{ user.phone }}"
+readonly
+>
+
+
+</div>
+
+
+<small>
+Telefon raqamni o'zgartirib bo'lmaydi
+</small>
+
+
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Viloyat
+</label>
+
+
+<div class="input-box">
+
+
+<span>
+📍
+</span>
+
+
+<input 
+type="text"
+name="region"
+value="{{ user.region or '' }}"
+placeholder="Masalan: Andijon"
+>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Davlat
+</label>
+
+
+<div class="input-box">
+
+
+<span>
+🌎
+</span>
+
+
+<input 
+type="text"
+name="country"
+value="{{ user.country or 'Uzbekistan' }}"
+>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<button class="save-btn" type="submit">
+
+
+<span>
+💾
+</span>
+
+Saqlash
+
+
+</button>
+
+
+
+</form>
+
+
+
+
+
+<a href="/profile" class="back-btn">
+
+⬅ Profilga qaytish
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+<script src="{{ url_for('static', filename='js/profile_edit.js') }}"></script>
+
+
+
+
+{% endblock %}
+

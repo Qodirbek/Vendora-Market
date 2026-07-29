@@ -1,0 +1,259 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+🛒 Savat
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/cart.css">
+
+
+<div class="cart-page">
+
+<h1>
+🛒 Mening savatim
+</h1>
+
+
+{% if cart_items %}
+
+
+<div class="cart-container">
+
+
+{% for item in cart_items %}
+
+
+<div class="cart-item">
+
+
+<div class="cart-product-image">
+
+{% if item.product.image %}
+
+<img src="{{ item.product.image }}">
+
+{% else %}
+
+📦
+
+{% endif %}
+
+</div>
+
+
+
+<div class="cart-product-info">
+
+
+<h2>
+{{ item.product.name }}
+</h2>
+
+
+
+<p class="price">
+{{ item.product.price }} so'm
+</p>
+
+
+
+<div class="quantity">
+
+
+<button onclick="changeQty('{{item.id}}','decrease')">
+−
+</button>
+
+
+
+<span id="qty-{{item.id}}">
+{{ item.quantity }}
+</span>
+
+
+
+<button onclick="changeQty('{{item.id}}','increase')">
++
+</button>
+
+
+</div>
+
+
+
+<p class="total">
+
+Jami:
+
+<b>
+{{ item.product.price * item.quantity }} so'm
+</b>
+
+</p>
+
+
+
+<button class="remove"
+onclick="removeCart('{{item.id}}')">
+
+🗑 O'chirish
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+<div class="cart-summary">
+
+
+<h2>
+
+Umumiy:
+
+<span>
+{{ total }} so'm
+</span>
+
+</h2>
+
+
+
+<a href="{{url_for('order.checkout')}}"
+class="checkout">
+Buyurtma berish 🛍
+</a>
+
+
+
+<a class="clear"
+href="{{ url_for('cart.clear') }}">
+
+Savatni tozalash
+
+</a>
+
+
+
+</div>
+
+
+
+{% else %}
+
+
+
+<div class="empty">
+
+
+<div class="empty-icon">
+
+🛒
+
+</div>
+
+
+
+<h2>
+
+Savat bo'sh
+
+</h2>
+
+
+
+<p>
+
+Hozircha mahsulot qo'shilmagan
+
+</p>
+
+
+
+<a href="/">
+
+Mahsulotlarni ko'rish
+
+</a>
+
+
+
+</div>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+<script>
+
+function changeQty(id, action){
+
+fetch("/cart/" + action + "/" + id, {
+
+method:"POST"
+
+})
+
+.then(res => res.json())
+
+.then(data => {
+
+if(data.success){
+
+location.reload();
+
+}
+
+});
+
+}
+
+
+
+function removeCart(id){
+
+fetch("/cart/remove/" + id, {
+
+method:"POST"
+
+})
+
+.then(res => res.json())
+
+.then(data => {
+
+if(data.success){
+
+location.reload();
+
+}
+
+});
+
+}
+
+
+</script>
+
+
+{% endblock %}

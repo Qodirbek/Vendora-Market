@@ -1,0 +1,68 @@
+{% extends "admin/base.html" %}
+
+
+{% block content %}
+
+
+<h1>
+Notifications
+</h1>
+
+
+
+{% for n in notifications %}
+
+
+<div class="notification-card
+{% if not n.is_read %}
+unread
+{% endif %}
+">
+
+
+<h3>
+{{n.title}}
+</h3>
+
+
+<p>
+{{n.message}}
+</p>
+
+
+<small>
+
+{{n.created_at}}
+
+</small>
+
+
+
+{% if not n.is_read %}
+
+<a href="{{url_for('admin.notification_read',id=n.id)}}">
+
+O'qildi
+
+</a>
+
+{% endif %}
+
+
+</div>
+
+
+
+{% else %}
+
+
+<p>
+Notification yo'q
+</p>
+
+
+{% endfor %}
+
+
+
+{% endblock %}

@@ -1,0 +1,235 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Buyurtmalarim
+{% endblock %}
+
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/orders.css') }}">
+
+
+
+<div class="orders-page">
+
+
+<div class="orders-container">
+
+
+<div class="orders-header">
+
+<div>
+<h1>
+📦 Buyurtmalarim
+</h1>
+
+<p>
+Barcha qilgan buyurtmalaringiz
+</p>
+</div>
+
+
+<div class="order-count">
+
+{{ orders|length }}
+
+ta
+
+</div>
+
+
+</div>
+
+
+
+
+
+{% if orders %}
+
+
+<div class="orders-list">
+
+
+{% for order in orders %}
+
+
+
+<div class="order-card">
+
+
+
+<div class="order-top">
+
+
+<div>
+
+<h3>
+
+№ {{ order.order_number }}
+
+</h3>
+
+
+<span class="date">
+
+{{ order.created_at.strftime('%d.%m.%Y') }}
+
+</span>
+
+
+</div>
+
+
+
+<div class="status">
+
+
+{% if order.status == "Yetkazildi" %}
+
+<span class="done">
+✅ {{order.status}}
+</span>
+
+
+{% elif order.status == "Bekor qilindi" %}
+
+<span class="cancel">
+❌ {{order.status}}
+</span>
+
+
+{% else %}
+
+<span class="waiting">
+⏳ {{order.status}}
+</span>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="order-info">
+
+
+<div>
+
+<span>
+Mahsulotlar
+</span>
+
+<b>
+{{ order.items|length }} ta
+</b>
+
+
+</div>
+
+
+
+<div>
+
+<span>
+Jami summa
+</span>
+
+<b>
+{{ "{:,}".format(order.total_price) }} so'm
+</b>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<a class="detail-btn"
+href="{{ url_for('order.detail', id=order.id) }}">
+
+Batafsil ko'rish
+
+→
+
+</a>
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+{% else %}
+
+
+
+<div class="empty-box">
+
+
+<div class="empty-icon">
+📦
+</div>
+
+
+<h3>
+Hali buyurtmalar yo'q
+</h3>
+
+
+<p>
+Savatdan mahsulot tanlab buyurtma bering
+</p>
+
+
+<a href="/">
+Xarid qilish
+
+</a>
+
+
+</div>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script src="{{ url_for('static', filename='js/orders.js') }}"></script>
+
+
+{% endblock %}

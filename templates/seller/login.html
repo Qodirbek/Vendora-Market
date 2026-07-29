@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Seller Login
+</title>
+
+
+<link rel="stylesheet" href="/static/seller/css/style.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="auth-container">
+
+
+<div class="auth-card">
+
+
+<div class="auth-logo">
+
+<h1>
+🛒 SOTUV
+</h1>
+
+<p>
+Seller kabinetiga kirish
+</p>
+
+</div>
+
+
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert {{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+
+
+
+
+
+<form method="POST">
+
+
+
+<label>
+Telefon raqam
+</label>
+
+
+<div class="input-box">
+
+<input
+
+type="text"
+
+name="phone"
+
+placeholder="+998 90 123 45 67"
+
+required>
+
+</div>
+
+
+
+
+
+
+<label>
+Parol
+</label>
+
+
+<div class="input-box">
+
+
+<input
+
+id="password"
+
+type="password"
+
+name="password"
+
+placeholder="Parol"
+
+required>
+
+
+<span onclick="showPassword()">
+👁
+</span>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="remember">
+
+
+<label>
+
+
+<input
+
+type="checkbox"
+
+name="remember">
+
+
+Meni eslab qolish
+
+
+</label>
+
+
+</div>
+
+
+
+
+
+
+<button class="auth-btn">
+
+Kirish
+
+</button>
+
+
+
+
+
+</form>
+
+
+
+
+<div class="auth-footer">
+
+
+<p>
+Hali seller emasmisiz?
+</p>
+
+
+<a href="/seller/register">
+
+Ro'yxatdan o'tish
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+function showPassword(){
+
+let pass =
+document.getElementById(
+"password"
+);
+
+
+if(pass.type==="password"){
+
+pass.type="text";
+
+}
+
+else{
+
+pass.type="password";
+
+}
+
+}
+
+
+</script>
+
+
+
+</body>
+
+
+</html>

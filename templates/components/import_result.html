@@ -1,0 +1,202 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Excel import natijasi
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="import-page">
+
+
+<div class="import-card">
+
+
+<h1>
+<i class="fa-solid fa-file-import"></i>
+Import natijasi
+</h1>
+
+
+
+<div class="stats">
+
+
+<div class="stat success">
+
+<i class="fa-solid fa-circle-check"></i>
+
+<div>
+
+<h2>
+{{ result.success }}
+</h2>
+
+<p>
+Muvaffaqiyatli qo'shildi
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="stat error">
+
+<i class="fa-solid fa-circle-xmark"></i>
+
+<div>
+
+<h2>
+{{ result.errors|length }}
+</h2>
+
+<p>
+Xatolar
+</p>
+
+</div>
+
+{% if result.errors %}
+
+
+<form method="POST"
+action="/seller/products/excel/errors">
+
+
+<input 
+type="hidden"
+name="errors"
+value="{{result.errors}}"
+>
+
+
+<button class="btn btn-danger">
+
+<i class="fa-solid fa-file-excel"></i>
+
+Xatolarni yuklab olish
+
+</button>
+
+
+</form>
+
+
+{% endif %}
+
+</div>
+
+
+</div>
+
+
+
+
+{% if result.errors %}
+
+
+<h3>
+❌ Xatolar ro'yxati
+</h3>
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Qator
+</th>
+
+<th>
+Xato
+</th>
+
+<th>
+Ma'lumot
+</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for error in result.errors %}
+
+
+<tr>
+
+<td>
+{{error.row}}
+</td>
+
+
+<td>
+{{error.error}}
+</td>
+
+
+<td>
+{{error.data}}
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+</table>
+
+
+
+{% else %}
+
+
+<div class="success-message">
+
+🎉 Barcha mahsulotlar muvaffaqiyatli qo'shildi
+
+</div>
+
+
+{% endif %}
+
+
+
+<a href="/seller/products"
+class="btn btn-primary">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Mahsulotlarga qaytish
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,81 @@
+<!-- Bottom Navigation -->
+
+<nav class="bottom-nav">
+
+
+    <!-- Home -->
+    <a href="/" 
+       class="bottom-item {% if request.path == '/' %}active{% endif %}"
+       title="Bosh sahifa">
+
+        <i class="fa-solid fa-house"></i>
+
+    </a>
+
+
+
+    <!-- Search -->
+    <a href="/search"
+       class="bottom-item {% if request.path.startswith('/search') %}active{% endif %}"
+       title="Qidirish">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+    </a>
+
+
+
+
+    <!-- Cart -->
+    <a href="/cart"
+       class="bottom-item cart-icon {% if request.path.startswith('/cart') %}active{% endif %}"
+       title="Savat">
+
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+
+        {% if cart_count and cart_count > 0 %}
+
+        <span class="cart-count">
+            {{ cart_count }}
+        </span>
+
+        {% endif %}
+
+
+    </a>
+
+
+
+
+
+    <!-- Favorite -->
+    <a href="/favorite"
+       class="bottom-item {% if request.path.startswith('/favorite') %}active{% endif %}"
+       title="Sevimlilar">
+
+
+        <i class="fa-solid fa-heart"></i>
+
+
+    </a>
+
+
+
+
+
+    <!-- Profile -->
+    <a href="/profile"
+       class="bottom-item {% if request.path.startswith('/profile') %}active{% endif %}"
+       title="Profil">
+
+
+        <i class="fa-solid fa-user"></i>
+
+
+    </a>
+
+
+
+</nav>

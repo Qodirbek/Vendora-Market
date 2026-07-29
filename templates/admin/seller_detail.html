@@ -1,0 +1,635 @@
+{% extends "admin/base.html" %}
+
+
+{% block title %}
+Seller ma'lumotlari
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_seller_detail.css') }}">
+
+
+
+<div class="seller-detail-page">
+
+
+
+<!-- PROFILE -->
+
+<div class="profile-card">
+
+
+<div class="profile-avatar">
+👤
+</div>
+
+
+
+<div class="profile-info">
+
+
+<h1>
+{{seller.shop_name}}
+</h1>
+
+
+<p>
+Seller ID:
+<b>
+#{{seller.id}}
+</b>
+</p>
+
+
+
+<span class="status {{seller.status}}">
+{% if seller.status=="active" %}
+✅ Faol
+{% elif seller.status=="blocked" %}
+🚫 Bloklangan
+{% else %}
+⏳ Kutilmoqda
+{% endif %}
+</span>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- INFO GRID -->
+
+
+<div class="info-grid">
+
+
+
+<!-- USER -->
+
+<div class="card">
+
+
+<h3>
+👤 Shaxsiy ma'lumot
+</h3>
+
+
+
+<div class="line">
+<span>Ism</span>
+<b>
+{{seller.name}}
+</b>
+</div>
+
+
+
+<div class="line">
+<span>Telefon</span>
+<b>
+{{seller.phone}}
+</b>
+</div>
+
+
+
+<div class="line">
+<span>Email</span>
+<b>
+{{seller.email or "Yo'q"}}
+</b>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- SHOP -->
+
+
+<div class="card">
+
+
+<h3>
+🏪 Do'kon
+</h3>
+
+
+<div class="line">
+<span>Nomi</span>
+<b>
+{{seller.shop_name}}
+</b>
+</div>
+
+
+
+<div class="line">
+<span>Manzil</span>
+<b>
+{{seller.address or "Yo'q"}}
+</b>
+</div>
+
+
+
+<div class="line">
+<span>Shahar</span>
+<b>
+{{seller.city or "Yo'q"}}
+</b>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- BALANCE -->
+
+
+<div class="card balance-card">
+
+
+<h3>
+💰 Balans
+</h3>
+
+
+
+<div class="balance">
+
+{{"{:,}".format(seller.balance or 0)}}
+
+so'm
+
+</div>
+
+
+
+
+<div class="line">
+
+<span>
+Jami daromad
+</span>
+
+
+<b>
+{{"{:,}".format(seller.total_income or 0)}}
+so'm
+</b>
+
+
+</div>
+
+
+
+
+
+<div class="line">
+
+<span>
+Yechilgan
+</span>
+
+
+<b>
+{{"{:,}".format(seller.withdrawn_money or 0)}}
+so'm
+</b>
+
+
+</div>
+
+
+
+
+
+<div class="line">
+
+<span>
+Kutilmoqda
+</span>
+
+
+<b>
+{{"{:,}".format(seller.pending_withdraw or 0)}}
+so'm
+</b>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- SALES -->
+
+
+<div class="card">
+
+
+<h3>
+📦 Savdo
+</h3>
+
+
+
+<div class="stat">
+
+<span>
+Buyurtmalar
+</span>
+
+
+<strong>
+{{seller.total_orders or 0}}
+</strong>
+
+
+</div>
+
+
+
+
+
+<div class="stat">
+
+<span>
+Sotilgan mahsulot
+</span>
+
+
+<strong>
+{{seller.sold_products or 0}}
+</strong>
+
+
+</div>
+
+
+
+
+
+<div class="stat">
+
+<span>
+Umumiy savdo
+</span>
+
+
+<strong>
+{{"{:,}".format(seller.total_sales or 0)}}
+so'm
+</strong>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ACTIONS -->
+
+
+<div class="actions">
+
+
+<form method="POST"
+action="{{url_for('admin.give_bonus',id=seller.id)}}"
+class="bonus-form">
+
+<input 
+type="number"
+name="amount"
+placeholder="Bonus summa"
+required
+>
+
+<button class="btn bonus">
+🎁 Bonus berish
+</button>
+
+</form>
+
+
+
+
+
+<form method="POST"
+action="{{url_for('admin.withdraw_seller',id=seller.id)}}"
+class="money-form">
+
+
+<input 
+type="number"
+name="amount"
+placeholder="Summa"
+required
+>
+
+
+<button class="btn money">
+💵 Pul yechish
+</button>
+
+
+</form>
+
+
+
+
+
+
+<a
+class="btn block"
+href="{{url_for('admin.block_seller',id=seller.id)}}">
+
+🚫 Bloklash
+
+</a>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- PRODUCTS -->
+
+
+<div class="products">
+
+
+<h2>
+📦 Seller mahsulotlari
+</h2>
+
+
+
+
+<div class="product-grid">
+
+
+{% for product in products %}
+
+
+
+<div class="product-card">
+
+
+<h3>
+{{product.name}}
+</h3>
+
+
+
+<p>
+
+Narx:
+
+<strong>
+
+{{"{:,}".format(product.price)}}
+
+so'm
+
+</strong>
+
+
+</p>
+
+
+
+{% if product.stock %}
+
+<p>
+Ombor:
+{{product.stock}} dona
+</p>
+
+{% endif %}
+
+
+
+</div>
+
+
+
+{% else %}
+
+
+<p>
+Mahsulot yo'q
+</p>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- BONUS MODAL -->
+
+
+<div id="bonusModal" class="modal">
+
+
+<div class="modal-box">
+
+
+<h2>
+🎁 Bonus berish
+</h2>
+
+
+
+<form method="POST"
+action="{{url_for('admin.give_bonus',id=seller.id)}}">
+
+
+
+<input
+type="number"
+name="amount"
+placeholder="Bonus summasi"
+required>
+
+
+
+<button class="btn bonus">
+
+Berish
+
+</button>
+
+
+
+<button type="button"
+onclick="closeBonus()">
+
+Bekor qilish
+
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- WITHDRAW MODAL -->
+
+
+<div id="withdrawModal" class="modal">
+
+
+<div class="modal-box">
+
+
+<h2>
+💵 Pul yechish
+</h2>
+
+
+
+<form method="POST"
+action="{{url_for('admin.withdraw_seller',id=seller.id)}}">
+
+
+
+<input
+type="number"
+name="amount"
+placeholder="Summa"
+required>
+
+
+
+
+<button class="btn money">
+
+Yechish
+
+</button>
+
+
+
+
+<button type="button"
+onclick="closeWithdraw()">
+
+Bekor qilish
+
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="{{url_for('static',filename='js/admin_seller_detail.js')}}"></script>
+
+
+
+{% endblock %}

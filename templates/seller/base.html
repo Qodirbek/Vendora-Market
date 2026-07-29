@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+Seller Panel
+</title>
+
+
+<link rel="stylesheet" href="/static/seller/css/style.css">
+
+
+</head>
+
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+
+<div class="logo">
+
+<h2>
+🛒 SOTUV
+</h2>
+
+<p>
+Seller Panel
+</p>
+
+</div>
+
+
+
+<div class="menu">
+
+
+<a href="/seller"
+class="menu-item">
+
+🏠 Dashboard
+
+</a>
+
+
+
+<a href="/seller/products"
+class="menu-item">
+
+📦 Mahsulotlar
+
+</a>
+
+
+
+<a href="/seller/products/add"
+class="menu-item">
+
+➕ Mahsulot qo'shish
+
+</a>
+
+
+
+
+<a href="/seller/orders"
+class="menu-item">
+
+🛒 Buyurtmalar
+
+</a>
+
+
+
+
+<a href="/seller/balance"
+class="menu-item">
+
+💰 Balans
+
+</a>
+
+
+
+
+<a href="/seller/profile"
+class="menu-item">
+
+👤 Profil
+
+</a>
+
+
+
+</div>
+
+
+
+
+<div class="sidebar-bottom">
+
+
+<a href="/seller/logout"
+class="logout">
+
+🚪 Chiqish
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+
+
+<div class="search">
+
+
+<input 
+type="text"
+placeholder="Qidirish...">
+
+
+</div>
+
+
+
+
+<div class="right-nav">
+
+
+
+<div class="notification">
+
+
+🔔
+
+<span>
+0
+</span>
+
+
+</div>
+
+
+
+
+<div class="seller-info">
+
+
+{% if seller %}
+
+<img src="{{ seller.shop_logo or '/static/images/user.png' }}">
+
+
+<div>
+
+
+<strong>
+{{ seller.shop_name }}
+</strong>
+
+
+<small>
+{{ seller.phone }}
+</small>
+
+
+</div>
+
+
+{% endif %}
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- FLASH MESSAGE -->
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+
+{% for category,message in messages %}
+
+
+<div class="alert {{category}}">
+
+
+{{message}}
+
+
+</div>
+
+
+{% endfor %}
+
+
+{% endif %}
+
+
+{% endwith %}
+
+
+
+
+
+
+<!-- CONTENT -->
+
+
+<div class="content">
+
+
+{% block content %}
+
+{% endblock %}
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+<script src="/static/seller/js/app.js"></script>
+
+
+</body>
+
+
+</html>

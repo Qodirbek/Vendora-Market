@@ -1,0 +1,446 @@
+.seller-detail-page{
+padding:25px;
+}
+
+
+.profile-card{
+
+background:white;
+border-radius:25px;
+padding:30px;
+display:flex;
+align-items:center;
+gap:25px;
+box-shadow:0 10px 30px #0001;
+margin-bottom:30px;
+
+}
+
+
+
+.profile-avatar{
+
+width:90px;
+height:90px;
+border-radius:50%;
+background:#eef2ff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:45px;
+
+}
+
+
+
+.profile-info h1{
+
+margin:0;
+font-size:32px;
+
+}
+
+
+
+.status{
+
+padding:8px 18px;
+border-radius:20px;
+font-weight:bold;
+display:inline-block;
+margin-top:10px;
+
+}
+
+
+
+.status.active{
+
+background:#dcfce7;
+color:#15803d;
+
+}
+
+
+
+.status.pending{
+
+background:#fef3c7;
+color:#92400e;
+
+}
+
+
+
+.status.blocked{
+
+background:#fee2e2;
+color:#b91c1c;
+
+}
+
+
+
+
+
+
+
+.info-grid{
+
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:25px;
+
+}
+
+
+
+.card{
+
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 30px #0001;
+
+}
+
+
+
+.card h3{
+
+margin-top:0;
+
+}
+
+
+
+.line{
+
+display:flex;
+justify-content:space-between;
+gap:20px;
+padding:12px 0;
+border-bottom:1px solid #eee;
+
+}
+
+
+
+.line span{
+
+color:#64748b;
+
+}
+
+
+
+
+
+
+
+.balance{
+
+font-size:32px;
+font-weight:bold;
+margin:20px 0;
+color:#16a34a;
+
+}
+
+
+
+.stat{
+
+background:#f8fafc;
+padding:15px;
+border-radius:15px;
+margin-bottom:12px;
+display:flex;
+justify-content:space-between;
+
+}
+
+
+
+
+
+
+
+
+.actions{
+
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+margin:30px 0;
+
+}
+
+
+
+.btn{
+
+padding:15px 25px;
+border-radius:15px;
+text-decoration:none;
+font-weight:bold;
+transition:.3s;
+
+}
+
+
+
+.btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+
+
+.bonus{
+
+background:#fef3c7;
+color:#92400e;
+
+}
+
+
+
+.money{
+
+background:#dcfce7;
+color:#166534;
+
+}
+
+
+
+.block{
+
+background:#fee2e2;
+color:#b91c1c;
+
+}
+
+
+
+
+
+
+
+.products{
+
+background:white;
+padding:25px;
+border-radius:20px;
+
+}
+
+
+
+.product-grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:20px;
+
+}
+
+
+
+.product-card{
+
+background:#f8fafc;
+padding:20px;
+border-radius:15px;
+
+}
+
+
+
+
+
+
+
+@media(max-width:800px){
+
+
+.info-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+.profile-card{
+
+flex-direction:column;
+text-align:center;
+
+}
+
+
+
+.actions{
+
+flex-direction:column;
+
+}
+
+
+
+.btn{
+
+text-align:center;
+
+}
+
+
+
+}
+
+/* =========================
+   PROFESSIONAL EFFECTS
+========================= */
+
+.card,
+.profile-card,
+.products,
+.product-card{
+    transition:.3s ease;
+}
+
+
+.card:hover,
+.product-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px #0002;
+}
+
+
+/* BALANCE HIGHLIGHT */
+
+.balance-card{
+    border-left:5px solid #16a34a;
+}
+
+
+/* ACTION BUTTON COLORS */
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+
+.bonus:hover{
+    background:#f59e0b;
+    color:white;
+}
+
+
+.money:hover{
+    background:#16a34a;
+    color:white;
+}
+
+
+.block:hover{
+    background:#dc2626;
+    color:white;
+}
+
+
+/* PRODUCT EMPTY */
+
+.products p{
+    color:#64748b;
+    text-align:center;
+    padding:20px;
+}
+
+
+/* TABLET */
+
+@media(max-width:1100px){
+
+.info-grid{
+    grid-template-columns:1fr;
+}
+
+}
+
+
+/* PHONE */
+
+@media(max-width:500px){
+
+.seller-detail-page{
+    padding:15px;
+}
+
+
+.profile-info h1{
+    font-size:24px;
+}
+
+
+.balance{
+    font-size:25px;
+}
+
+
+.line{
+    flex-direction:column;
+    gap:5px;
+}
+
+}
+
+.product-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:15px;
+    margin-bottom:15px;
+}
+
+.bonus-form{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+
+.bonus-form input{
+padding:14px;
+border-radius:12px;
+border:1px solid #ddd;
+width:180px;
+}
+
+.money-form,
+.bonus-form{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+
+.money-form input,
+.bonus-form input{
+padding:14px;
+border-radius:12px;
+border:1px solid #ddd;
+width:180px;
+}
+
+
+.money-form button,
+.bonus-form button{
+border:none;
+cursor:pointer;
+}

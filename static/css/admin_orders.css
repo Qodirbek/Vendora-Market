@@ -1,0 +1,196 @@
+.orders-page{
+    padding:30px;
+}
+
+
+.orders-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+
+}
+
+
+.orders-header h1{
+
+    font-size:32px;
+    margin:0;
+
+}
+
+
+.orders-header p{
+
+    color:#777;
+
+}
+
+
+.order-count{
+
+    background:#111827;
+    color:white;
+    padding:15px 25px;
+    border-radius:15px;
+    font-size:18px;
+
+}
+
+
+
+.orders-card{
+
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    overflow-x:auto;
+
+}
+
+
+
+.orders-table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+
+
+.orders-table th{
+
+    text-align:left;
+    padding:15px;
+    background:#f8fafc;
+    color:#555;
+
+}
+
+
+
+.orders-table td{
+
+    padding:15px;
+    border-bottom:1px solid #eee;
+
+}
+
+
+
+.orders-table tr{
+
+    transition:.3s;
+
+}
+
+
+.orders-table tbody tr:hover{
+
+    background:#f8fafc;
+    transform:scale(1.01);
+
+}
+
+
+
+
+.status{
+
+    padding:8px 14px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:600;
+    display:inline-block;
+
+}
+
+
+
+.delivered{
+
+    background:#dcfce7;
+    color:#15803d;
+
+}
+
+
+.cancelled{
+
+    background:#fee2e2;
+    color:#dc2626;
+
+}
+
+
+.shipping{
+
+    background:#dbeafe;
+    color:#2563eb;
+
+}
+
+
+
+.preparing{
+
+    background:#fef3c7;
+    color:#d97706;
+
+}
+
+
+
+.pending{
+
+    background:#e5e7eb;
+    color:#374151;
+
+}
+
+
+
+.view-btn{
+
+    text-decoration:none;
+    background:#2563eb;
+    color:white;
+    padding:10px 18px;
+    border-radius:12px;
+    transition:.3s;
+
+}
+
+
+
+.view-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+
+.empty{
+
+    text-align:center;
+    padding:50px;
+    font-size:20px;
+
+}
+
+
+
+@media(max-width:700px){
+
+.orders-header{
+
+    flex-direction:column;
+    gap:15px;
+
+}
+
+}

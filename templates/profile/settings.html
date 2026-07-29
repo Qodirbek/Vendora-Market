@@ -1,0 +1,158 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Sozlamalar
+{% endblock %}
+
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}">
+
+
+
+<div class="profile-page">
+
+
+<div class="profile-card">
+
+
+<div class="profile-title">
+
+<h2>
+⚙ Sozlamalar
+</h2>
+
+<p>
+Hisob sozlamalari
+</p>
+
+</div>
+
+
+
+
+<div class="settings-list">
+
+
+<div class="setting-item">
+
+<div>
+🌐
+</div>
+
+<section>
+
+<h3>
+Til
+</h3>
+
+<p>
+O'zbekcha
+</p>
+
+</section>
+
+
+<select>
+
+<option>
+O'zbekcha
+</option>
+
+<option>
+Русский
+</option>
+
+<option>
+English
+</option>
+
+</select>
+
+
+</div>
+
+
+
+
+
+<div class="setting-item">
+
+
+<div>
+🔔
+</div>
+
+
+<section>
+
+<h3>
+Bildirishnomalar
+</h3>
+
+<p>
+Xabarlarni olish
+</p>
+
+</section>
+
+
+<label class="switch">
+
+<input type="checkbox" checked>
+
+<span></span>
+
+</label>
+
+
+</div>
+
+
+
+
+
+<div class="setting-item">
+
+
+<div>
+🔒
+</div>
+
+
+<section>
+
+<h3>
+Xavfsizlik
+</h3>
+
+<p>
+Parolni o'zgartirish
+</p>
+
+</section>
+
+
+<a href="#">
+O'zgartirish
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

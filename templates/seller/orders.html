@@ -1,0 +1,240 @@
+{% extends "seller/base.html" %}
+
+{% block title %}
+Buyurtmalar
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{url_for('static',filename='css/seller_orders.css')}}">
+
+
+
+<div class="orders-page">
+
+
+<div class="page-header">
+
+<div>
+<h1>
+📦 Buyurtmalar
+</h1>
+
+<p>
+Kelgan buyurtmalarni boshqaring
+</p>
+</div>
+
+
+<div class="search">
+<input 
+id="orderSearch"
+placeholder="🔍 Buyurtma qidirish..."
+>
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="stats">
+
+
+<div class="stat-card">
+
+<span>
+📦
+</span>
+
+<div>
+<p>
+Jami
+</p>
+
+<h2>
+{{orders|length}}
+</h2>
+
+</div>
+
+</div>
+
+
+
+
+<div class="stat-card">
+
+<span>
+⏳
+</span>
+
+<div>
+<p>
+Kutilmoqda
+</p>
+
+<h2>
+{{orders|selectattr('status','equalto','Yangi')|list|length}}
+</h2>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+<span>
+🚚
+</span>
+
+<div>
+<p>
+Yetkazilmoqda
+</p>
+
+<h2>
+{{orders|selectattr('status','equalto','Yetkazilmoqda')|list|length}}
+</h2>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="orders-grid" id="orders">
+
+
+{% if orders %}
+
+
+{% for order in orders %}
+
+
+<div class="order-card">
+
+
+<div class="order-top">
+
+<h2>
+#{{order.order_number}}
+</h2>
+
+
+<span class="status {{order.status}}">
+{{order.status}}
+</span>
+
+
+</div>
+
+
+
+<div class="customer">
+
+
+<p>
+👤
+{{order.receiver_name}}
+</p>
+
+
+<p>
+📞
+{{order.phone}}
+</p>
+
+
+<p>
+📍
+{{order.region}}
+</p>
+
+
+</div>
+
+
+
+
+<div class="price">
+
+💰
+
+{{"{:,}".format(order.total_price)}}
+
+so'm
+
+</div>
+
+
+
+
+<div class="card-footer">
+
+
+<a href="{{url_for('seller.order_detail',id=order.id)}}"
+class="view-btn">
+
+👁 Ko'rish
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+{% else %}
+
+
+
+<div class="empty">
+
+<h2>
+📭 Buyurtmalar yo'q
+</h2>
+
+<p>
+Hozircha sizga buyurtma kelmagan
+</p>
+
+</div>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+</div>
+
+
+<script src="{{url_for('static',filename='js/seller_orders.js')}}"></script>
+
+
+{% endblock %}

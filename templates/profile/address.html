@@ -1,0 +1,89 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Manzil
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile_address.css') }}">
+
+<div class="address-page">
+
+    <div class="address-card">
+
+        <div class="address-header">
+            <div class="address-icon">
+                📍
+            </div>
+
+            <h2>
+                Yetkazib berish manzili
+            </h2>
+
+            <p>
+                Buyurtmalar uchun manzilingizni kiriting
+            </p>
+        </div>
+
+
+        <form method="POST" id="addressForm">
+
+
+            <div class="input-box">
+
+                <label>
+                    Viloyat
+                </label>
+
+                <input 
+                    type="text"
+                    name="region"
+                    value="{{user.region or ''}}"
+                    placeholder="Masalan: Andijon"
+                    required
+                >
+
+            </div>
+
+
+
+            <div class="input-box">
+
+                <label>
+                    To'liq manzil
+                </label>
+
+                <textarea 
+                    name="address"
+                    placeholder="Ko'cha, uy raqami, mo'ljal..."
+                    required>{{user.address or ''}}</textarea>
+
+            </div>
+
+
+            <button class="save-address">
+
+                💾 Saqlash
+
+            </button>
+
+
+        </form>
+
+
+        <a href="/profile" class="back-profile">
+
+            ⬅ Profilga qaytish
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/profile_address.js') }}"></script>
+
+{% endblock %}

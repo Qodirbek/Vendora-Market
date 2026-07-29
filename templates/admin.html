@@ -1,0 +1,23 @@
+<h1>Admin Panel</h1>
+
+<a href="/admin/add">
+Mahsulot qo'shish
+</a>
+
+
+{% for p in products %}
+
+<hr>
+
+<h2>{{p.name}}</h2>
+
+<p>
+Narxi: {{p.price}}
+</p>
+
+<p>
+Offer ID: {{p.offer_id}}
+</p>
+
+
+{% endfor %}

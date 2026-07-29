@@ -1,0 +1,167 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Kategoriyalar
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_categories.css') }}">
+
+
+<div class="category-page">
+
+
+<!-- ADD CARD -->
+
+<div class="category-card">
+
+<div class="category-header">
+
+<div class="category-icon">
+📂
+</div>
+
+<h2>
+Kategoriyalar boshqaruvi
+</h2>
+
+<p>
+Mahsulot kategoriyalarini qo'shing va boshqaring
+</p>
+
+</div>
+
+
+
+<form 
+method="POST"
+action="/admin/categories/add"
+class="category-form">
+
+
+<div class="input-group">
+
+<label>
+Kategoriya nomi
+</label>
+
+<input 
+type="text"
+name="name"
+placeholder="Masalan: Telefonlar"
+required>
+
+</div>
+
+
+
+<div class="input-group">
+
+<label>
+Icon
+</label>
+
+
+<input
+type="text"
+name="icon"
+placeholder="📱">
+
+</div>
+
+
+
+<button class="add-btn">
+
+➕ Kategoriya qo'shish
+
+</button>
+
+
+</form>
+
+</div>
+
+
+
+
+
+<!-- LIST -->
+
+
+<div class="category-list-card">
+
+
+<h2>
+📋 Mavjud kategoriyalar
+</h2>
+
+
+
+<div class="category-list">
+
+
+{% for c in categories %}
+
+
+<div class="category-item">
+
+
+<div class="item-icon">
+
+{{ c.icon or "📁" }}
+
+</div>
+
+
+
+<div class="item-name">
+
+{{c.name}}
+
+</div>
+
+
+
+<a 
+href="/admin/categories/delete/{{c.id}}"
+class="delete-category"
+onclick="return confirm('Bu kategoriyani o‘chirishni xohlaysizmi?')">
+
+✖
+
+</a>
+
+
+</div>
+
+
+{% else %}
+
+
+<div class="empty">
+
+Hali kategoriya yo'q
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/admin_categories.js') }}"></script>
+
+
+{% endblock %}

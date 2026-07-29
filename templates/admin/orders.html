@@ -1,0 +1,175 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Buyurtmalar
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_orders.css') }}">
+
+<div class="orders-page">
+
+    <div class="orders-header">
+        <div>
+            <h1>📦 Buyurtmalar</h1>
+            <p>Barcha buyurtmalarni boshqarish</p>
+        </div>
+
+        <div class="order-count">
+            Jami:
+            <b>{{ orders|length }}</b>
+        </div>
+    </div>
+
+
+    <div class="orders-card">
+
+        <table class="orders-table">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Buyurtma</th>
+                    <th>Mijoz</th>
+                    <th>Summa</th>
+                    <th>Status</th>
+                    <th>Sana</th>
+                    <th>Amal</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+            {% for order in orders %}
+
+            <tr>
+
+                <td>
+                    #{{order.id}}
+                </td>
+
+
+                <td>
+                    <strong>
+                    {{order.order_number}}
+                    </strong>
+                </td>
+
+
+                <td>
+                    {{order.receiver_name}}
+                    <br>
+                    <small>
+                    {{order.phone}}
+                    </small>
+                </td>
+
+
+                <td>
+                    {{order.total_price}} so'm
+                </td>
+
+
+                <td>
+
+                    {% if order.status == "Yetkazildi" %}
+
+                    <span class="status delivered">
+                        ✅ Yetkazildi
+                    </span>
+
+
+                    {% elif order.status == "Bekor qilindi" %}
+
+                    <span class="status cancelled">
+                        ❌ Bekor
+                    </span>
+
+
+                    {% elif order.status == "Yetkazilmoqda" %}
+
+                    <span class="status shipping">
+                        🚚 Yetkazilmoqda
+                    </span>
+
+
+                    {% elif order.status == "Tayyorlanmoqda" %}
+
+                    <span class="status preparing">
+                        📦 Tayyorlanmoqda
+                    </span>
+
+
+                    {% else %}
+
+                    <span class="status pending">
+                        ⏳ {{order.status}}
+                    </span>
+
+
+                    {% endif %}
+
+                </td>
+
+
+
+                <td>
+                    {{order.created_at.strftime("%d.%m.%Y")}}
+                    <br>
+                    <small>
+                    {{order.created_at.strftime("%H:%M")}}
+                    </small>
+                </td>
+
+
+
+                <td>
+
+                    <a class="view-btn"
+                    href="{{url_for('admin.order_detail',id=order.id)}}">
+
+                    👁 Ko'rish
+
+                    </a>
+
+                </td>
+
+
+            </tr>
+
+
+            {% else %}
+
+            <tr>
+
+                <td colspan="7">
+
+                    <div class="empty">
+
+                        Buyurtmalar mavjud emas 😔
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/admin_orders.js') }}"></script>
+
+
+{% endblock %}

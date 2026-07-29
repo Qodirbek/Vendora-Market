@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Kirish | Sotuv Platform
+</title>
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='auth/login.css') }}">
+
+
+</head>
+
+
+<body>
+
+
+<div class="auth-wrapper">
+
+
+<div class="auth-card">
+
+
+
+<!-- LOGO -->
+
+<div class="brand">
+
+<div class="logo">
+🛒
+</div>
+
+
+<h1>
+Sotuv
+</h1>
+
+
+<p>
+Hisobingizga xavfsiz kiring
+</p>
+
+
+</div>
+
+
+
+
+
+<!-- FLASH -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert {{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+
+
+
+
+
+
+<form method="POST" action="{{ url_for('auth.login') }}">
+
+
+
+
+
+<!-- PHONE -->
+
+
+<div class="form-group">
+
+
+<label>
+📱 Telefon raqam
+</label>
+
+
+<div class="input-wrapper">
+
+
+<div class="input-icon">
+📞
+</div>
+
+
+
+<input
+
+type="text"
+
+name="phone"
+
+placeholder="+998 90 123 45 67"
+
+autocomplete="tel"
+
+required
+
+>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- PASSWORD -->
+
+
+<div class="form-group">
+
+
+<label>
+🔒 Parol
+</label>
+
+
+
+<div class="input-wrapper">
+
+
+<div class="input-icon">
+🔐
+</div>
+
+
+
+<input
+
+id="password"
+
+type="password"
+
+name="password"
+
+placeholder="Parolingiz"
+
+autocomplete="current-password"
+
+required
+
+>
+
+
+
+
+<button
+
+type="button"
+
+class="show-password"
+
+onclick="togglePassword()"
+
+>
+
+👁
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- OPTIONS -->
+
+
+<div class="options">
+
+
+<label class="remember">
+
+
+<input
+
+type="checkbox"
+
+name="remember"
+
+>
+
+
+<span>
+Meni eslab qol
+</span>
+
+
+</label>
+
+
+
+<a href="#">
+Parolni unutdingizmi?
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- BUTTON -->
+
+
+<button
+
+type="submit"
+
+class="login-btn"
+
+>
+
+🚀 Kirish
+
+</button>
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+
+
+<div class="divider">
+
+<span>
+Yoki
+</span>
+
+</div>
+
+
+
+
+
+
+
+
+<a
+
+href="{{ url_for('auth.register') }}"
+
+class="register-btn"
+
+>
+
+📝 Yangi hisob yaratish
+
+</a>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="{{ url_for('static', filename='auth/login.js') }}"></script>
+
+
+</body>
+
+</html>

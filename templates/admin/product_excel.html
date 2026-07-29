@@ -1,0 +1,44 @@
+{% extends "admin/base.html" %}
+
+
+{% block content %}
+
+<div class="card">
+
+<h1>
+📦 Excel orqali mahsulot qo'shish
+</h1>
+
+
+<a href="/admin/products/excel/template"
+class="btn">
+⬇ Excel shablon yuklash
+</a>
+
+
+<br><br>
+
+
+<form method="POST"
+enctype="multipart/form-data">
+
+
+<input 
+type="file"
+name="file"
+accept=".xlsx"
+required>
+
+
+<button class="btn">
+📤 Yuklash
+</button>
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}

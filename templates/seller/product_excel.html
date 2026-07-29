@@ -1,0 +1,173 @@
+{% extends "seller/base.html" %}
+
+
+{% block title %}
+Excel orqali mahsulot qo'shish
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="excel-page">
+
+
+<div class="excel-card">
+
+
+<div class="excel-header">
+
+<div>
+
+<h1>
+<i class="fa-solid fa-file-excel"></i>
+Excel import
+</h1>
+
+<p>
+Mahsulotlarni Excel orqali tezda qo'shing
+</p>
+
+</div>
+
+
+<a href="/seller/products/excel/template"
+class="excel-download">
+
+<i class="fa-solid fa-download"></i>
+
+Namuna Excel
+
+</a>
+
+
+</div>
+
+
+
+<hr>
+
+
+
+<div class="excel-info">
+
+
+<div class="info-box">
+
+<i class="fa-solid fa-circle-info"></i>
+
+<div>
+
+<h4>
+Qanday ishlaydi?
+</h4>
+
+<p>
+1. Namuna Excel faylni yuklab oling.
+</p>
+
+<p>
+2. Mahsulot ma'lumotlarini to'ldiring.
+</p>
+
+<p>
+3. Tayyor faylni yuklang.
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+<form method="POST"
+enctype="multipart/form-data"
+class="upload-box">
+
+
+<label>
+
+<i class="fa-solid fa-cloud-arrow-up"></i>
+
+Excel fayl tanlang
+
+</label>
+
+
+<input 
+type="file"
+name="file"
+accept=".xlsx"
+required>
+
+
+
+<button type="submit">
+
+<i class="fa-solid fa-upload"></i>
+
+Import qilish
+
+</button>
+
+
+</form>
+
+
+
+<div class="excel-columns">
+
+
+<h3>
+Excel ustunlari
+</h3>
+
+
+<ul>
+
+<li>
+✅ offer_id
+</li>
+
+<li>
+✅ sku
+</li>
+
+<li>
+✅ Mahsulot nomi
+</li>
+
+<li>
+✅ Narx
+</li>
+
+<li>
+✅ Eski narx
+</li>
+
+<li>
+✅ Ombor soni
+</li>
+
+<li>
+✅ Rasm
+</li>
+
+</ul>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

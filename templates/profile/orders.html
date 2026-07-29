@@ -1,0 +1,74 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Buyurtmalarim
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="profile-box">
+
+
+<h2>
+📦 Buyurtmalarim
+</h2>
+
+
+{% if orders %}
+
+
+{% for order in orders %}
+
+
+<div class="order-card">
+
+<h3>
+№ {{order.order_number}}
+</h3>
+
+
+<p>
+Holat:
+<b>
+{{order.status}}
+</b>
+</p>
+
+
+<p>
+Summa:
+{{order.total}} so'm
+</p>
+
+
+<a href="/order/detail/{{order.id}}">
+Ko'rish →
+</a>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+{% else %}
+
+<div class="empty">
+
+Hali buyurtmalar yo'q 😔
+
+</div>
+
+{% endif %}
+
+
+
+</div>
+
+
+{% endblock %}

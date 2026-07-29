@@ -1,0 +1,148 @@
+{% extends "seller/base.html" %}
+
+{% block title %}
+Balans
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/seller_balance.css') }}">
+
+
+<div class="balance-page">
+
+    <div class="balance-header">
+        <h1>
+            💰 Seller balans
+        </h1>
+        <p>
+            Daromad va pul yechish boshqaruvi
+        </p>
+    </div>
+
+
+    <div class="balance-main">
+
+        <div class="balance-card">
+
+            <div class="icon">
+                💵
+            </div>
+
+            <h3>
+                Mavjud balans
+            </h3>
+
+            <h1>
+                {{ "{:,}".format(seller.balance) }} so'm
+            </h1>
+
+        </div>
+
+
+
+        <div class="stats">
+
+
+            <div class="stat-card">
+                <span>
+                    📈
+                </span>
+
+                <div>
+                    <p>
+                        Jami daromad
+                    </p>
+
+                    <h3>
+                        {{ "{:,}".format(seller.total_income) }}
+                        so'm
+                    </h3>
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <span>
+                    💸
+                </span>
+
+                <div>
+                    <p>
+                        Yechib olingan
+                    </p>
+
+                    <h3>
+                        {{ "{:,}".format(seller.withdrawn_money) }}
+                        so'm
+                    </h3>
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <span>
+                    ⏳
+                </span>
+
+                <div>
+
+                    <p>
+                        Kutilayotgan
+                    </p>
+
+                    <h3>
+                        {{ "{:,}".format(seller.pending_withdraw) }}
+                        so'm
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="withdraw-box">
+
+            <h2>
+                Pul yechish
+            </h2>
+
+
+            <p>
+                Pul yechish uchun Telegram orqali admin bilan bog'laning.
+            </p>
+
+
+            <a 
+            href="https://t.me/Vendora_Market_supportbot"
+            target="_blank"
+            class="telegram-btn">
+
+                ✈️ Telegram orqali yechish
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/seller_balance.js') }}"></script>
+
+
+{% endblock %}

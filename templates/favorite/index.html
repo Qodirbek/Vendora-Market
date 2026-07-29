@@ -1,0 +1,217 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Sevimlilar ❤️
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/favorite.css">
+
+
+<div class="favorite-container">
+
+
+<header class="favorite-header">
+
+<div>
+<h1>
+❤️ Sevimlilar
+</h1>
+
+<p>
+Siz saqlagan mahsulotlar
+</p>
+</div>
+
+
+<span class="count">
+{{favorites|length}} ta mahsulot
+</span>
+
+
+</header>
+
+
+
+{% if favorites %}
+
+
+<div class="favorite-grid">
+
+
+{% for item in favorites %}
+
+{% set product=item.product %}
+
+
+<div class="favorite-card"
+id="favorite-{{product.id}}">
+
+
+<div class="product-image">
+
+
+<a href="{{url_for('home.product_detail',id=product.id)}}">
+
+
+{% if product.image %}
+
+<img src="{{product.image}}">
+
+{% else %}
+
+<div class="empty-image">
+📦
+</div>
+
+{% endif %}
+
+
+</a>
+
+
+<button 
+class="heart active"
+data-id="{{product.id}}">
+
+❤️
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="product-info">
+
+
+<a href="{{url_for('home.product_detail',id=product.id)}}"
+class="name">
+
+{{product.name}}
+
+</a>
+
+
+
+<div class="rating">
+
+⭐ {{product.rating or 0}}
+
+<span>
+({{product.views or 0}})
+</span>
+
+</div>
+
+
+
+
+<p class="description">
+
+{{product.description[:90] if product.description else "Tavsif mavjud emas"}}
+
+</p>
+
+
+
+<div class="bottom">
+
+
+<div class="price">
+
+{{"{:,}".format(product.price)}} so'm
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="buttons">
+
+
+<a href="{{url_for('cart.add',product_id=product.id)}}"
+class="cart">
+
+🛒 Savat
+
+</a>
+
+
+
+<button
+class="delete"
+data-id="{{item.id}}">
+
+🗑
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+{% else %}
+
+
+
+<div class="empty-state">
+
+
+<div class="icon">
+💔
+</div>
+
+
+<h2>
+Sevimlilar bo‘sh
+</h2>
+
+
+<p>
+Yoqtirgan mahsulotlaringizni shu yerga saqlang
+</p>
+
+
+<a href="{{url_for('home.index')}}">
+
+Xarid qilish
+
+</a>
+
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+<script src="/static/js/favorite.js"></script>
+
+
+{% endblock %}

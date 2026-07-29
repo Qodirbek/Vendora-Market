@@ -1,0 +1,364 @@
+{% extends "seller/base.html" %}
+
+{% block title %}
+Buyurtma #{{order.order_number}}
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{url_for('static',filename='css/seller_order_detail.css')}}">
+
+
+
+<div class="order-page">
+
+
+<!-- HEADER -->
+
+<div class="order-header">
+
+<div>
+<h1>
+📦 Buyurtma
+</h1>
+
+<p>
+№ {{order.order_number}}
+</p>
+
+</div>
+
+
+<div class="status {{order.status}}">
+{{order.status}}
+</div>
+
+
+</div>
+
+
+
+
+<!-- STATUS CONTROL -->
+
+<div class="box">
+
+<h2>
+⚙ Status boshqaruvi
+</h2>
+
+
+<div class="current">
+
+Hozirgi holat:
+
+<strong>
+{{order.status}}
+</strong>
+
+</div>
+
+
+
+{% if order.status=="Kutilmoqda" %}
+
+
+<form method="POST"
+action="{{url_for('seller.change_order_status',id=order.id)}}">
+
+
+<div class="actions">
+
+<button 
+class="btn accept"
+name="action"
+value="accept">
+
+✅ Qabul qilish
+
+</button>
+
+
+
+<button 
+class="btn cancel"
+name="action"
+value="cancel">
+
+❌ Bekor qilish
+
+</button>
+
+
+</div>
+
+
+</form>
+
+
+{% elif order.status=="Tayyorlanmoqda" %}
+
+
+<form method="POST"
+action="{{url_for('seller.change_order_status',id=order.id)}}">
+
+
+<button
+class="btn ready"
+name="action"
+value="ready">
+
+📦 Tayyor
+
+</button>
+
+
+</form>
+
+
+{% elif order.status=="Yetkazilmoqda" %}
+
+
+<div class="waiting">
+
+🚚 Yetkazilmoqda
+
+<br>
+
+<small>
+Admin tasdiqlashini kutmoqda
+</small>
+
+</div>
+
+
+{% elif order.status=="Yetkazildi" %}
+
+
+<div class="success">
+
+✅ Buyurtma yakunlangan
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- CUSTOMER INFO -->
+
+
+<div class="box">
+
+
+<h2>
+👤 Mijoz
+</h2>
+
+
+<div class="grid">
+
+
+<div>
+<span>
+Ism
+</span>
+
+<b>
+{{order.receiver_name}}
+</b>
+
+</div>
+
+
+<div>
+
+<span>
+Telefon
+</span>
+
+<b>
+{{order.phone}}
+</b>
+
+</div>
+
+
+<div>
+
+<span>
+Viloyat
+</span>
+
+<b>
+{{order.region}}
+</b>
+
+</div>
+
+
+<div>
+
+<span>
+Shahar
+</span>
+
+<b>
+{{order.city}}
+</b>
+
+</div>
+
+
+<div class="full">
+
+<span>
+Manzil
+</span>
+
+<b>
+{{order.address}}
+</b>
+
+</div>
+
+
+<div>
+
+<span>
+To'lov
+</span>
+
+<b>
+{{order.payment_method}}
+</b>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- PRODUCTS -->
+
+
+<div class="box">
+
+
+<h2>
+🛒 Mahsulotlar
+</h2>
+
+
+
+{% for item in order.items %}
+
+
+
+<div class="product">
+
+
+{% if item.product_image %}
+
+<img src="{{item.product_image}}">
+
+{% else %}
+
+<div class="no-image">
+📦
+</div>
+
+{% endif %}
+
+
+
+<div class="product-info">
+
+
+<h3>
+{{item.product_name}}
+</h3>
+
+
+<p>
+Soni:
+<b>
+{{item.quantity}}
+</b>
+</p>
+
+
+<p>
+Narxi:
+
+<b>
+{{"{:,}".format(item.price)}} so'm
+</b>
+
+</p>
+
+
+
+<p class="income">
+
+Daromad:
+
+{{"{:,}".format(item.seller_income)}} so'm
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+<div class="total">
+
+Jami:
+
+{{"{:,}".format(order.total_price)}}
+
+so'm
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+<script src="{{url_for('static',filename='js/seller_order_detail.js')}}"></script>
+
+
+{% endblock %}

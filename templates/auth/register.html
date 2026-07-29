@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Ro'yxatdan o'tish | Sotuv Platform
+    </title>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth/register.css') }}">
+
+</head>
+
+
+<body>
+
+
+<div class="auth-wrapper">
+
+
+    <div class="auth-card">
+
+
+
+        <!-- LOGO -->
+
+        <div class="brand">
+
+
+            <div class="logo">
+                🛒
+            </div>
+
+
+            <h1>
+                Sotuv
+            </h1>
+
+
+            <p>
+                Yangi hisob yarating
+            </p>
+
+
+        </div>
+
+
+
+
+
+        <!-- FLASH XABARLAR -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="alert {{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+
+
+
+        <!-- REGISTER FORM -->
+
+
+        <form method="POST" action="{{ url_for('auth.register') }}">
+
+
+
+
+
+            <!-- NAME -->
+
+
+            <div class="form-group">
+
+
+                <label>
+                    👤 Ism familiya
+                </label>
+
+
+                <div class="input-box">
+
+
+                    <span>
+                        👤
+                    </span>
+
+
+                    <input
+
+                        type="text"
+
+                        name="name"
+
+                        placeholder="Ismingizni kiriting"
+
+                        required
+
+                    >
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- PHONE -->
+
+
+            <div class="form-group">
+
+
+                <label>
+                    📱 Telefon raqam
+                </label>
+
+
+                <div class="input-box">
+
+
+                    <span>
+                        📞
+                    </span>
+
+
+                    <input
+
+                        type="text"
+
+                        name="phone"
+
+                        placeholder="+998 90 123 45 67"
+
+                        required
+
+                    >
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- PASSWORD -->
+
+
+            <div class="form-group">
+
+
+                <label>
+                    🔒 Parol
+                </label>
+
+
+                <div class="input-box">
+
+
+                    <span>
+                        🔐
+                    </span>
+
+
+                    <input
+
+                        id="password"
+
+                        type="password"
+
+                        name="password"
+
+                        placeholder="Yangi parol"
+
+                        required
+
+                    >
+
+
+                    <button
+
+                        type="button"
+
+                        class="eye"
+
+                        onclick="togglePassword('password')"
+
+                    >
+
+                        👁
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- CONFIRM PASSWORD -->
+
+
+            <div class="form-group">
+
+
+                <label>
+                    🔐 Parolni tasdiqlash
+                </label>
+
+
+                <div class="input-box">
+
+
+                    <span>
+                        🔐
+                    </span>
+
+
+                    <input
+
+                        id="confirm_password"
+
+                        type="password"
+
+                        name="confirm_password"
+
+                        placeholder="Parolni qayta kiriting"
+
+                        required
+
+                    >
+
+
+                    <button
+
+                        type="button"
+
+                        class="eye"
+
+                        onclick="togglePassword('confirm_password')"
+
+                    >
+
+                        👁
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- TERMS -->
+
+
+            <div class="terms">
+
+
+                <label>
+
+
+                    <input
+
+                        type="checkbox"
+
+                        required
+
+                    >
+
+
+                    Foydalanish shartlariga roziman
+
+
+                </label>
+
+
+            </div>
+
+
+
+
+
+
+
+
+            <!-- BUTTON -->
+
+
+            <button
+
+                type="submit"
+
+                class="register-btn"
+
+            >
+
+                🚀 Ro'yxatdan o'tish
+
+
+            </button>
+
+
+
+
+
+
+        </form>
+
+
+
+
+
+
+
+        <!-- LOGIN LINK -->
+
+
+        <div class="divider">
+
+            Hisobingiz bormi?
+
+        </div>
+
+
+
+
+        <a
+
+            href="{{ url_for('auth.login') }}"
+
+            class="login-link"
+
+        >
+
+            🔑 Kirish
+
+        </a>
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="{{ url_for('static', filename='auth/register.js') }}"></script>
+
+
+</body>
+
+</html>

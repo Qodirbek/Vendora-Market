@@ -1,0 +1,613 @@
+{% extends "seller/base.html" %}
+
+
+{% block content %}
+
+
+<div class="page-header">
+
+    <div>
+        <h1>
+            📦 Mening mahsulotlarim
+        </h1>
+
+        <p>
+            Mahsulotlarni qo'shish, tahrirlash va boshqarish
+        </p>
+    </div>
+
+
+    <div class="header-actions">
+
+
+        <a href="/seller/products/add"
+        class="btn btn-primary">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Mahsulot qo'shish
+
+        </a>
+
+        <a href="/seller/products/excel"
+class="btn btn-success">
+
+<i class="fa-solid fa-file-excel"></i>
+
+Excel import
+
+</a>
+
+
+        <a href="/seller/products/excel"
+class="btn btn-success">
+
+<i class="fa-solid fa-file-import"></i>
+
+ Excel import
+
+</a>
+
+
+
+        <a href="/seller/products/template"
+        class="btn btn-success">
+
+            <i class="fa-solid fa-file-excel"></i>
+
+            Excel namuna
+
+        </a>
+
+
+
+        <a href="/seller/products/import"
+        class="btn btn-warning">
+
+            <i class="fa-solid fa-upload"></i>
+
+            Excel yuklash
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<!-- STATISTICS -->
+
+
+<div class="stats-grid">
+
+
+<div class="stat-card">
+
+<i class="fa-solid fa-box"></i>
+
+<div>
+
+<h3>
+{{products|length}}
+</h3>
+
+<p>
+Jami mahsulot
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+<i class="fa-solid fa-circle-check"></i>
+
+<div>
+
+<h3>
+{{products|selectattr("active")|list|length}}
+</h3>
+
+<p>
+Faol mahsulot
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<div>
+
+<h3>
+{{total_sales if total_sales else 0}}
+</h3>
+
+<p>
+Sotilgan
+</p>
+
+</div>
+
+</div>
+
+
+
+
+<div class="stat-card">
+
+<i class="fa-solid fa-eye"></i>
+
+<div>
+
+<h3>
+{{total_views if total_views else 0}}
+</h3>
+
+<p>
+Ko'rishlar
+</p>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- SEARCH -->
+
+
+<div class="card search-card">
+
+
+<div class="search-wrapper">
+
+
+<i class="fa-solid fa-search"></i>
+
+
+<input 
+
+type="text"
+
+id="searchProduct"
+
+placeholder="Mahsulot qidirish..."
+
+onkeyup="searchProducts()"
+
+
+>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- PRODUCT GRID -->
+
+
+<div class="products-grid">
+
+
+{% if products %}
+
+
+
+{% for p in products %}
+
+
+
+<div class="product-card">
+
+
+
+{% if p.image %}
+
+
+<img 
+
+src="{{p.image}}"
+
+class="product-image"
+
+
+>
+
+
+{% else %}
+
+
+<div class="no-product-image">
+
+
+<i class="fa-solid fa-box"></i>
+
+
+</div>
+
+
+{% endif %}
+
+
+
+
+
+<div class="product-body">
+
+
+
+<div class="product-title">
+
+
+<h2>
+{{p.name}}
+</h2>
+
+
+{% if p.discount > 0 %}
+
+<span class="discount">
+
+-{{p.discount}}%
+
+</span>
+
+
+{% endif %}
+
+
+</div>
+
+
+
+
+
+
+<div class="price-box">
+
+
+<span class="price">
+
+{{"{:,}".format(p.price)}}
+
+so'm
+
+</span>
+
+
+
+{% if p.old_price %}
+
+
+<del>
+
+{{"{:,}".format(p.old_price)}}
+
+so'm
+
+</del>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="product-info">
+
+
+<div>
+
+<i class="fa-solid fa-box"></i>
+
+Ombor:
+
+<b>
+{{p.stock}}
+</b>
+
+</div>
+
+
+
+
+<div>
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+Sotilgan:
+
+<b>
+{{p.sold_count}}
+</b>
+
+</div>
+
+
+
+
+
+<div>
+
+<i class="fa-solid fa-eye"></i>
+
+Ko'rish:
+
+<b>
+{{p.views}}
+</b>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="status-row">
+
+
+{% if p.active %}
+
+
+<span class="status active">
+
+<i class="fa-solid fa-check"></i>
+
+Faol
+
+</span>
+
+
+
+{% else %}
+
+
+<span class="status">
+
+<i class="fa-solid fa-clock"></i>
+
+Tekshiruvda
+
+</span>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="actions">
+
+
+
+<a href="/seller/products/edit/{{p.id}}"
+
+class="btn btn-edit">
+
+
+<i class="fa-solid fa-pen"></i>
+
+Tahrirlash
+
+</a>
+
+
+
+
+
+<a href="/seller/products/delete/{{p.id}}"
+
+class="btn btn-delete"
+
+onclick="return confirm('Mahsulot o‘chirilsinmi?')">
+
+
+<i class="fa-solid fa-trash"></i>
+
+O'chirish
+
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+
+
+{% else %}
+
+
+
+<div class="empty-box">
+
+
+<i class="fa-solid fa-box-open"></i>
+
+
+<h2>
+
+Mahsulot mavjud emas
+
+</h2>
+
+
+<p>
+
+Hali mahsulot qo'shilmagan.
+
+Birinchi mahsulotingizni qo'shing.
+
+</p>
+
+
+
+<a href="/seller/products/add"
+
+class="btn btn-primary">
+
+
+<i class="fa-solid fa-plus"></i>
+
+Mahsulot qo'shish
+
+
+</a>
+
+
+
+</div>
+
+
+{% endif %}
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+function searchProducts(){
+
+
+let input = 
+
+document
+.getElementById(
+"searchProduct"
+)
+.value
+.toLowerCase();
+
+
+
+let cards =
+
+document
+.querySelectorAll(
+".product-card"
+);
+
+
+
+cards.forEach(card=>{
+
+
+let name =
+
+card
+.querySelector("h2")
+.innerText
+.toLowerCase();
+
+
+
+if(name.includes(input)){
+
+
+card.style.display="block";
+
+
+}
+
+else{
+
+
+card.style.display="none";
+
+
+}
+
+
+
+});
+
+
+}
+
+
+
+</script>
+
+
+
+{% endblock %}

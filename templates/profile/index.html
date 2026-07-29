@@ -1,0 +1,330 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Profil
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/profile.css">
+
+
+<div class="profile-container">
+
+
+<!-- PROFILE HEADER -->
+
+<div class="profile-card">
+
+
+<div class="avatar-box">
+
+{% if user.avatar %}
+
+<img src="{{user.avatar}}">
+
+{% else %}
+
+<img src="/static/images/user.png">
+
+{% endif %}
+
+</div>
+
+
+<div class="profile-info">
+
+<h1>
+{{user.name}}
+</h1>
+
+
+<p>
+📞 {{user.phone}}
+</p>
+
+
+{% if user.email %}
+
+<p>
+✉ {{user.email}}
+</p>
+
+{% endif %}
+
+
+<span class="badge">
+{% if user.role == "admin" %}
+Admin
+{% else %}
+Mijoz
+{% endif %}
+</span>
+
+
+</div>
+
+
+<a href="/profile/edit" class="edit-btn">
+
+✏ Tahrirlash
+
+</a>
+
+
+</div>
+
+
+
+
+<!-- STATISTICS -->
+
+
+<div class="stats">
+
+
+<div class="stat-card">
+
+<h2>
+{{total_orders}}
+</h2>
+
+<p>
+📦 Buyurtmalar
+</p>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<h2>
+{{waiting_orders}}
+</h2>
+
+<p>
+⏳ Kutilmoqda
+</p>
+
+</div>
+
+
+
+
+<div class="stat-card">
+
+<h2>
+{{finished_orders}}
+</h2>
+
+<p>
+✅ Yetkazilgan
+</p>
+
+</div>
+
+
+
+
+<div class="stat-card">
+
+<h2>
+{{spent_money}}
+</h2>
+
+<p>
+💰 Sarflangan
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="profile-grid">
+
+
+
+<!-- MENU -->
+
+
+<div class="menu-card">
+
+
+<h2>
+⚙ Menyu
+</h2>
+
+
+<a href="/profile/edit">
+
+👤 Shaxsiy ma'lumotlar
+
+</a>
+
+
+<a href="/order">
+
+📦 Buyurtmalarim
+
+</a>
+
+
+
+<a href="/favorite/">
+
+❤️ Sevimlilar
+<span>
+{{favorite_count}}
+</span>
+</a>
+
+
+
+<a href="/cart/">
+
+🛒 Savat
+<span>
+{{cart_count}}
+</span>
+</a>
+
+
+
+<a href="/profile/address">
+
+📍 Manzillar
+
+</a>
+
+
+
+<a href="/profile/support">
+
+💬 Yordam
+
+</a>
+
+
+
+<a href="/profile/logout"
+class="logout">
+
+🚪 Chiqish
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- ORDERS -->
+
+
+<div class="recent-orders">
+
+
+<div class="title">
+
+<h2>
+Oxirgi buyurtmalar
+</h2>
+
+
+<a href="/order">
+Barchasi →
+</a>
+
+</div>
+
+
+
+
+{% if orders %}
+
+
+{% for order in orders %}
+
+
+<div class="order-item">
+
+
+<div>
+
+<h3>
+#{{order.order_number}}
+</h3>
+
+
+<p>
+{{order.created_at.strftime("%d.%m.%Y")}}
+</p>
+
+
+</div>
+
+
+
+<div class="order-status">
+
+{{order.status}}
+
+</div>
+
+
+
+<strong>
+
+{{order.total_price}} so'm
+
+</strong>
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+{% else %}
+
+
+<div class="empty">
+
+📦 Hozircha buyurtma yo'q
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<script src="/static/js/profile.js"></script>
+
+{% endblock %}

@@ -1,0 +1,563 @@
+{% extends "admin/base.html" %}
+
+
+{% block title %}
+Sellerlar boshqaruvi
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_sellers.css') }}">
+
+
+
+<div class="seller-page">
+
+
+
+<!-- HEADER -->
+
+<div class="page-header">
+
+
+<div>
+
+<h1>
+🏪 Sellerlar
+</h1>
+
+
+<p>
+Barcha sotuvchilarni boshqarish
+</p>
+
+
+</div>
+
+
+
+<div class="search-box">
+
+
+<input
+type="text"
+id="sellerSearch"
+placeholder="🔍 Seller qidirish..."
+>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- STATISTICS -->
+
+
+<div class="stats">
+
+
+
+<div class="stat-card">
+
+
+<div class="icon">
+
+👥
+
+</div>
+
+
+<div>
+
+<p>
+Jami seller
+</p>
+
+
+<h2>
+{{ sellers|length }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<div class="icon">
+
+✅
+
+</div>
+
+
+<div>
+
+<p>
+Faol
+</p>
+
+
+<h2>
+{{ sellers|selectattr('status','equalto','active')|list|length }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+
+<div class="icon">
+
+⏳
+
+</div>
+
+
+<div>
+
+<p>
+Kutilmoqda
+</p>
+
+
+<h2>
+{{ sellers|selectattr('status','equalto','pending')|list|length }}
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- TABLE -->
+
+
+<div class="table-card">
+
+
+<div class="table-scroll">
+
+
+
+<table id="sellerTable">
+
+
+
+<thead>
+
+<tr>
+
+
+<th>
+ID
+</th>
+
+
+<th>
+Seller
+</th>
+
+
+<th>
+Do'kon
+</th>
+
+
+<th>
+Telefon
+</th>
+
+
+<th>
+Balans
+</th>
+
+
+<th>
+Savdo
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Amal
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+
+{% for seller in sellers %}
+
+
+
+<tr>
+
+
+
+<td>
+
+#{{seller.id}}
+
+</td>
+
+
+
+
+
+<td>
+
+
+<div class="seller-user">
+
+
+<div class="avatar">
+
+👤
+
+</div>
+
+
+
+<div>
+
+
+<strong>
+{{seller.name}}
+</strong>
+
+
+<br>
+
+
+<small>
+{{seller.email or "Email yo'q"}}
+</small>
+
+
+</div>
+
+
+
+</div>
+
+
+</td>
+
+
+
+
+
+
+
+
+<td>
+
+
+<strong>
+
+{{seller.shop_name}}
+
+</strong>
+
+
+<br>
+
+
+<small>
+
+{{seller.city or "Manzil yo'q"}}
+
+</small>
+
+
+</td>
+
+
+
+
+
+
+
+<td>
+
+{{seller.phone}}
+
+</td>
+
+
+
+
+
+
+
+<td>
+
+
+<span class="money">
+
+{{"{:,}".format(seller.balance or 0)}} so'm
+
+</span>
+
+
+</td>
+
+
+
+
+
+
+
+
+<td>
+
+
+<div class="sales">
+
+
+{{seller.total_orders or 0}}
+ta buyurtma
+
+
+<br>
+
+
+{{seller.sold_products or 0}}
+mahsulot
+
+
+</div>
+
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+
+
+{% if seller.status == "active" %}
+
+
+<span class="badge active">
+
+Faol
+
+</span>
+
+
+
+{% elif seller.status == "blocked" %}
+
+
+
+<span class="badge blocked">
+
+Bloklangan
+
+</span>
+
+
+
+{% else %}
+
+
+
+<span class="badge pending">
+
+Kutilmoqda
+
+</span>
+
+
+
+{% endif %}
+
+
+
+</td>
+
+
+
+
+
+
+
+
+<td>
+
+
+
+<div class="actions">
+
+
+
+
+
+<a
+class="btn view"
+href="{{url_for('admin.seller_detail',id=seller.id)}}"
+title="Ko'rish">
+
+👁
+
+</a>
+
+
+
+
+
+
+
+{% if seller.status != "active" %}
+
+
+
+<a
+class="btn success"
+href="{{url_for('admin.approve_seller',id=seller.id)}}"
+title="Tasdiqlash">
+
+✅
+
+</a>
+
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+{% if seller.status != "blocked" %}
+
+
+
+<a
+class="btn danger"
+href="{{url_for('admin.block_seller',id=seller.id)}}"
+title="Bloklash">
+
+🚫
+
+</a>
+
+
+
+{% endif %}
+
+
+
+
+
+</div>
+
+
+
+</td>
+
+
+
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<script src="{{ url_for('static', filename='js/admin_sellers.js') }}"></script>
+
+
+
+{% endblock %}
