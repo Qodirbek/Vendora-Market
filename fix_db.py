@@ -7,55 +7,72 @@ with app.app_context():
 
     queries = [
 
-    # USER
-    """
-    ALTER TABLE "user"
-    ADD COLUMN IF NOT EXISTS is_blocked BOOLEAN DEFAULT FALSE;
-    """,
+        # USER
+        """
+        ALTER TABLE "user"
+        ADD COLUMN IF NOT EXISTS is_blocked BOOLEAN DEFAULT FALSE;
+        """,
 
 
-    # ORDER
-    """
-    ALTER TABLE "order"
-    ADD COLUMN IF NOT EXISTS payment_check VARCHAR(255);
-    """,
+        # ORDER
 
-    """
-    ALTER TABLE "order"
-    ADD COLUMN IF NOT EXISTS payment_verified BOOLEAN DEFAULT FALSE;
-    """,
+        """
+        ALTER TABLE "order"
+        ADD COLUMN IF NOT EXISTS delivery_type VARCHAR(50);
+        """,
 
-    """
-    ALTER TABLE "order"
-    ADD COLUMN IF NOT EXISTS status_note TEXT;
-    """,
+        """
+        ALTER TABLE "order"
+        ADD COLUMN IF NOT EXISTS delivery_price FLOAT DEFAULT 0;
+        """,
 
-    """
-    ALTER TABLE "order"
-    ADD COLUMN IF NOT EXISTS cancel_reason TEXT;
-    """,
+        """
+        ALTER TABLE "order"
+        ADD COLUMN IF NOT EXISTS discount FLOAT DEFAULT 0;
+        """,
 
-    """
-    ALTER TABLE "order"
-    ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP;
-    """,
+        """
+        ALTER TABLE "order"
+        ADD COLUMN IF NOT EXISTS payment_check VARCHAR(255);
+        """,
+
+        """
+        ALTER TABLE "order"
+        ADD COLUMN IF NOT EXISTS payment_verified BOOLEAN DEFAULT FALSE;
+        """,
+
+        """
+        ALTER TABLE "order"
+        ADD COLUMN IF NOT EXISTS status_note TEXT;
+        """,
+
+        """
+        ALTER TABLE "order"
+        ADD COLUMN IF NOT EXISTS cancel_reason TEXT;
+        """,
+
+        """
+        ALTER TABLE "order"
+        ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP;
+        """,
 
 
-    # ORDER ITEM
-    """
-    ALTER TABLE order_item
-    ADD COLUMN IF NOT EXISTS commission_percent FLOAT DEFAULT 0;
-    """,
+        # ORDER ITEM
 
-    """
-    ALTER TABLE order_item
-    ADD COLUMN IF NOT EXISTS commission FLOAT DEFAULT 0;
-    """,
+        """
+        ALTER TABLE order_item
+        ADD COLUMN IF NOT EXISTS commission_percent FLOAT DEFAULT 0;
+        """,
 
-    """
-    ALTER TABLE order_item
-    ADD COLUMN IF NOT EXISTS seller_income FLOAT DEFAULT 0;
-    """
+        """
+        ALTER TABLE order_item
+        ADD COLUMN IF NOT EXISTS commission FLOAT DEFAULT 0;
+        """,
+
+        """
+        ALTER TABLE order_item
+        ADD COLUMN IF NOT EXISTS seller_income FLOAT DEFAULT 0;
+        """
 
     ]
 
@@ -67,4 +84,4 @@ with app.app_context():
     db.session.commit()
 
 
-print("✅ DATABASE MIGRATION DONE")
+print("✅ DATABASE MIGRATION COMPLETE")
