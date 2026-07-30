@@ -16,30 +16,21 @@ class Config:
         "secret-key"
     )
 
-
-    # Render PostgreSQL
     DATABASE_URL = os.environ.get(
         "DATABASE_URL"
     )
 
-
     if DATABASE_URL:
-
         if DATABASE_URL.startswith("postgres://"):
-
             DATABASE_URL = DATABASE_URL.replace(
                 "postgres://",
                 "postgresql://",
                 1
             )
 
-
         SQLALCHEMY_DATABASE_URI = DATABASE_URL
 
-
     else:
-
-        # Local kompyuter uchun SQLite
         SQLALCHEMY_DATABASE_URI = (
             "sqlite:///"
             + os.path.join(
@@ -48,14 +39,8 @@ class Config:
             )
         )
 
-
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
 
     SOTUVCHI_KEY = os.getenv(
         "SOTUVCHI_KEY"
-<<<<<<< HEAD
     )
-=======
-    )
->>>>>>> 4d27729 (fix admin id and create admin)
