@@ -10,8 +10,9 @@ class Admin(db.Model, UserMixin):
 
 
     id = db.Column(
-        db.Integer,
-        primary_key=True
+    db.Integer,
+    primary_key=True,
+    autoincrement=True
     )
 
 
