@@ -5,18 +5,30 @@ from models.admin import Admin
 
 with app.app_context():
 
-    admin=Admin(
-        username="Qodirbek_2007"
-    )
+    username = "Qodirbek_2007"
 
-    admin.set_password(
-        "Qodirbek_2007"
-    )
-
-
-    db.session.add(admin)
-
-    db.session.commit()
+    # Admin borligini tekshirish
+    admin = Admin.query.filter_by(
+        username=username
+    ).first()
 
 
-print("Admin yaratildi")
+    if admin:
+
+        print("Admin allaqachon mavjud ✅")
+
+
+    else:
+
+        admin = Admin(
+            username=username
+        )
+
+        admin.set_password(
+            "Qodirbek_2007"
+        )
+
+        db.session.add(admin)
+        db.session.commit()
+
+        print("Admin yaratildi ✅")
