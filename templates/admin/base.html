@@ -151,7 +151,13 @@ Sellerlar
 
 </a>
 
-
+<a href="{{ url_for('admin.users') }}"
+class="{% if 'users' in request.path %}active{% endif %}">
+<i class="bi bi-person-vcard"></i>
+<span>
+Foydalanuvchilar
+</span>
+</a>
 
 
 

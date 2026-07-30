@@ -101,6 +101,7 @@ def create_app():
     from admin.excel import excel_admin
     from admin.products_excel import product_excel_admin
 
+    from models.admin import Admin
 
 
 
@@ -258,11 +259,26 @@ def create_app():
 
         }
 
+    print("REGISTERED ROUTES:")
+    for rule in app.url_map.iter_rules():
+      print(rule)
 
+    @app.route("/create-admin")
+    def create_admin():
+        from models.admin import Admin
+
+        admin = Admin(username="Qodirbek_2007")
+        admin.set_password("Qodirbek_2007")
+
+        db.session.add(admin)
+        db.session.commit()
+
+        return "Admin yaratildi"
+
+    with app.app_context():
+        db.create_all()
 
     return app
-
-
 
 
 

@@ -7,7 +7,7 @@ Buyurtmani rasmiylashtirish
 
 {% block content %}
 
-<link rel="stylesheet" href="/static/css/checkout.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
 
 
 <div class="checkout-page">
@@ -27,13 +27,11 @@ Mahsulotlaringizni tekshiring va yetkazib berish ma'lumotlarini kiriting
 
 
 
-
 <div class="checkout-wrapper">
 
 
 
-<!-- ================= CART ================= -->
-
+<!-- ================= PRODUCTS ================= -->
 
 <div class="order-products">
 
@@ -43,8 +41,6 @@ Mahsulotlaringizni tekshiring va yetkazib berish ma'lumotlarini kiriting
 </h2>
 
 
-{% if cart_items %}
-
 
 {% for item in cart_items %}
 
@@ -53,16 +49,23 @@ Mahsulotlaringizni tekshiring va yetkazib berish ma'lumotlarini kiriting
 
 
 <div class="product-img">
-    {% if item.product.image %}
-        <img src="{{item.product.image}}">
-    {% else %}
-        📦
-    {% endif %}
+
+{% if item.product.image %}
+
+<img src="{{item.product.image}}">
+
+{% else %}
+
+📦
+
+{% endif %}
+
 </div>
 
 
 
 <div class="product-info">
+
 
 <h3>
 {{item.product.name}}
@@ -71,14 +74,16 @@ Mahsulotlaringizni tekshiring va yetkazib berish ma'lumotlarini kiriting
 
 <p>
 Soni:
-<b>{{item.quantity}} dona</b>
+<b>
+{{item.quantity}} dona
+</b>
 </p>
 
 
 <p class="price">
 
 {{item.product.price * item.quantity}}
- so'm
+so'm
 
 </p>
 
@@ -94,40 +99,12 @@ Soni:
 
 
 <div class="order-total">
-
-<span>
-Jami:
-</span>
-
-
-<strong>
-{{total}} so'm
-</strong>
-
-
+    <span>Jami:</span>
+    <strong>
+        {{total}} so'm
+    </strong>
 </div>
 
-
-{% else %}
-
-
-<div class="empty-cart">
-
-<h3>
-🛒 Savat bo'sh
-</h3>
-
-
-<a href="/">
-Xarid qilish
-
-</a>
-
-
-</div>
-
-
-{% endif %}
 
 
 </div>
@@ -137,6 +114,7 @@ Xarid qilish
 
 
 <!-- ================= FORM ================= -->
+
 
 
 <div class="checkout-card">
@@ -152,7 +130,11 @@ Xarid qilish
 id="checkoutForm"
 action="{{url_for('order.create_order')}}"
 method="POST"
->
+enctype="multipart/form-data">
+
+
+
+<!-- USER -->
 
 
 <div class="form-grid">
@@ -173,42 +155,54 @@ name="fullname"
 
 placeholder="Aliyev Ali"
 
-required>
+required
+
+>
+
 
 </div>
-
 
 
 
 <div class="field">
 
-
 <label>
-📞 Telefon raqam
+📞 Telefon
 </label>
 
 
 <input
+
 type="text"
-name="phone"
+
 id="phone"
+
+name="phone"
+
 placeholder="+998 90 123 45 67"
-required>
+
+required
+
+>
+
 
 </div>
 
 
+
 </div>
 
 
 
+
+
+<!-- LOCATION -->
 
 
 <div class="form-grid">
 
 
 <div class="field">
-
 
 <label>
 🌎 Viloyat
@@ -243,15 +237,11 @@ Samarqand
 </option>
 
 
-<option>
-Boshqa
-</option>
-
-
 </select>
 
 
 </div>
+
 
 
 
@@ -265,11 +255,11 @@ Boshqa
 
 <input
 
-type="text"
-
 name="city"
 
-placeholder="Paxtaobod">
+placeholder="Paxtaobod"
+
+>
 
 
 </div>
@@ -282,196 +272,137 @@ placeholder="Paxtaobod">
 
 
 <h3>
-🏠 To'liq manzil
+🏠 Manzil
 </h3>
+
 
 
 <div class="form-grid">
 
 
-<div class="field">
-
-
-<label>
-Mahalla
-</label>
-
-
 <input
-
-type="text"
 
 name="mahalla"
 
-placeholder="Navbahor">
+placeholder="Mahalla"
 
-
-</div>
-
-
-
-<div class="field">
-
-
-<label>
-Ko'cha
-</label>
+>
 
 
 <input
 
-type="text"
-
 name="street"
 
-placeholder="Mustaqillik ko'chasi">
+placeholder="Ko'cha"
+
+>
 
 
 </div>
-
-
-</div>
-
-
 
 
 
 <div class="form-grid">
 
 
-<div class="field">
-
-
-<label>
-🏠 Uy raqami
-</label>
-
-
 <input
-
-type="text"
 
 name="house"
 
-placeholder="12">
+placeholder="Uy raqami"
 
-
-</div>
-
-
-
-<div class="field">
-
-
-<label>
-🚪 Xonadon
-</label>
+>
 
 
 <input
-
-type="text"
 
 name="apartment"
 
-placeholder="25">
+placeholder="Xonadon"
+
+>
 
 
 </div>
 
-
-
-</div>
-
-
-
-
-
-<div class="field">
-
-
-<label>
-📌 Mo'ljal
-</label>
 
 
 <input
 
-type="text"
-
 name="landmark"
 
-placeholder="Maktab yonida">
+placeholder="Mo'ljal"
 
-
-</div>
-
-
+>
 
 
 
-<textarea
-
-name="address"
-
-hidden
-
-id="fullAddress"></textarea>
 
 
 
+
+<!-- DELIVERY -->
 
 
 <h3>
-🚚 Yetkazib berish turi
+🚚 Yetkazib berish
 </h3>
+
 
 
 <div class="radio-box">
 
-
-<label>
-
-<input
-
+<label class="delivery-option">
+<input 
 type="radio"
-
-name="delivery_price"
-
-value="0"
-
+name="delivery_type"
+value="standard"
 checked>
 
-
-Standart (Bepul)
-
+📦 Standart yetkazish
 
 </label>
 
 
-
-<label>
-
-<input
-
+<label class="delivery-option">
+<input 
 type="radio"
+name="delivery_type"
+value="courier">
 
-name="delivery_price"
-
-value="20000">
-
-
-Tezkor (20 000 so'm)
-
+🚚 Kuryer orqali
 
 </label>
 
+</div>
 
+
+<div class="delivery-info">
+
+<p>
+🚚 Yetkazib berish:
+<strong id="deliveryPrice">
+20000 so'm
+</strong>
+</p>
+
+
+<p>
+💰 Yakuniy summa:
+<strong id="finalTotal">
+{{total}} so'm
+</strong>
+</p>
 
 </div>
 
 
 
+
+
+
+
+<!-- PAYMENT -->
 
 
 <h3>
@@ -479,6 +410,7 @@ Tezkor (20 000 so'm)
 </h3>
 
 
+
 <div class="radio-box">
 
 
@@ -490,19 +422,26 @@ type="radio"
 
 name="payment_method"
 
+id="cash"
+
 value="Naqd"
 
-checked>
+checked
+
+>
 
 
-Naqd pul
+💵 Naqd pul
 
 
 </label>
 
 
 
+
+
 <label>
+
 
 <input
 
@@ -510,39 +449,173 @@ type="radio"
 
 name="payment_method"
 
-value="Karta">
+id="card"
+
+value="Karta"
 
 
-Karta orqali
+>
+
+
+💳 Karta orqali
 
 
 </label>
+
 
 
 </div>
 
 
 
+
+
+
+
+<!-- CARD BOX -->
+
+
+<div
+
+id="cardBox"
+
+class="card-payment-box"
+
+style="display:none;"
+
+>
+
+
+<h3>
+💳 Karta orqali to'lov
+</h3>
+
+
+
+<p>
+To'lov summasi:
+</p>
+
+
+
+<h2 id="paymentTotal">
+{{ "{:,}".format(total).replace(",", " ") }} so'm
+</h2>
+{{ "{:,}".format(total).replace(",", " ") }} so'm
+</h2>
+
+<input type="hidden" id="baseTotal" value="{{total}}">
+
+
+
+
+<p>
+Karta egasi:
+<b>
+QODIRBEK FAYZIBEKOV
+</b>
+
+</p>
+
+
+
+
+<p>
+Karta raqami:
+</p>
+
+
+
+<div class="copy-box">
+
+
+<span id="cardNumber">
+
+8600 1234 5678 9012
+
+</span>
+
+
+
+<button
+
+type="button"
+
+onclick="copyCard()"
+
+>
+
+📋 Nusxa olish
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<label>
+
+📎 To'lov chekini yuklash
+
+</label>
+
+<div class="file-upload">
+    <label>
+        📎 To'lov chekini yuklash
+    </label>
+
+    <input
+        type="file"
+        id="paymentCheck"
+        name="payment_check"
+        accept="image/png,image/jpeg,image/jpg"
+    >
+
+    <p id="fileName">
+        Fayl tanlanmagan
+    </p>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- COMMENT -->
 
 
 <div class="field">
 
 
 <label>
+
 📝 Izoh
+
 </label>
+
 
 
 <textarea
 
 name="comment"
 
-placeholder="Qo'shimcha izoh">
+placeholder="Qo'shimcha izoh"
 
-</textarea>
+></textarea>
+
 
 
 </div>
+
+
 
 
 
@@ -551,17 +624,24 @@ placeholder="Qo'shimcha izoh">
 
 class="submit-btn"
 
-type="submit">
+type="submit"
 
+>
 
 ✅ Buyurtma berish
-
 
 </button>
 
 
 
+<input 
+type="hidden"
+name="final_price"
+id="finalPrice"
+>
+
 </form>
+
 
 
 </div>
@@ -569,7 +649,10 @@ type="submit">
 
 
 
-<!-- ================= INFO ================= -->
+
+
+
+<!-- INFO -->
 
 
 <div class="delivery-card">
@@ -580,28 +663,33 @@ type="submit">
 </h2>
 
 
-<div>
+
+<p>
 ✅ O'zbekiston bo'ylab
-</div>
+</p>
 
 
-<div>
+
+<p>
 ⏰ 1-3 kun ichida
-</div>
+</p>
 
 
-<div>
+
+<p>
 🔒 Xavfsiz xarid
-</div>
+</p>
 
 
 
 <hr>
 
 
+
 <h3>
 Yordam
 </h3>
+
 
 
 <a href="tel:+998901234567">
@@ -611,18 +699,23 @@ Yordam
 </a>
 
 
-</div>
-
-
-
-</div>
-
 
 </div>
 
 
 
-<script src="/static/js/checkout.js"></script>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+<script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
 
 
 {% endblock %}

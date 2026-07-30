@@ -14,6 +14,7 @@ from models.category import Category
 from models.seller import Seller
 from models.notification import Notification
 from models.admin import Admin
+from models.user import User
 
 
 from flask import Blueprint
@@ -340,6 +341,19 @@ def edit_product(id):
     )
 
 # =====================================
+# DELETE PRODUCT    
+# =====================================
+@admin.route("/products/delete/<int:id>")
+def delete_product(id):
+    product = Product.query.get_or_404(id)
+
+    db.session.delete(product)
+    db.session.commit()
+
+    return redirect(url_for("admin.products"))
+
+
+# =====================================
 # PENDING PRODUCTS
 # =====================================
 
@@ -360,6 +374,35 @@ def pending_products():
         products=products
     )
 
+
+#===========================
+# USERS LIST admin
+#===========================
+
+@admin.route("/users")
+def users():
+    users = User.query.all()
+
+    return render_template(
+        "admin/users.html",
+        users=users
+    )
+
+@admin.route("/users/<int:id>")
+def user_detail(id):
+
+    user = User.query.get_or_404(id)
+
+    total_buy = sum(
+        order.total_price or 0
+        for order in user.orders
+    )
+
+    return render_template(
+        "admin/user_detail.html",
+        user=user,
+        total_buy=total_buy
+    )
 
 
 # =====================================
@@ -620,6 +663,13 @@ def change_order_status(id):
             )
         )
 
+    action = request.form.get("action")
+
+    if action == "approve":
+        order.payment_status = "To'langan"
+        order.payment_verified = True
+        order.status = "Qabul qilindi"
+        db.session.commit()
 
     # Agar oldin yetkazilgan bo'lsa qayta pul bermaydi
     if order.completed_at and status == "Yetkazildi":
@@ -949,4 +999,71 @@ def delete_category(id):
 
     return redirect(
         url_for("admin.categories")
+    )
+
+@admin.route("/orders/payment/<int:id>/<action>")
+def payment_action(id, action):
+
+    order = Order.query.get_or_404(id)
+
+    print(
+        "ORDER:",
+        order.id,
+        action
+    )
+
+    if action == "approve":
+        order.payment_status = "To'langan"
+        order.payment_verified = True
+
+    elif action == "cancel":
+        order.payment_status = "Bekor qilindi"
+        order.payment_verified = False
+
+    db.session.commit()
+
+    print(
+        "STATUS:",
+        order.payment_status
+    )
+
+    flash(
+        "To'lov yangilandi",
+        "success"
+    )
+
+    return redirect(
+        url_for("admin.orders")
+    )
+
+@admin_bp.route(
+"/orders/status/<int:id>/<status>"
+)
+def order_status(id,status):
+
+    order = Order.query.get_or_404(id)
+
+
+    if status == "cancel":
+
+        order.status = Order.STATUS_CANCELLED
+
+        order.cancel_reason = (
+            "Admin tomonidan bekor qilindi"
+        )
+
+
+    db.session.commit()
+
+
+    flash(
+        "Buyurtma holati o'zgardi",
+        "success"
+    )
+
+
+    return redirect(
+        url_for(
+            "admin.orders"
+        )
     )

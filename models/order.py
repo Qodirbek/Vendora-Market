@@ -9,7 +9,7 @@ class Order(db.Model):
 
 
     # =========================
-    # STATUS
+    # ORDER STATUS
     # =========================
 
     STATUS_NEW = "Kutilmoqda"
@@ -30,8 +30,9 @@ class Order(db.Model):
     ]
 
 
+
     # =========================
-    # PAYMENT
+    # PAYMENT STATUS
     # =========================
 
     PAYMENT_PENDING = "To'lanmagan"
@@ -67,8 +68,7 @@ class Order(db.Model):
 
     tracking_code = db.Column(
         db.String(100),
-        unique=True,
-        nullable=True
+        unique=True
     )
 
 
@@ -79,9 +79,7 @@ class Order(db.Model):
 
     user_id = db.Column(
         db.Integer,
-        db.ForeignKey(
-            "user.id"
-        ),
+        db.ForeignKey("user.id"),
         nullable=False,
         index=True
     )
@@ -101,6 +99,15 @@ class Order(db.Model):
     delivery_price = db.Column(
         db.Integer,
         default=0
+    )
+
+    # =========================
+    # DELIVERY
+    # =========================
+    
+    delivery_type = db.Column(
+        db.String(50),
+        default="standard"
     )
 
 
@@ -130,6 +137,18 @@ class Order(db.Model):
     payment_status = db.Column(
         db.String(50),
         default=PAYMENT_PENDING
+    )
+
+
+    payment_check = db.Column(
+        db.String(255),
+        nullable=True
+    )
+
+
+    payment_verified = db.Column(
+        db.Boolean,
+        default=False
     )
 
 
@@ -249,7 +268,7 @@ class Order(db.Model):
 
 
     # =========================
-    # RELATIONSHIP
+    # RELATION
     # =========================
 
     user = db.relationship(
@@ -275,7 +294,7 @@ class Order(db.Model):
 
 
     # =========================
-    # NUMBER GENERATOR
+    # NUMBER
     # =========================
 
     def generate_number(self):
@@ -300,12 +319,9 @@ class Order(db.Model):
             )
 
 
-            exists = Order.query.filter_by(
+            if not Order.query.filter_by(
                 order_number=number
-            ).first()
-
-
-            if not exists:
+            ).first():
 
                 self.order_number = number
                 break
@@ -328,12 +344,9 @@ class Order(db.Model):
             )
 
 
-            exists = Order.query.filter_by(
+            if not Order.query.filter_by(
                 tracking_code=code
-            ).first()
-
-
-            if not exists:
+            ).first():
 
                 self.tracking_code = code
                 break
@@ -346,33 +359,27 @@ class Order(db.Model):
 
     def calculate_total(self):
 
-        total = 0
+        items_total = 0
 
 
         for item in self.items:
 
             item.calculate_subtotal()
 
-            total += (
+            items_total += (
                 item.subtotal or 0
             )
 
 
-        self.subtotal = total
+        self.subtotal = items_total
 
 
         self.total_price = (
-
             self.subtotal
-
             +
-
             (self.delivery_price or 0)
-
             -
-
             (self.discount or 0)
-
         )
 
 
@@ -381,7 +388,7 @@ class Order(db.Model):
 
 
     # =========================
-    # STATUS
+    # STATUS ACTIONS
     # =========================
 
     def set_status(self,status):
@@ -389,6 +396,7 @@ class Order(db.Model):
         if status in self.STATUSES:
 
             self.status = status
+            self.updated_at = datetime.utcnow()
 
             return True
 
@@ -397,16 +405,19 @@ class Order(db.Model):
 
 
     def accept(self):
+
         self.status = self.STATUS_ACCEPTED
 
 
 
     def preparing(self):
+
         self.status = self.STATUS_PREPARING
 
 
 
     def shipping(self):
+
         self.status = self.STATUS_SHIPPING
 
 
@@ -419,7 +430,10 @@ class Order(db.Model):
 
 
 
-    def cancel_order(self,reason=None):
+    def cancel_order(
+        self,
+        reason=None
+    ):
 
         self.status = self.STATUS_CANCELLED
 
@@ -428,12 +442,14 @@ class Order(db.Model):
 
 
     # =========================
-    # PAYMENT
+    # PAYMENT ACTIONS
     # =========================
 
     def paid(self):
 
         self.payment_status = self.PAYMENT_PAID
+
+        self.payment_verified = True
 
 
 
@@ -446,7 +462,8 @@ class Order(db.Model):
     def is_paid(self):
 
         return (
-            self.payment_status ==
+            self.payment_status
+            ==
             self.PAYMENT_PAID
         )
 
@@ -459,15 +476,18 @@ class Order(db.Model):
     def is_completed(self):
 
         return (
-            self.status ==
+            self.status
+            ==
             self.STATUS_DONE
         )
+
 
 
     def is_cancelled(self):
 
         return (
-            self.status ==
+            self.status
+            ==
             self.STATUS_CANCELLED
         )
 
@@ -502,8 +522,7 @@ class Order(db.Model):
 
         return {
 
-            "id":
-                self.id,
+            "id": self.id,
 
             "order_number":
                 self.order_number,
@@ -514,31 +533,53 @@ class Order(db.Model):
             "status":
                 self.status,
 
-            "payment_method":
-                self.payment_method,
 
-            "payment_status":
-                self.payment_status,
+            "payment":
+                {
+                    "method":
+                        self.payment_method,
+
+                    "status":
+                        self.payment_status
+                },
+
 
             "receiver":
-                self.receiver_name,
+                {
+                    "name":
+                        self.receiver_name,
 
-            "phone":
-                self.phone,
+                    "phone":
+                        self.phone,
 
-            "total":
-                self.total_price,
+                    "address":
+                        self.address
+                },
+
+
+            "price":
+                {
+                    "subtotal":
+                        self.subtotal,
+
+                    "delivery":
+                        self.delivery_price,
+
+                    "total":
+                        self.total_price
+                },
+
 
             "items":[
                 item.to_dict()
                 for item in self.items
             ],
 
+
             "created":
                 self.created_at.strftime(
                     "%Y-%m-%d %H:%M"
                 )
-
         }
 
 

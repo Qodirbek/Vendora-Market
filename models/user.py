@@ -14,6 +14,59 @@ class User(db.Model):
     __tablename__ = "user"
 
 
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+
+    username = db.Column(
+        db.String(100)
+    )
+
+    phone = db.Column(
+        db.String(20),
+        unique=True
+    )
+
+    email = db.Column(
+        db.String(120)
+    )
+
+    address = db.Column(
+        db.Text
+    )
+
+
+    # TO'LOV RUXSATLARI
+
+    allow_cash = db.Column(
+        db.Boolean,
+        default=True
+    )
+
+    allow_card = db.Column(
+        db.Boolean,
+        default=True
+    )
+
+
+    is_blocked = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
+
+    orders = db.relationship(
+        "Order",
+        backref="user",
+        lazy=True
+    )
     # =====================================
     # BASIC
     # =====================================

@@ -1,0 +1,357 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Foydalanuvchi profili
+{% endblock %}
+
+
+{% block page_title %}
+👤 Foydalanuvchi profili
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet"
+href="{{url_for('static',filename='admin/css/users.css')}}">
+
+
+<div class="user-profile">
+
+
+<div class="profile-card">
+
+<div class="avatar">
+👤
+</div>
+
+
+<div class="profile-info">
+
+<h2>
+{{user.username or user.name}}
+</h2>
+
+
+<p>
+📞 {{user.phone or "Telefon yo'q"}}
+</p>
+
+
+<p>
+📧 {{user.email or "Email yo'q"}}
+</p>
+
+
+<p>
+📍 {{user.address or "Manzil kiritilmagan"}}
+</p>
+
+
+<span class="badge 
+{% if user.is_blocked %}
+blocked
+{% else %}
+active
+{% endif %}
+">
+
+{% if user.is_blocked %}
+🚫 Bloklangan
+{% else %}
+✅ Aktiv
+{% endif %}
+
+</span>
+
+
+</div>
+
+</div>
+
+
+
+<div class="stats">
+
+
+<div class="stat-card">
+<h3>
+📦
+</h3>
+<p>
+Buyurtmalar
+</p>
+<strong>
+{{user.orders|length}}
+</strong>
+</div>
+
+
+
+<div class="stat-card">
+<h3>
+💰
+</h3>
+
+<p>
+Xarid
+</p>
+
+<strong>
+{{"{:,}".format(total_buy)}} so'm
+</strong>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<h3>
+📅
+</h3>
+
+<p>
+Ro'yxatdan o'tgan
+</p>
+
+<strong>
+{{user.created_at.strftime('%d.%m.%Y')}}
+</strong>
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2>
+💳 To'lov sozlamalari
+</h2>
+
+
+<form method="POST"
+onsubmit="return saveConfirm()">
+
+
+<label class="switch-row">
+
+<span>
+Naqd pulga ruxsat
+</span>
+
+
+<input 
+type="checkbox"
+name="allow_cash"
+
+{% if user.allow_cash %}
+checked
+{% endif %}
+
+>
+
+
+</label>
+
+
+
+
+<label class="switch-row">
+
+<span>
+Karta orqali to'lov
+</span>
+
+
+<input 
+type="checkbox"
+name="allow_card"
+
+{% if user.allow_card %}
+checked
+{% endif %}
+
+>
+
+
+</label>
+
+
+
+<label class="switch-row">
+
+<span>
+Foydalanuvchini bloklash
+</span>
+
+
+<input 
+type="checkbox"
+name="is_blocked"
+
+{% if user.is_blocked %}
+checked
+{% endif %}
+
+>
+
+
+</label>
+
+
+
+<button class="save-btn">
+💾 Saqlash
+</button>
+
+
+</form>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+🛒 Buyurtmalar tarixi
+</h2>
+
+
+
+<div class="table-box">
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Raqam
+</th>
+
+<th>
+Summa
+</th>
+
+<th>
+To'lov
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Sana
+</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for order in user.orders %}
+
+<tr>
+
+
+<td>
+<b>
+{{order.order_number}}
+</b>
+</td>
+
+
+<td>
+{{"{:,}".format(order.total_price)}}
+so'm
+</td>
+
+
+<td>
+
+{{order.payment_method}}
+
+<br>
+
+<small>
+{{order.payment_status}}
+</small>
+
+</td>
+
+
+
+<td>
+
+<span class="status">
+
+{{order.status}}
+
+</span>
+
+</td>
+
+
+
+<td>
+
+{{order.created_at.strftime('%d.%m.%Y')}}
+
+</td>
+
+
+</tr>
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="5">
+
+Buyurtma yo'q
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script src="{{url_for('static',filename='admin/js/users.js')}}">
+</script>
+
+
+{% endblock %}

@@ -74,42 +74,55 @@ Buyurtmalar
 
                 <td>
 
-                    {% if order.status == "Yetkazildi" %}
+{% if order.payment_status=="To'langan" %}
 
-                    <span class="status delivered">
-                        ✅ Yetkazildi
-                    </span>
+<span class="status paid">
+💳 To'langan
+</span>
 
+<br>
 
-                    {% elif order.status == "Bekor qilindi" %}
-
-                    <span class="status cancelled">
-                        ❌ Bekor
-                    </span>
+{% endif %}
 
 
-                    {% elif order.status == "Yetkazilmoqda" %}
+{% if order.status == "Yetkazildi" %}
 
-                    <span class="status shipping">
-                        🚚 Yetkazilmoqda
-                    </span>
-
-
-                    {% elif order.status == "Tayyorlanmoqda" %}
-
-                    <span class="status preparing">
-                        📦 Tayyorlanmoqda
-                    </span>
+<span class="status delivered">
+✅ Yetkazildi
+</span>
 
 
-                    {% else %}
+{% elif order.status=="Bekor qilindi" %}
 
-                    <span class="status pending">
-                        ⏳ {{order.status}}
-                    </span>
+<span class="status cancelled">
+❌ Bekor
+</span>
 
 
-                    {% endif %}
+{% elif order.status=="Yetkazilmoqda" %}
+
+<span class="status shipping">
+🚚 Yetkazilmoqda
+</span>
+
+
+{% elif order.status=="Tayyorlanmoqda" %}
+
+<span class="status preparing">
+📦 Tayyorlanmoqda
+</span>
+
+
+{% else %}
+
+<span class="status pending">
+⏳ {{order.status}}
+</span>
+
+
+{% endif %}
+
+</td>
 
                 </td>
 
@@ -125,16 +138,99 @@ Buyurtmalar
 
 
 
-                <td>
+                
 
-                    <a class="view-btn"
-                    href="{{url_for('admin.order_detail',id=order.id)}}">
+                    <td>
 
-                    👁 Ko'rish
+<a class="view-btn"
+href="{{url_for('admin.order_detail',id=order.id)}}">
+👁 Ko'rish
+</a>
 
-                    </a>
+{% if order.status != "Yetkazildi" and order.status != "Bekor qilindi" %}
 
-                </td>
+<a class="btn btn-danger"
+href="{{url_for(
+'admin.order_status',
+id=order.id,
+status='cancel'
+)}}">
+
+❌ Buyurtmani bekor qilish
+
+</a>
+
+{% endif %}
+
+{% if order.payment_check %}
+
+<br>
+
+<a href="{{order.payment_check}}" target="_blank">
+📎 Chekni ko'rish
+</a>
+
+{% endif %}
+
+
+<br><br>
+
+
+{% if order.payment_status != "To'langan" 
+and order.payment_status != "Bekor qilindi" %}
+
+
+<a class="btn btn-success"
+href="{{url_for(
+'admin.payment_action',
+id=order.id,
+action='approve'
+)}}">
+✅ To'landi
+</a>
+
+
+<a class="btn btn-danger"
+href="{{url_for(
+'admin.payment_action',
+id=order.id,
+action='cancel'
+)}}">
+❌ Bekor qilish
+</a>
+
+
+{% elif order.payment_status == "To'langan" %}
+
+
+<span class="badge success">
+💳 To'langan
+</span>
+
+<br>
+
+<a class="btn btn-danger"
+href="{{url_for(
+'admin.payment_action',
+id=order.id,
+action='cancel'
+)}}">
+❌ Bekor qilish
+</a>
+
+
+{% elif order.payment_status == "Bekor qilindi" %}
+
+
+<span class="badge danger">
+❌ Bekor qilingan
+</span>
+
+
+{% endif %}
+
+
+</td>
 
 
             </tr>

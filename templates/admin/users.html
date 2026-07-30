@@ -1,0 +1,319 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+Foydalanuvchilar
+{% endblock %}
+
+
+{% block page_title %}
+👥 Foydalanuvchilar boshqaruvi
+{% endblock %}
+
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/users.css')}}">
+
+
+<div class="users-header">
+
+<div>
+<h2>
+👥 Foydalanuvchilar
+</h2>
+
+<p>
+Barcha ro'yxatdan o'tgan mijozlar
+</p>
+
+</div>
+
+
+<div class="user-count">
+
+Jami:
+<strong>
+{{users|length}}
+</strong>
+
+</div>
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<div class="toolbar">
+
+<input 
+id="userSearch"
+placeholder="🔍 Ism yoki telefon qidirish..."
+>
+
+
+<select id="statusFilter">
+
+<option value="all">
+Barchasi
+</option>
+
+<option value="active">
+Faol
+</option>
+
+<option value="blocked">
+Bloklangan
+</option>
+
+</select>
+
+
+</div>
+
+
+
+
+
+<div class="table-wrapper">
+
+
+<table id="usersTable">
+
+
+<thead>
+
+<tr>
+
+<th>
+ID
+</th>
+
+<th>
+Foydalanuvchi
+</th>
+
+
+<th>
+Telefon
+</th>
+
+
+<th>
+Manzil
+</th>
+
+
+<th>
+Buyurtmalar
+</th>
+
+
+<th>
+Holat
+</th>
+
+
+<th>
+Ro'yxat sana
+</th>
+
+
+<th>
+Amal
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for u in users %}
+
+
+<tr>
+
+
+<td>
+#{{u.id}}
+</td>
+
+
+
+<td>
+
+
+<div class="user-box">
+
+
+<div class="avatar">
+
+{{u.username[0]|upper}}
+
+</div>
+
+
+<div>
+
+<b>
+{{u.username or u.name}}
+</b>
+
+
+<small>
+{{u.email or "Email yo'q"}}
+</small>
+
+
+</div>
+
+
+</div>
+
+
+</td>
+
+
+
+
+
+<td>
+
+📞 {{u.phone or "-"}}
+
+</td>
+
+
+
+
+
+<td>
+
+{{u.region or ""}}
+{{u.city or ""}}
+
+</td>
+
+
+
+
+
+<td>
+
+<span class="order-badge">
+
+🛒 {{u.orders|length}} ta
+
+</span>
+
+
+</td>
+
+
+
+
+
+<td>
+
+
+{% if u.is_blocked %}
+
+
+<span class="danger">
+● Bloklangan
+</span>
+
+
+{% else %}
+
+
+<span class="success">
+● Faol
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+
+<td>
+
+{{u.created_at.strftime("%d.%m.%Y")}}
+
+
+</td>
+
+
+
+
+
+
+<td>
+
+
+<a class="view-btn"
+href="{{url_for('admin.user_detail',id=u.id)}}">
+
+👁 Ko'rish
+
+</a>
+
+
+</td>
+
+
+</tr>
+
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="8" class="empty">
+
+Foydalanuvchilar yo'q
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script src="{{url_for('static',filename='admin/js/users.js')}}"></script>
+
+
+{% endblock %}

@@ -9,9 +9,14 @@ from flask import (
 )
 
 from extensions import db
+
 from models.cart import Cart
 from models.order import Order
 from models.order_item import OrderItem
+
+
+import os
+from werkzeug.utils import secure_filename
 
 
 order_bp = Blueprint(
@@ -20,18 +25,23 @@ order_bp = Blueprint(
     url_prefix="/order"
 )
 
-
-# ================================
+# =================================
 # BUYURTMALARIM
-# ================================
+# =================================
+
 @order_bp.route("/")
 def orders():
 
     if "user_id" not in session:
-        flash("Avval tizimga kiring", "warning")
+        flash(
+            "Avval tizimga kiring",
+            "warning"
+        )
+
         return redirect(
             url_for("auth.login")
         )
+
 
     orders = Order.query.filter_by(
         user_id=session["user_id"]
@@ -47,9 +57,10 @@ def orders():
 
 
 
-# ================================
+# =================================
 # CHECKOUT
-# ================================
+# =================================
+
 @order_bp.route("/checkout")
 def checkout():
 
@@ -65,6 +76,7 @@ def checkout():
 
 
     if not cart_items:
+
         flash(
             "Savat bo'sh",
             "warning"
@@ -75,7 +87,7 @@ def checkout():
         )
 
 
-    total = sum(
+    subtotal = sum(
         item.total_price()
         for item in cart_items
     )
@@ -84,19 +96,21 @@ def checkout():
     return render_template(
         "order/checkout.html",
         cart_items=cart_items,
-        total=total
+        total=subtotal
     )
 
 
 
-# ================================
+# =================================
 # CREATE ORDER
-# ================================
+# =================================
+
 @order_bp.route(
     "/create",
     methods=["POST"]
 )
 def create_order():
+    print("creat order ishladi ✅")
 
     if "user_id" not in session:
         return redirect(
@@ -129,11 +143,16 @@ def create_order():
         "fullname"
     )
 
+    phone = request.form.get(
+        "phone"
+    )
 
-    if not fullname:
+
+
+    if not fullname or not phone:
 
         flash(
-            "Ism familiya kiritilmagan",
+            "Ma'lumotlarni to'liq kiriting",
             "danger"
         )
 
@@ -143,12 +162,124 @@ def create_order():
 
 
 
-    phone = request.form.get(
-        "phone"
+    # ==========================
+    # MAHSULOT SUMMASI
+    # ==========================
+
+    subtotal = sum(
+        item.total_price()
+        for item in cart_items
     )
 
 
+
+    # ==========================
+    # YETKAZISH
+    # ==========================
+
+    delivery_type = request.form.get(
+        "delivery_type"
+    )
+
+
+    delivery_price = 0
+
+
+
+    if delivery_type == "courier":
+
+        # 1.2 mln dan oshsa bepul
+        if subtotal >= 1200000:
+
+            delivery_price = 0
+
+        else:
+
+            delivery_price = 30000
+
+
+
+    else:
+
+        # standart
+
+        if subtotal >= 120000:
+
+            delivery_price = 0
+
+
+        elif subtotal >= 45000:
+
+            delivery_price = 10000
+
+
+        elif subtotal >= 10000:
+
+            delivery_price = 20000
+
+
+        else:
+
+            delivery_price = 30000
+
+
+
+    # ==========================
+    # TO'LOV
+    # ==========================
+
+    payment_method = request.form.get(
+        "payment_method"
+    )
+
+
+    payment_check_path = None
+
+
+    if payment_method == "Karta":
+        file = request.files.get(
+            "payment_check"
+        )
+
+        print("CHEK KELDI:", file)
+
+        if not file or file.filename == "":
+            flash(
+                "💳 Karta orqali to'lov uchun chek yuklang!",
+                "danger"
+            )
+            return redirect(
+                url_for("order.checkout")
+            )
+
+        filename = secure_filename(
+            file.filename
+        )
+
+        folder = "static/uploads/payments"
+
+        os.makedirs(
+            folder,
+            exist_ok=True
+        )
+
+        filepath = os.path.join(
+            folder,
+            filename
+        )
+
+        file.save(filepath)
+
+        payment_check_path = "/" + filepath
+
+
+
+    # ==========================
+    # ADDRESS
+    # ==========================
+
     address = f"""
+{request.form.get('region')},
 {request.form.get('city')},
 {request.form.get('mahalla')},
 {request.form.get('street')},
@@ -159,110 +290,171 @@ Mo'ljal: {request.form.get('landmark')}
 
 
 
-    new_order = Order(
+    # ==========================
+    # ORDER CREATE
+    # ==========================
 
-        user_id=user_id,
+    try:
 
-        receiver_name=fullname,
 
-        phone=phone,
+        new_order = Order(
 
-        country="Uzbekistan",
+            user_id=user_id,
 
-        region=request.form.get(
-            "region"
-        ),
+            receiver_name=fullname,
 
-        city=request.form.get(
-            "city"
-        ),
+            phone=phone,
 
-        district=request.form.get(
-            "mahalla"
-        ),
+            country="Uzbekistan",
 
-        street=request.form.get(
-            "street"
-        ),
+            region=request.form.get(
+                "region"
+            ),
 
-        house=request.form.get(
-            "house"
-        ),
+            city=request.form.get(
+                "city"
+            ),
 
-        apartment=request.form.get(
-            "apartment"
-        ),
+            district=request.form.get(
+                "mahalla"
+            ),
 
-        address=address,
+            street=request.form.get(
+                "street"
+            ),
 
-        comment=request.form.get(
-            "comment"
-        ),
+            house=request.form.get(
+                "house"
+            ),
 
-        payment_method=request.form.get(
-            "payment_method"
-        ),
+            apartment=request.form.get(
+                "apartment"
+            ),
 
-        delivery_price=int(
-            request.form.get(
-                "delivery_price",
-                0
+            address=address,
+
+
+            comment=request.form.get(
+                "comment"
+            ),
+
+
+            payment_method=payment_method,
+
+
+            payment_check=payment_check_path,
+
+
+            subtotal=subtotal,
+
+
+            delivery_type=delivery_type,
+
+
+            delivery_price=delivery_price
+
+        )
+
+
+        # agar modelda status bo'lsa
+        # new_order.status="Yangi"
+
+
+
+        new_order.generate_number()
+
+
+
+        db.session.add(
+            new_order
+        )
+
+
+        db.session.flush()
+
+
+
+        # ======================
+        # CART -> ORDER ITEM
+        # ======================
+
+
+        for cart in cart_items:
+
+
+            item = OrderItem(
+
+                order_id=new_order.id,
+
+                product_id=cart.product_id,
+
+                quantity=cart.quantity
+
             )
+
+
+            item.product = cart.product
+
+
+            item.create_snapshot()
+
+
+            db.session.add(item)
+
+
+
+        db.session.flush()
+
+
+
+        # jami:
+        # mahsulot + yetkazish
+
+        new_order.delivery_price = delivery_price
+
+
+        new_order.calculate_total()
+
+
+
+        # savat tozalash
+
+        for cart in cart_items:
+
+            db.session.delete(cart)
+
+
+
+        db.session.commit()
+
+
+
+    except Exception as e:
+
+
+        db.session.rollback()
+
+
+        print(e)
+
+
+        flash(
+            "Buyurtma yaratishda xatolik!",
+            "danger"
         )
-    )
 
 
-
-    new_order.generate_number()
-
-
-    db.session.add(
-        new_order
-    )
-
-    db.session.flush()
-
-
-    # =================================
-    # CART -> ORDER ITEM
-    # =================================
-
-    for cart in cart_items:
-
-        item = OrderItem(
-            order_id=new_order.id,
-            product_id=cart.product_id,
-            quantity=cart.quantity
+        return redirect(
+            url_for("order.checkout")
         )
 
-        item.product = cart.product
-
-        item.create_snapshot()
-
-        db.session.add(item)
-
-
-    db.session.flush()
-
-
-    # jami hisoblash
-
-    new_order.calculate_total()
-
-
-    # savatni tozalash
-
-    for cart in cart_items:
-        db.session.delete(cart)
-
-
-    db.session.commit()
 
 
     flash(
         "Buyurtmangiz qabul qilindi ✅",
         "success"
     )
+
 
 
     return redirect(
@@ -274,35 +466,28 @@ Mo'ljal: {request.form.get('landmark')}
 
 
 
-# ================================
+
+
+# =================================
 # DETAIL
-# ================================
+# =================================
+
 @order_bp.route(
     "/detail/<int:id>"
 )
 def detail(id):
 
     if "user_id" not in session:
-
         return redirect(
             url_for("auth.login")
         )
 
-
     order = Order.query.filter_by(
-
         id=id,
-
         user_id=session["user_id"]
-
     ).first_or_404()
 
-
-
     return render_template(
-
         "order/detail.html",
-
         order=order
-
     )
