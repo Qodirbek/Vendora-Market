@@ -1,0 +1,280 @@
+/* =================================
+      MOBILE SEARCH DESIGN
+================================= */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* PAGE */
+
+.search-page{
+
+    width:100%;
+
+    padding:12px;
+
+}
+
+
+
+/* SEARCH BOX */
+
+.search-box{
+
+    padding:20px;
+
+    border-radius:20px;
+
+}
+
+
+.search-box h1{
+
+    font-size:25px;
+
+    margin-bottom:18px;
+
+}
+
+
+
+/* SEARCH FORM */
+
+.search-box form{
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+.search-box input{
+
+    padding:14px;
+
+    font-size:15px;
+
+    border-radius:12px;
+
+}
+
+
+
+.search-box button{
+
+    height:48px;
+
+    padding:0;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+}
+
+
+
+/* TITLE */
+
+.title{
+
+    margin:25px 0 15px;
+
+}
+
+
+
+.title h2{
+
+    font-size:22px;
+
+}
+
+
+
+/* PRODUCTS */
+
+
+.products{
+
+    grid-template-columns:
+
+    repeat(2,minmax(0,1fr));
+
+    gap:10px;
+
+}
+
+
+
+/* PRODUCT CARD */
+
+
+.product-card{
+
+    padding:8px;
+
+    border-radius:18px;
+
+}
+
+
+
+.product-card h3{
+
+    font-size:14px;
+
+    height:38px;
+
+    overflow:hidden;
+
+}
+
+
+
+/* IMAGE */
+
+
+.image-box{
+
+    height:auto;
+
+    aspect-ratio:1/1;
+
+}
+
+
+.image-box img{
+
+    border-radius:12px;
+
+}
+
+
+
+/* DESCRIPTION */
+
+.desc{
+
+    display:none;
+
+}
+
+
+
+/* RATING */
+
+
+.rating{
+
+    font-size:13px;
+
+    margin:8px 0;
+
+}
+
+
+
+/* PRICE */
+
+
+.price{
+
+    font-size:17px;
+
+    margin:8px 0;
+
+}
+
+
+
+/* FAVORITE */
+
+
+.favorite{
+
+    width:32px;
+
+    height:32px;
+
+    right:7px;
+
+    top:7px;
+
+    font-size:16px;
+
+}
+
+
+
+/* CART BUTTON */
+
+
+.cart-btn{
+
+    padding:10px 5px;
+
+    font-size:12px;
+
+    border-radius:12px;
+
+}
+
+
+.not-found{
+
+    padding:30px 15px;
+
+    margin:30px auto;
+
+    border-radius:18px;
+
+}
+
+
+.not-found .icon{
+
+    font-size:50px;
+
+}
+
+
+
+}
+
+
+
+/* Juda kichik telefonlar */
+
+@media(max-width:380px){
+
+
+.products{
+
+    grid-template-columns:1fr;
+
+}
+
+
+.search-box h1{
+
+    font-size:22px;
+
+}
+
+
+.product-card h3{
+
+    font-size:13px;
+
+}
+
+
+}

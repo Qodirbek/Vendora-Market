@@ -321,29 +321,3 @@ text-decoration:none;
 }
 
 
-
-@media(max-width:600px){
-
-.favorite-container{
-
-padding:15px;
-
-}
-
-
-.favorite-header{
-
-flex-direction:column;
-
-gap:15px;
-
-}
-
-
-.favorite-grid{
-
-grid-template-columns:1fr;
-
-}
-
-}

@@ -1,0 +1,139 @@
+{% extends "seller/base.html" %}
+
+{% block content %}
+
+<div class="profile-edit-page">
+
+<div class="profile-edit-card">
+
+<h1>
+ Profilni tahrirlash
+</h1>
+
+
+<form method="POST">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/seller-profile-edit.css') }}">
+
+<div class="form-group">
+<label>
+Ism
+</label>
+
+<input 
+name="name"
+value="{{seller.name}}">
+</div>
+
+
+
+<div class="form-group">
+<label>
+Telefon
+</label>
+
+<input 
+name="phone"
+value="{{seller.phone}}">
+</div>
+
+
+
+<div class="form-group">
+<label>
+Email
+</label>
+
+<input 
+name="email"
+value="{{seller.email or ''}}">
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for category, message in messages %}
+
+{% if category == "danger" %}
+
+<div class="email-error">
+⚠️ {{message}}
+</div>
+
+{% endif %}
+
+{% endfor %}
+{% endwith %}
+
+
+
+<div class="form-group">
+<label>
+Do'kon nomi
+</label>
+
+<input 
+name="shop_name"
+value="{{seller.shop_name}}">
+</div>
+
+
+
+<div class="form-group">
+<label>
+Do'kon haqida
+</label>
+
+<textarea name="description">{{seller.shop_description or ''}}</textarea>
+</div>
+
+
+
+<div class="form-row">
+
+<div>
+<label>
+Shahar
+</label>
+
+<input 
+name="city"
+value="{{seller.city or ''}}">
+</div>
+
+
+<div>
+<label>
+Manzil
+</label>
+
+<input 
+name="address"
+value="{{seller.address or ''}}">
+</div>
+
+</div>
+
+
+
+<div class="profile-edit-actions">
+
+<button class="save-btn">
+💾 Saqlash
+</button>
+
+
+<a href="/seller/profile" class="cancel-btn">
+Bekor qilish
+</a>
+
+</div>
+
+
+</form>
+
+
+</div>
+</div>
+</div>
+
+
+{% endblock %}

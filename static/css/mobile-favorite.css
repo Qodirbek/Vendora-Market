@@ -1,0 +1,302 @@
+/* =================================
+        MOBILE FAVORITE DESIGN
+================================= */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+
+/* CONTAINER */
+
+.favorite-container{
+
+    padding:12px;
+
+}
+
+
+
+/* HEADER */
+
+.favorite-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.favorite-header h1{
+
+    font-size:25px;
+
+}
+
+
+
+.favorite-header p{
+
+    font-size:14px;
+
+}
+
+
+
+.count{
+
+    padding:8px 15px;
+
+    font-size:14px;
+
+}
+
+
+
+/* GRID */
+
+.favorite-grid{
+
+    grid-template-columns:
+
+    repeat(2,minmax(0,1fr));
+
+    gap:12px;
+
+}
+
+
+
+/* CARD */
+
+.favorite-card{
+
+    border-radius:18px;
+
+}
+
+
+
+/* IMAGE */
+
+.product-image{
+
+    height:auto;
+
+    aspect-ratio:1/1;
+
+}
+
+
+
+.product-image img{
+
+    object-fit:cover;
+
+}
+
+
+
+.empty-image{
+
+    font-size:45px;
+
+}
+
+
+
+/* HEART */
+
+.heart{
+
+    width:35px;
+
+    height:35px;
+
+    right:8px;
+
+    top:8px;
+
+    font-size:17px;
+
+}
+
+
+
+/* INFO */
+
+.product-info{
+
+    padding:12px;
+
+}
+
+
+
+.name{
+
+    font-size:14px;
+
+    display:block;
+
+    height:38px;
+
+    overflow:hidden;
+
+}
+
+
+
+.rating{
+
+    font-size:13px;
+
+}
+
+
+
+.rating span{
+
+    font-size:12px;
+
+}
+
+
+
+.description{
+
+    display:none;
+
+}
+
+
+
+/* PRICE */
+
+
+.price{
+
+    font-size:17px;
+
+    margin:10px 0;
+
+}
+
+
+
+/* BUTTONS */
+
+
+.buttons{
+
+    gap:6px;
+
+}
+
+
+
+.cart{
+
+    padding:10px 5px;
+
+    font-size:12px;
+
+    border-radius:10px;
+
+}
+
+
+
+.delete{
+
+    width:38px;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+}
+
+
+
+/* EMPTY */
+
+.empty-state{
+
+    padding:50px 10px;
+
+}
+
+
+
+.empty-state .icon{
+
+    font-size:60px;
+
+}
+
+
+
+.empty-state a{
+
+    padding:12px 25px;
+
+    border-radius:12px;
+
+}
+
+
+
+}
+
+
+
+/* Juda kichik ekran */
+
+@media(max-width:380px){
+
+
+.favorite-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.favorite-header h1{
+
+    font-size:22px;
+
+}
+
+
+
+.product-info{
+
+    padding:10px;
+
+}
+
+
+
+.price{
+
+    font-size:16px;
+
+}
+
+
+
+}

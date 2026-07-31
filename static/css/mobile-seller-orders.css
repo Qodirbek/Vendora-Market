@@ -1,0 +1,311 @@
+/* =====================================
+      MOBILE SELLER ORDERS
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* PAGE */
+
+.orders-page{
+
+    padding:15px 10px;
+
+}
+
+
+
+/* HEADER */
+
+
+.page-header{
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.page-header h1{
+
+    font-size:24px;
+
+    text-align:center;
+
+}
+
+
+
+.search input{
+
+    width:100%;
+
+    padding:13px 15px;
+
+    border-radius:14px;
+
+    font-size:14px;
+
+}
+
+
+
+/* STATS */
+
+
+.stats{
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.stat-card{
+
+    padding:16px 10px;
+
+    border-radius:18px;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    gap:8px;
+
+}
+
+
+
+.stat-card span{
+
+    font-size:30px;
+
+}
+
+
+
+.stat-card h3{
+
+    font-size:18px;
+
+}
+
+
+
+.stat-card p{
+
+    font-size:13px;
+
+}
+
+
+
+/* ORDERS GRID */
+
+
+.orders-grid{
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+}
+
+
+
+/* ORDER CARD */
+
+
+.order-card{
+
+    padding:18px 15px;
+
+    border-radius:20px;
+
+}
+
+
+
+.order-top{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+}
+
+
+
+.order-top h3{
+
+    font-size:17px;
+
+}
+
+
+
+/* STATUS */
+
+
+.status{
+
+    font-size:12px;
+
+    padding:6px 13px;
+
+}
+
+
+
+/* CUSTOMER */
+
+
+.customer{
+
+    margin:15px 0;
+
+    line-height:25px;
+
+    font-size:14px;
+
+}
+
+
+
+.price{
+
+    font-size:20px;
+
+}
+
+
+
+/* FOOTER */
+
+
+.card-footer{
+
+    margin-top:18px;
+
+}
+
+
+
+.view-btn{
+
+    padding:13px;
+
+    border-radius:13px;
+
+    font-size:14px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+      SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.orders-page{
+
+    padding:10px 8px;
+
+}
+
+
+
+.page-header h1{
+
+    font-size:21px;
+
+}
+
+
+
+.stats{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.stat-card{
+
+    flex-direction:row;
+
+    justify-content:center;
+
+}
+
+
+
+.order-card{
+
+    padding:15px 12px;
+
+}
+
+
+
+.order-top h3{
+
+    font-size:15px;
+
+}
+
+
+
+.customer{
+
+    font-size:13px;
+
+}
+
+
+
+.price{
+
+    font-size:18px;
+
+}
+
+
+
+.view-btn{
+
+    font-size:13px;
+
+}
+
+
+
+}

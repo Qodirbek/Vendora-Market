@@ -1,0 +1,239 @@
+/* =====================================
+      MOBILE PRODUCT DETAIL
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* MAIN */
+
+.product-detail{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    padding:15px;
+
+    border-radius:20px;
+
+}
+
+
+
+/* IMAGE */
+
+
+.main-image{
+
+    width:100%;
+
+    height:280px;
+
+    border-radius:20px;
+
+}
+
+
+
+.main-image img{
+
+    object-fit:contain;
+
+}
+
+
+
+/* INFO */
+
+
+.product-info{
+
+    width:100%;
+
+}
+
+
+
+.product-info h1{
+
+    font-size:24px;
+
+    line-height:1.3;
+
+    margin-bottom:15px;
+
+}
+
+
+
+/* PRICE */
+
+
+.detail-price{
+
+    font-size:25px;
+
+    margin:15px 0;
+
+}
+
+
+
+/* BUTTONS */
+
+
+.detail-buttons{
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+
+
+.detail-buttons button,
+.detail-buttons a{
+
+    width:100%;
+
+    height:50px;
+
+    border-radius:14px;
+
+}
+
+
+
+/* REVIEWS */
+
+
+.review{
+
+    padding:15px;
+
+    border-radius:16px;
+
+    margin:12px 0;
+
+}
+
+
+
+.review h3{
+
+    font-size:16px;
+
+}
+
+
+
+.review p{
+
+    font-size:14px;
+
+}
+
+
+
+/* TEXTAREA */
+
+
+textarea{
+
+    height:100px;
+
+    padding:12px;
+
+    border-radius:13px;
+
+    font-size:14px;
+
+}
+
+
+
+
+}
+
+
+
+/* =====================================
+      SMALL PHONES
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.product-detail{
+
+    padding:10px;
+
+}
+
+
+
+.main-image{
+
+    height:230px;
+
+}
+
+
+
+.product-info h1{
+
+    font-size:21px;
+
+}
+
+
+
+.detail-price{
+
+    font-size:22px;
+
+}
+
+
+
+.detail-buttons button,
+.detail-buttons a{
+
+    height:45px;
+
+    font-size:14px;
+
+}
+
+
+
+.review{
+
+    padding:12px;
+
+}
+
+
+
+textarea{
+
+    height:90px;
+
+}
+
+
+
+}

@@ -116,19 +116,3 @@ margin:15px 0;
 
 
 
-@media(max-width:700px){
-
-.product-detail{
-
-grid-template-columns:1fr;
-
-}
-
-
-.main-image{
-
-height:300px;
-
-}
-
-}

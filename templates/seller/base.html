@@ -7,6 +7,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link 
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <title>
 Seller Panel
@@ -15,11 +18,21 @@ Seller Panel
 
 <link rel="stylesheet" href="/static/seller/css/style.css">
 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-seller-excel.css') }}">
 
 </head>
 
 
+
 <body>
+
+<button class="mobile-menu-btn">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+<div class="sidebar-overlay"></div>
+
+
 
 
 <!-- SIDEBAR -->
@@ -266,6 +279,10 @@ placeholder="Qidirish...">
 
 
 <script src="/static/seller/js/app.js"></script>
+
+<script>
+console.log("SELLER JS ISHLA");
+</script>
 
 
 </body>

@@ -9,6 +9,7 @@ Seller Profil
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/seller_profile.css') }}">
 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-seller-profile.css') }}">
 
 <div class="profile-page">
 
@@ -330,9 +331,9 @@ Kutilmoqda
 <div class="actions">
 
 
-<button class="edit-btn" id="editProfile">
-✏️ Profilni tahrirlash
-</button>
+<a href="{{url_for('seller.profile_edit')}}" class="edit-btn">
+ Profilni tahrirlash
+</a>
 
 
 

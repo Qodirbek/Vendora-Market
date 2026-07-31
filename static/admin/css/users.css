@@ -248,3 +248,313 @@ flex-direction:column;
 }
 
 }
+
+/* =====================================
+      MOBILE ADMIN USERS PRO
+===================================== */
+
+
+@media(max-width:600px){
+
+
+.user-profile{
+
+    gap:15px;
+
+    padding:10px;
+
+}
+
+
+
+/* PROFILE */
+
+.profile-card{
+
+    padding:20px;
+
+    border-radius:20px;
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+
+
+.avatar{
+
+    width:75px;
+
+    height:75px;
+
+    font-size:32px;
+
+}
+
+
+
+.profile-info h2{
+
+    font-size:22px;
+
+}
+
+
+
+.profile-info p{
+
+    font-size:14px;
+
+}
+
+
+
+/* STATUS */
+
+.badge{
+
+    padding:7px 14px;
+
+    font-size:12px;
+
+}
+
+
+
+/* STAT CARDS */
+
+
+.stats{
+
+    grid-template-columns:1fr;
+
+    gap:12px;
+
+}
+
+
+
+.stat-card{
+
+    padding:18px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    text-align:left;
+
+}
+
+
+
+.stat-card strong{
+
+    font-size:24px;
+
+}
+
+
+
+/* CARD */
+
+
+.card{
+
+    padding:18px;
+
+    border-radius:18px;
+
+}
+
+
+
+.card h3{
+
+    font-size:20px;
+
+}
+
+
+
+/* SETTINGS */
+
+
+.switch-row{
+
+    padding:14px;
+
+    font-size:14px;
+
+}
+
+
+
+.switch-row input{
+
+    width:20px;
+
+    height:20px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.save-btn{
+
+    padding:14px;
+
+    font-size:15px;
+
+}
+
+
+
+/* TABLE MOBILE CARD STYLE */
+
+
+.table-box{
+
+    overflow:visible;
+
+}
+
+
+
+table,
+thead,
+tbody,
+th,
+td,
+tr{
+
+    display:block;
+
+}
+
+
+
+thead{
+
+    display:none;
+
+}
+
+
+
+tr{
+
+    background:white;
+
+    margin-bottom:15px;
+
+    border-radius:18px;
+
+    padding:15px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.08);
+
+}
+
+
+
+td{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:10px 5px;
+
+    border:none;
+
+    font-size:14px;
+
+}
+
+
+
+td::before{
+
+    content:attr(data-label);
+
+    font-weight:bold;
+
+    color:#64748b;
+
+}
+
+
+
+/* STATUS */
+
+.status{
+
+    font-size:12px;
+
+    padding:6px 12px;
+
+}
+
+
+}
+
+
+
+/* =====================================
+      VERY SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.user-profile{
+
+    padding:5px;
+
+}
+
+
+
+.profile-card{
+
+    padding:15px;
+
+}
+
+
+
+.profile-info h2{
+
+    font-size:20px;
+
+}
+
+
+
+.stat-card strong{
+
+    font-size:22px;
+
+}
+
+
+
+td{
+
+    font-size:13px;
+
+}
+
+
+
+}

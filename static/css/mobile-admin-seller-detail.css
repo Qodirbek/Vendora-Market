@@ -1,0 +1,319 @@
+/* =====================================
+      MOBILE ADMIN SELLER DETAIL
+===================================== */
+
+
+@media(max-width:900px){
+
+
+.seller-detail-page{
+
+    padding:15px;
+
+}
+
+
+
+/* PROFILE */
+
+.profile-card{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:25px 18px;
+
+    border-radius:22px;
+
+}
+
+
+
+.profile-avatar{
+
+    width:80px;
+
+    height:80px;
+
+    font-size:38px;
+
+}
+
+
+
+.profile-info h1{
+
+    font-size:24px;
+
+}
+
+
+
+.status{
+
+    font-size:13px;
+
+    padding:7px 15px;
+
+}
+
+
+
+/* GRID */
+
+
+.info-grid{
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+}
+
+
+
+/* CARDS */
+
+
+.card{
+
+    padding:20px 15px;
+
+    border-radius:20px;
+
+}
+
+
+
+.card h3{
+
+    font-size:18px;
+
+}
+
+
+
+/* INFO LINE */
+
+
+.line{
+
+    flex-direction:column;
+
+    gap:6px;
+
+    padding:12px 0;
+
+}
+
+
+
+.line span{
+
+    font-size:13px;
+
+}
+
+
+
+/* BALANCE */
+
+
+.balance{
+
+    font-size:28px;
+
+    text-align:center;
+
+}
+
+
+
+/* STAT */
+
+
+.stat{
+
+    padding:14px;
+
+    font-size:14px;
+
+}
+
+
+
+/* ACTION */
+
+
+.actions{
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin:20px 0;
+
+}
+
+
+
+.btn{
+
+    width:100%;
+
+    padding:14px;
+
+    text-align:center;
+
+}
+
+
+
+/* FORMS */
+
+
+.money-form,
+.bonus-form{
+
+    flex-direction:column;
+
+}
+
+
+
+.money-form input,
+.bonus-form input{
+
+    width:100%;
+
+}
+
+
+
+.money-form button,
+.bonus-form button{
+
+    width:100%;
+
+}
+
+
+
+/* PRODUCTS */
+
+
+.products{
+
+    padding:18px 15px;
+
+}
+
+
+
+.product-grid{
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:12px;
+
+}
+
+
+
+.product-card{
+
+    padding:12px;
+
+    border-radius:16px;
+
+}
+
+
+
+.product-card img{
+
+    height:130px;
+
+}
+
+
+
+.product-card h3{
+
+    font-size:15px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+        SMALL PHONE
+===================================== */
+
+
+@media(max-width:420px){
+
+
+.seller-detail-page{
+
+    padding:10px;
+
+}
+
+
+
+.profile-card{
+
+    padding:20px 12px;
+
+}
+
+
+
+.profile-info h1{
+
+    font-size:21px;
+
+}
+
+
+
+.balance{
+
+    font-size:24px;
+
+}
+
+
+
+.product-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.product-card img{
+
+    height:170px;
+
+}
+
+
+
+.btn{
+
+    font-size:14px;
+
+}
+
+
+
+}

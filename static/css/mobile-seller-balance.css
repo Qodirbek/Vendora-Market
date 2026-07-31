@@ -1,0 +1,285 @@
+/* =====================================
+      MOBILE SELLER BALANCE
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* PAGE */
+
+.balance-page{
+
+    padding:15px 10px;
+
+}
+
+
+
+/* HEADER */
+
+
+.balance-header{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.balance-header h1{
+
+    font-size:24px;
+
+}
+
+
+
+.balance-header p{
+
+    font-size:14px;
+
+}
+
+
+
+/* MAIN */
+
+
+.balance-main{
+
+    width:100%;
+
+}
+
+
+
+/* BALANCE CARD */
+
+
+.balance-card{
+
+    padding:25px 15px;
+
+    border-radius:22px;
+
+}
+
+
+
+.balance-card .icon{
+
+    font-size:40px;
+
+}
+
+
+
+.balance-card h1{
+
+    font-size:30px;
+
+    margin:15px 0;
+
+}
+
+
+
+.balance-card p{
+
+    font-size:14px;
+
+}
+
+
+
+/* STATS */
+
+
+.stats{
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+
+
+.stat-card{
+
+    padding:16px 10px;
+
+    border-radius:18px;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    gap:8px;
+
+}
+
+
+
+.stat-card span{
+
+    font-size:28px;
+
+}
+
+
+
+.stat-card h3{
+
+    font-size:17px;
+
+}
+
+
+
+.stat-card p{
+
+    font-size:12px;
+
+}
+
+
+
+/* WITHDRAW */
+
+
+.withdraw-box{
+
+    margin-top:20px;
+
+    padding:20px 15px;
+
+    border-radius:20px;
+
+}
+
+
+
+.withdraw-box h2{
+
+    font-size:19px;
+
+}
+
+
+
+.withdraw-box p{
+
+    font-size:14px;
+
+    line-height:1.5;
+
+}
+
+
+
+.telegram-btn{
+
+    width:100%;
+
+    text-align:center;
+
+    padding:14px;
+
+    font-size:15px;
+
+    border-radius:14px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+      SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.balance-page{
+
+    padding:10px 8px;
+
+}
+
+
+
+.balance-header h1{
+
+    font-size:21px;
+
+}
+
+
+
+.balance-card{
+
+    padding:20px 12px;
+
+}
+
+
+
+.balance-card h1{
+
+    font-size:26px;
+
+}
+
+
+
+.stats{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.stat-card{
+
+    flex-direction:row;
+
+    justify-content:center;
+
+}
+
+
+
+.withdraw-box{
+
+    padding:15px 12px;
+
+}
+
+
+
+.telegram-btn{
+
+    font-size:14px;
+
+}
+
+
+
+}

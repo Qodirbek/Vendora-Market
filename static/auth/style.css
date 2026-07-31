@@ -293,3 +293,325 @@ padding:25px;
 
 
 }
+
+/* =====================================
+      AUTH STYLE MOBILE PRO
+===================================== */
+
+
+@media(max-width:700px){
+
+
+body{
+
+    padding:15px;
+
+    align-items:center;
+
+}
+
+
+
+/* CONTAINER */
+
+.auth-container{
+
+    padding:0;
+
+}
+
+
+
+/* CARD */
+
+.auth-card{
+
+    width:100%;
+
+    padding:28px 20px;
+
+    border-radius:22px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.25);
+
+}
+
+
+
+/* LOGO */
+
+.logo h1{
+
+    font-size:28px;
+
+}
+
+
+.logo p{
+
+    font-size:14px;
+
+}
+
+
+
+/* LABEL */
+
+label{
+
+    margin-top:15px;
+
+    font-size:14px;
+
+}
+
+
+
+/* INPUT */
+
+.input-box{
+
+    border-radius:14px;
+
+    padding:0 12px;
+
+}
+
+
+
+.input-box span{
+
+    font-size:18px;
+
+}
+
+
+
+.input-box input{
+
+    padding:14px 10px;
+
+    font-size:15px;
+
+}
+
+
+
+/* PASSWORD */
+
+.eye{
+
+    font-size:17px;
+
+    padding:8px;
+
+}
+
+
+
+/* REMEMBER */
+
+.remember{
+
+    font-size:13px;
+
+}
+
+
+
+/* BUTTON */
+
+.login-btn{
+
+    padding:14px;
+
+    font-size:16px;
+
+    border-radius:14px;
+
+}
+
+
+
+/* REGISTER */
+
+.register-btn{
+
+    padding:13px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+}
+
+
+
+/* ALERT */
+
+.alert{
+
+    font-size:14px;
+
+    padding:12px;
+
+}
+
+
+}
+
+
+
+/* =====================================
+      SMALL PHONE 320px
+===================================== */
+
+
+@media(max-width:380px){
+
+
+body{
+
+    padding:10px;
+
+}
+
+
+
+.auth-card{
+
+    padding:22px 16px;
+
+    border-radius:18px;
+
+}
+
+
+
+.logo h1{
+
+    font-size:24px;
+
+}
+
+
+
+.logo p{
+
+    font-size:12px;
+
+}
+
+
+
+.input-box input{
+
+    font-size:14px;
+
+}
+
+
+
+.login-btn{
+
+    font-size:15px;
+
+    padding:13px;
+
+}
+
+
+
+.register-btn{
+
+    font-size:14px;
+
+}
+
+
+
+.divider{
+
+    margin:20px 0;
+
+}
+
+
+}
+
+
+
+
+/* =====================================
+      TOUCH DEVICE
+===================================== */
+
+
+@media(hover:none){
+
+
+.login-btn:hover{
+
+    background:#667eea;
+
+}
+
+
+
+.register-btn:hover{
+
+    background:white;
+
+    color:#667eea;
+
+}
+
+
+}
+
+
+
+
+/* =====================================
+      LANDSCAPE MOBILE
+===================================== */
+
+
+@media(max-height:500px) and (orientation:landscape){
+
+
+body{
+
+    align-items:flex-start;
+
+    padding:20px;
+
+}
+
+
+
+.auth-card{
+
+    margin:auto;
+
+}
+
+
+
+.logo h1{
+
+    margin:5px 0;
+
+}
+
+
+
+label{
+
+    margin-top:10px;
+
+}
+
+
+}

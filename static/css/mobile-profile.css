@@ -1,0 +1,451 @@
+/* =====================================
+      MOBILE PROFILE DESIGN
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* CONTAINER */
+
+.profile-container{
+
+    width:100%;
+
+    margin:20px auto;
+
+    padding:12px;
+
+}
+
+
+
+/* PROFILE HEADER */
+
+.profile-card{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:25px 15px;
+
+    gap:15px;
+
+    border-radius:25px;
+
+}
+
+
+
+.avatar-box img{
+
+    width:95px;
+
+    height:95px;
+
+    border-width:4px;
+
+}
+
+
+
+.profile-info h1{
+
+    font-size:23px;
+
+}
+
+
+
+.profile-info p{
+
+    font-size:14px;
+
+}
+
+
+
+.badge{
+
+    padding:7px 15px;
+
+    font-size:13px;
+
+}
+
+
+
+.edit-btn{
+
+    width:100%;
+
+    padding:13px;
+
+    display:block;
+
+}
+
+
+
+/* TITLE */
+
+.profile-title h2{
+
+    font-size:24px;
+
+}
+
+
+
+/* STATS */
+
+
+.stats{
+
+    grid-template-columns:
+
+    repeat(2,1fr);
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+
+
+.stat-card{
+
+    padding:18px 10px;
+
+    border-radius:18px;
+
+}
+
+
+
+.stat-card h2{
+
+    font-size:25px;
+
+}
+
+
+
+.stat-card p{
+
+    font-size:13px;
+
+}
+
+
+
+
+/* MAIN GRID */
+
+
+.profile-grid{
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+}
+
+
+
+/* MENU */
+
+
+.menu-card{
+
+    padding:15px;
+
+    border-radius:20px;
+
+}
+
+
+
+.menu-card h2{
+
+    font-size:20px;
+
+}
+
+
+
+.menu-card a{
+
+    padding:13px;
+
+    font-size:14px;
+
+    border-radius:12px;
+
+}
+
+
+
+.menu-card span{
+
+    padding:3px 8px;
+
+}
+
+
+
+/* ORDERS */
+
+
+.recent-orders{
+
+    padding:18px;
+
+    border-radius:20px;
+
+}
+
+
+
+.title h2{
+
+    font-size:20px;
+
+}
+
+
+
+.order-item{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    padding:15px 0;
+
+}
+
+
+
+.order-item h3{
+
+    font-size:16px;
+
+}
+
+
+
+.order-item p{
+
+    font-size:14px;
+
+}
+
+
+
+.order-status{
+
+    padding:6px 12px;
+
+    font-size:12px;
+
+}
+
+
+
+
+/* EMPTY */
+
+.empty{
+
+    padding:35px 10px;
+
+}
+
+
+
+/* SUPPORT */
+
+.support-box,
+.settings-list{
+
+    gap:10px;
+
+}
+
+
+
+.support-item,
+.setting-item{
+
+    padding:15px;
+
+    border-radius:16px;
+
+    gap:15px;
+
+}
+
+
+
+.support-item div,
+.setting-item div{
+
+    font-size:28px;
+
+}
+
+
+
+.support-item h3,
+.setting-item h3{
+
+    font-size:16px;
+
+}
+
+
+
+.support-item p,
+.setting-item p{
+
+    font-size:13px;
+
+}
+
+
+
+/* MESSAGE */
+
+
+.message-form textarea{
+
+    height:100px;
+
+    font-size:14px;
+
+}
+
+
+
+.message-form button{
+
+    padding:13px;
+
+    font-size:15px;
+
+}
+
+
+
+
+/* SETTINGS */
+
+.setting-item select{
+
+    padding:8px;
+
+    font-size:13px;
+
+}
+
+
+
+.switch span{
+
+    width:45px;
+
+    height:24px;
+
+}
+
+
+
+.switch span:after{
+
+    width:20px;
+
+    height:20px;
+
+}
+
+
+
+.switch input:checked + span:after{
+
+    left:23px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+        SMALL PHONES
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.profile-container{
+
+    padding:8px;
+
+}
+
+
+
+.stats{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.profile-info h1{
+
+    font-size:20px;
+
+}
+
+
+
+.stat-card h2{
+
+    font-size:22px;
+
+}
+
+
+
+.menu-card a{
+
+    font-size:13px;
+
+}
+
+
+
+.order-item h3{
+
+    font-size:15px;
+
+}
+
+
+
+}

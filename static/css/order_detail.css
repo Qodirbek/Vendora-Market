@@ -346,34 +346,3 @@ transform:translateY(-3px);
 
 
 
-@media(max-width:600px){
-
-
-.detail-header{
-
-flex-direction:column;
-
-gap:20px;
-
-align-items:flex-start;
-
-}
-
-
-
-.info-grid{
-
-grid-template-columns:1fr;
-
-}
-
-
-
-.product-item{
-
-flex-direction:column;
-
-}
-
-
-}

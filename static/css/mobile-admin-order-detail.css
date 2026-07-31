@@ -1,0 +1,293 @@
+/* =====================================
+        MOBILE ADMIN ORDER DETAIL
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+
+/* PAGE */
+
+.order-detail{
+
+    width:100%;
+
+    padding:10px;
+
+}
+
+
+
+/* HEADER */
+
+
+.order-header{
+
+    flex-direction:column;
+
+    gap:15px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+}
+
+
+
+.order-header h1{
+
+    font-size:22px;
+
+}
+
+
+
+.order-header p{
+
+    font-size:14px;
+
+}
+
+
+
+/* STATUS */
+
+
+.status-box{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:15px;
+
+}
+
+
+
+.status-box b{
+
+    font-size:14px;
+
+}
+
+
+
+/* CARDS */
+
+
+.customer-card,
+.status-card,
+.products-card,
+.total-card{
+
+    margin-top:15px;
+
+    padding:18px 15px;
+
+    border-radius:18px;
+
+}
+
+
+
+.customer-card h2,
+.status-card h2,
+.products-card h2{
+
+    font-size:19px;
+
+}
+
+
+
+/* SELECT */
+
+
+select{
+
+    width:100%;
+
+    padding:13px;
+
+    margin-top:10px;
+
+}
+
+
+
+/* BUTTON */
+
+
+button{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:10px;
+
+    font-size:15px;
+
+}
+
+
+
+/* PRODUCT */
+
+
+.product-item{
+
+    flex-direction:column;
+
+    gap:12px;
+
+    padding:15px 0;
+
+}
+
+
+
+.product-item img{
+
+    width:100%;
+
+    height:180px;
+
+    border-radius:15px;
+
+}
+
+
+
+.product-item h3{
+
+    font-size:17px;
+
+}
+
+
+
+.product-item p{
+
+    font-size:14px;
+
+}
+
+
+
+/* DONE BOX */
+
+
+.done{
+
+    padding:15px;
+
+    font-size:14px;
+
+}
+
+
+
+/* TOTAL */
+
+
+.total-card{
+
+    flex-direction:column;
+
+    gap:12px;
+
+    font-size:20px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+        SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.order-detail{
+
+    padding:8px;
+
+}
+
+
+
+.order-header{
+
+    padding:15px;
+
+}
+
+
+
+.order-header h1{
+
+    font-size:19px;
+
+}
+
+
+
+.customer-card,
+.status-card,
+.products-card,
+.total-card{
+
+    padding:15px 12px;
+
+}
+
+
+
+.products-card h2{
+
+    font-size:17px;
+
+}
+
+
+
+.product-item img{
+
+    height:150px;
+
+}
+
+
+
+.total-card{
+
+    font-size:18px;
+
+}
+
+
+
+button{
+
+    font-size:14px;
+
+}
+
+
+
+}

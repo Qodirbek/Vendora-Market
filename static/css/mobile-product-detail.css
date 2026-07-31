@@ -1,0 +1,414 @@
+/* =====================================
+      MOBILE PRODUCT DETAIL
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+
+/* MAIN */
+
+.product-detail{
+
+    width:100%;
+
+    margin:15px auto;
+
+    padding:10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+
+
+/* GALLERY */
+
+
+.product-gallery{
+
+    padding:12px;
+
+    border-radius:20px;
+
+}
+
+
+
+.main-image{
+
+    height:auto;
+
+    aspect-ratio:1/1;
+
+    border-radius:18px;
+
+}
+
+
+
+.main-image img{
+
+    object-fit:contain;
+
+}
+
+
+
+/* THUMBNAILS */
+
+
+.thumbs{
+
+    gap:8px;
+
+    margin-top:12px;
+
+}
+
+
+
+.thumbs img{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:12px;
+
+}
+
+
+
+/* INFO CARD */
+
+
+.product-info{
+
+    padding:18px 15px;
+
+    border-radius:22px;
+
+}
+
+
+
+.product-info h1{
+
+    font-size:22px;
+
+    line-height:1.3;
+
+    margin-bottom:15px;
+
+}
+
+
+
+/* RATING */
+
+
+.rating-box{
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+.rating-box span{
+
+    padding:6px 12px;
+
+    font-size:13px;
+
+}
+
+
+
+.rating-box a{
+
+    font-size:13px;
+
+}
+
+
+
+/* PRICE */
+
+
+.price{
+
+    font-size:26px;
+
+    margin:15px 0;
+
+}
+
+
+
+.old-price{
+
+    font-size:15px;
+
+}
+
+
+
+.discount{
+
+    font-size:12px;
+
+    padding:5px 10px;
+
+}
+
+
+
+/* DESCRIPTION */
+
+
+.description{
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    margin:18px 0;
+
+}
+
+
+
+/* INFO */
+
+
+.info-line{
+
+    padding:10px;
+
+    font-size:14px;
+
+}
+
+
+
+/* BUTTONS */
+
+
+.actions{
+
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+
+
+.cart-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    font-size:16px;
+
+    border-radius:14px;
+
+}
+
+
+
+.favorite-btn{
+
+    width:100%;
+
+    height:50px;
+
+    font-size:16px;
+
+}
+
+
+
+/* SELLER */
+
+
+.seller-box{
+
+    margin-top:20px;
+
+    padding:15px;
+
+    border-radius:15px;
+
+}
+
+
+
+/* REVIEWS */
+
+
+#reviews{
+
+    width:100%;
+
+    margin:25px auto;
+
+    padding:10px;
+
+}
+
+
+
+.review{
+
+    padding:15px;
+
+    border-radius:18px;
+
+}
+
+
+
+.review-head{
+
+    flex-direction:column;
+
+    gap:5px;
+
+}
+
+
+
+.review-head h3{
+
+    font-size:15px;
+
+}
+
+
+
+.empty-review{
+
+    padding:25px 10px;
+
+}
+
+
+
+/* ADD REVIEW */
+
+
+.add-review{
+
+    padding:18px;
+
+    border-radius:20px;
+
+}
+
+
+
+.add-review textarea{
+
+    height:100px;
+
+    margin:15px 0;
+
+}
+
+
+
+.stars select{
+
+    width:100%;
+
+    padding:10px;
+
+}
+
+
+
+.send-review{
+
+    width:100%;
+
+    padding:13px;
+
+    font-size:15px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+       SMALL PHONES
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.product-info h1{
+
+    font-size:19px;
+
+}
+
+
+
+.main-image{
+
+    aspect-ratio:1/1;
+
+}
+
+
+
+.price{
+
+    font-size:23px;
+
+}
+
+
+
+.thumbs img{
+
+    width:50px;
+
+    height:50px;
+
+}
+
+
+
+.cart-btn{
+
+    font-size:14px;
+
+}
+
+
+
+}

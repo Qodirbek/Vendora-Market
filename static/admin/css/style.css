@@ -863,3 +863,505 @@ MOBILE
 
 
 }
+
+/* =====================================
+   SOTUV ADMIN PANEL MOBILE PRO
+===================================== */
+
+
+/* SIDEBAR MOBILE OVERLAY */
+
+.sidebar-overlay{
+
+    display:none;
+
+}
+
+
+
+@media(max-width:900px){
+
+
+.sidebar{
+
+    width:260px;
+
+    box-shadow:
+    10px 0 40px rgba(0,0,0,.25);
+
+}
+
+
+.sidebar.active + .sidebar-overlay{
+
+    display:block;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:900;
+
+}
+
+
+/* TOPBAR */
+
+
+.topbar{
+
+    height:70px;
+
+    padding:0 18px;
+
+}
+
+
+
+.topbar h3{
+
+    font-size:20px;
+
+}
+
+
+
+/* ADMIN AREA */
+
+
+.admin-area{
+
+    gap:15px;
+
+}
+
+
+
+.notification{
+
+    font-size:22px;
+
+}
+
+
+
+.profile img{
+
+    width:40px;
+
+    height:40px;
+
+}
+
+
+
+/* CONTENT */
+
+
+.content{
+
+    padding:15px;
+
+}
+
+
+
+.card{
+
+    padding:20px;
+
+    border-radius:18px;
+
+}
+
+
+
+/* STATS */
+
+
+.stats{
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+}
+
+
+
+.stat-card{
+
+    padding:20px;
+
+}
+
+
+
+.stat-card h2{
+
+    font-size:27px;
+
+}
+
+
+
+/* TABLE MOBILE SCROLL */
+
+
+.table-box{
+
+    overflow-x:auto;
+
+    border-radius:15px;
+
+}
+
+
+
+table{
+
+    min-width:750px;
+
+}
+
+
+
+
+}
+
+
+
+/* =====================================
+      PHONE DESIGN
+===================================== */
+
+
+@media(max-width:600px){
+
+
+body{
+
+    font-size:14px;
+
+}
+
+
+
+/* TOPBAR */
+
+
+.topbar h3{
+
+    font-size:18px;
+
+}
+
+
+
+.mobile-menu{
+
+    font-size:25px;
+
+}
+
+
+
+/* PROFILE */
+
+
+.profile small{
+
+    display:none;
+
+}
+
+
+
+.profile img{
+
+    width:38px;
+
+    height:38px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.btn,
+button{
+
+    width:100%;
+
+    padding:14px;
+
+    font-size:15px;
+
+}
+
+
+
+/* FORM */
+
+
+input,
+textarea,
+select{
+
+    padding:13px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+}
+
+
+
+/* ALERT */
+
+
+.flash-container{
+
+    padding:15px;
+
+}
+
+
+
+.alert{
+
+    font-size:14px;
+
+}
+
+
+
+/* CARD */
+
+
+.card h2,
+.card h3{
+
+    font-size:20px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+      VERY SMALL PHONE 320px
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.content{
+
+    padding:10px;
+
+}
+
+
+
+.topbar{
+
+    padding:0 10px;
+
+}
+
+
+
+.notification{
+
+    font-size:20px;
+
+}
+
+
+
+.sidebar{
+
+    width:240px;
+
+}
+
+
+
+.logo h2{
+
+    font-size:20px;
+
+}
+
+
+
+.logo-icon{
+
+    width:42px;
+
+    height:42px;
+
+}
+
+
+
+/* STAT */
+
+
+.stat-card h2{
+
+    font-size:24px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+      TOUCH EFFECTS
+===================================== */
+
+
+@media(hover:none){
+
+
+.sidebar-menu a:hover,
+.sidebar-bottom a:hover{
+
+    transform:none;
+
+}
+
+
+
+.card:hover{
+
+    transform:none;
+
+}
+
+
+}
+
+
+/* =====================================
+      DARK MOBILE MENU BUTTON
+===================================== */
+
+
+.mobile-menu{
+
+    background:#f1f5f9;
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:12px;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+
+@media(max-width:900px){
+
+.mobile-menu{
+
+    display:flex;
+
+}
+
+}
+
+
+
+/* =====================================
+      EMPTY STATE
+===================================== */
+
+
+.empty{
+
+    background:white;
+
+    padding:40px 20px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.05);
+
+}
+
+
+
+/* =====================================
+      MOBILE TABLE CARD STYLE
+===================================== */
+
+
+@media(max-width:600px){
+
+
+.mobile-table-card{
+
+    background:white;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    margin-bottom:15px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.08);
+
+}
+
+
+
+.mobile-table-card div{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:10px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+
+
+.mobile-table-card div:last-child{
+
+    border:none;
+
+}
+
+
+}

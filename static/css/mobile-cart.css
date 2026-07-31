@@ -1,0 +1,295 @@
+/* =================================
+        MOBILE CART DESIGN
+================================= */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* PAGE */
+
+.cart-page{
+
+    width:100%;
+
+    padding:12px;
+
+}
+
+
+
+.cart-page h1{
+
+    font-size:25px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* CART ITEMS */
+
+
+.cart-container{
+
+    gap:12px;
+
+}
+
+
+
+.cart-item{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:15px;
+
+    border-radius:20px;
+
+    gap:15px;
+
+}
+
+
+
+/* IMAGE */
+
+
+.cart-product-image{
+
+    width:140px;
+
+    height:140px;
+
+    border-radius:18px;
+
+}
+
+
+
+/* INFO */
+
+
+.cart-product-info{
+
+    width:100%;
+
+}
+
+
+
+.cart-product-info h2{
+
+    font-size:17px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* PRICE */
+
+
+.price{
+
+    font-size:18px;
+
+}
+
+
+
+/* QUANTITY */
+
+
+.quantity{
+
+    justify-content:center;
+
+    gap:12px;
+
+    margin:15px 0;
+
+}
+
+
+
+.quantity a{
+
+    width:35px;
+
+    height:35px;
+
+    font-size:22px;
+
+}
+
+
+
+.quantity span{
+
+    font-size:19px;
+
+}
+
+
+
+/* TOTAL */
+
+
+.total{
+
+    font-size:17px;
+
+}
+
+
+
+/* REMOVE BUTTON */
+
+
+.remove{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    border-radius:12px;
+
+}
+
+
+
+/* SUMMARY */
+
+
+.cart-summary{
+
+    padding:18px;
+
+    border-radius:20px;
+
+    margin-top:20px;
+
+}
+
+
+
+.cart-summary h2{
+
+    font-size:20px;
+
+}
+
+
+
+/* CHECKOUT */
+
+
+.checkout{
+
+    padding:13px;
+
+    font-size:16px;
+
+    border-radius:12px;
+
+}
+
+
+
+/* CLEAR */
+
+
+.clear{
+
+    font-size:14px;
+
+}
+
+
+
+/* EMPTY CART */
+
+
+.empty{
+
+    padding:40px 15px;
+
+    border-radius:20px;
+
+}
+
+
+
+.empty-icon{
+
+    font-size:60px;
+
+}
+
+
+
+.empty a{
+
+    padding:12px 25px;
+
+    border-radius:12px;
+
+}
+
+
+
+}
+
+
+
+/* Kichik telefonlar */
+
+@media(max-width:380px){
+
+
+.cart-page h1{
+
+    font-size:22px;
+
+}
+
+
+
+.cart-product-image{
+
+    width:120px;
+
+    height:120px;
+
+}
+
+
+
+.cart-product-info h2{
+
+    font-size:15px;
+
+}
+
+
+
+.price{
+
+    font-size:16px;
+
+}
+
+
+}

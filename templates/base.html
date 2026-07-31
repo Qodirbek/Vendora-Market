@@ -76,7 +76,9 @@ href="{{ url_for('static', filename='style.css') }}">
 rel="stylesheet"
 href="{{ url_for('static', filename='css/navbar.css') }}">
 
-
+<link 
+rel="stylesheet"
+href="{{ url_for('static', filename='css/mobile-navbar.css') }}">
 
 <!-- Bottom Navigation -->
 
@@ -84,7 +86,9 @@ href="{{ url_for('static', filename='css/navbar.css') }}">
 rel="stylesheet"
 href="{{ url_for('static', filename='css/bottom_nav.css') }}">
 
-
+<link 
+rel="stylesheet"
+href="{{ url_for('static', filename='css/mobile-buttom-nav.css') }}">
 
 {% block extra_css %}
 
@@ -174,7 +178,7 @@ data-bs-dismiss="alert">
 <!-- MOBILE BOTTOM NAV -->
 
 {% include "components/bottom_nav.html" %}
-
+{% include "components/mobile-buttom-nav.html" %}
 
 
 

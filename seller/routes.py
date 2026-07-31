@@ -408,6 +408,96 @@ def profile():
         seller=seller_user
     )
 
+
+@seller.route(
+    "/profile/edit",
+    methods=["GET","POST"]
+)
+@seller_required
+def profile_edit():
+
+    seller_user = Seller.query.get_or_404(
+        session["seller_id"]
+    )
+
+    if request.method == "POST":
+
+        new_email = request.form.get(
+            "email"
+        )
+
+
+        # EMAIL TEKSHIRISH
+        if new_email:
+
+            email_exists = Seller.query.filter(
+                Seller.email == new_email,
+                Seller.id != seller_user.id
+            ).first()
+
+
+            if email_exists:
+
+                flash(
+                    "Bu Email Band Yoki Hato",
+                    "danger"
+                )
+
+                return redirect(
+                    url_for(
+                        "seller.profile_edit"
+                    )
+                )
+
+
+        # SAQLASH
+        seller_user.email = new_email
+
+        seller_user.shop_description = request.form.get(
+            "shop_description"
+        )
+
+        seller_user.address = request.form.get(
+            "address"
+        )
+
+        seller_user.city = request.form.get(
+            "city"
+        )
+
+
+        try:
+
+            db.session.commit()
+
+            flash(
+                "✅ Profil muvaffaqiyatli yangilandi",
+                "success"
+            )
+
+
+        except Exception:
+
+            db.session.rollback()
+
+            flash(
+                "❌ Profilni saqlashda xatolik",
+                "danger"
+            )
+
+
+        return redirect(
+            url_for(
+                "seller.profile"
+            )
+        )
+
+    return render_template(
+        "seller/profile_edit.html",
+        seller=seller_user
+    )
+
+
 # =====================================
 # ADD PRODUCT
 # =====================================

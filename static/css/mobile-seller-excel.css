@@ -1,0 +1,634 @@
+/* =====================================
+   SELLER EXCEL MOBILE PRO CSS
+===================================== */
+
+@media(max-width:768px){
+
+body{
+    overflow-x:hidden;
+    padding-bottom:90px;
+}
+
+
+/* ===============================
+   PAGE
+================================ */
+
+.excel-page{
+    width:100%;
+    padding:15px 12px;
+}
+
+
+/* ===============================
+   CARD
+================================ */
+
+.excel-card{
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+/* ===============================
+   MOBILE HEADER
+================================ */
+
+
+.excel-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.excel-header h1{
+
+    font-size:22px;
+
+    line-height:1.3;
+
+    font-weight:800;
+
+}
+
+
+.excel-header i{
+
+    color:#2563eb;
+
+}
+
+
+
+/* ===============================
+ SELLER MENU BUTTON
+================================ */
+
+
+.seller-menu-btn{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:14px;
+
+    border:none;
+
+    background:
+    linear-gradient(
+    135deg,
+    #2563eb,
+    #7c3aed
+    );
+
+    color:white;
+
+    font-size:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+
+/* ===============================
+ SELLER MOBILE SIDEBAR
+================================ */
+
+
+.seller-mobile-menu{
+
+    position:fixed;
+
+    top:0;
+
+    left:-280px;
+
+    width:270px;
+
+    height:100vh;
+
+    background:white;
+
+    z-index:99999;
+
+    padding:25px;
+
+    box-shadow:
+    10px 0 40px rgba(0,0,0,.2);
+
+    transition:.35s;
+
+}
+
+
+.seller-mobile-menu.active{
+
+    left:0;
+
+}
+
+
+
+.seller-mobile-menu h2{
+
+    font-size:22px;
+
+    margin-bottom:25px;
+
+}
+
+
+.seller-mobile-menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    border-radius:15px;
+
+    text-decoration:none;
+
+    color:#334155;
+
+    background:#f8fafc;
+
+    font-weight:600;
+
+}
+
+
+.seller-mobile-menu a:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+
+/* OVERLAY */
+
+
+.seller-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    rgba(0,0,0,.45);
+
+    z-index:99998;
+
+    display:none;
+
+}
+
+
+.seller-overlay.active{
+
+    display:block;
+
+}
+
+
+
+/* ===============================
+ DOWNLOAD BUTTON
+================================ */
+
+
+.excel-download{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+
+/* ===============================
+ INFO BOX
+================================ */
+
+
+.info-box{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:#eff6ff;
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:flex-start;
+
+}
+
+
+.info-box i{
+
+    font-size:30px;
+
+    color:#2563eb;
+
+}
+
+
+.info-box p{
+
+    font-size:14px;
+
+    line-height:1.6;
+
+}
+
+
+
+/* ===============================
+ UPLOAD BOX
+================================ */
+
+
+.upload-box{
+
+    margin-top:20px;
+
+    background:#f8fafc;
+
+    padding:18px;
+
+    border-radius:20px;
+
+}
+
+
+
+.upload-box input{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    border:2px dashed #cbd5e1;
+
+    background:white;
+
+    font-size:14px;
+
+}
+
+
+
+.upload-box button{
+
+    width:100%;
+
+    margin-top:15px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:
+    linear-gradient(
+    135deg,
+    #2563eb,
+    #7c3aed
+    );
+
+    color:white;
+
+    font-weight:700;
+
+}
+
+
+
+/* ===============================
+ COLUMN INFO
+================================ */
+
+
+.excel-columns{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+}
+
+
+.excel-columns h3{
+
+    font-size:18px;
+
+}
+
+
+.excel-columns li{
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+    line-height:1.5;
+
+}
+
+
+
+/* ===============================
+ TABLE FIX
+================================ */
+
+
+table{
+
+    display:block;
+
+    overflow-x:auto;
+
+    white-space:nowrap;
+
+}
+
+
+
+/* ===============================
+ ANIMATION
+================================ */
+
+
+.excel-card{
+
+animation:
+excelShow .4s ease;
+
+}
+
+
+@keyframes excelShow{
+
+from{
+
+opacity:0;
+
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+}
+
+
+
+/* =====================================
+   SMALL PHONE
+===================================== */
+
+@media(max-width:380px){
+
+
+.excel-page{
+
+padding:10px;
+
+}
+
+
+.excel-card{
+
+padding:15px;
+
+}
+
+
+.excel-header h1{
+
+font-size:19px;
+
+}
+
+
+.seller-mobile-menu{
+
+width:240px;
+
+}
+
+
+.info-box p{
+
+font-size:13px;
+
+}
+
+
+.upload-box button,
+.excel-download{
+
+font-size:14px;
+
+padding:13px;
+
+}
+
+
+}
+
+/* MOBILE MENU BUTTON FIX */
+
+.mobile-menu-btn{
+
+display:none;
+
+}
+
+
+@media(max-width:768px){
+
+.mobile-menu-btn{
+
+display:flex;
+
+position:fixed;
+
+top:15px;
+left:15px;
+
+width:45px;
+height:45px;
+
+border-radius:14px;
+
+border:none;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#7c3aed
+);
+
+color:white;
+
+font-size:22px;
+
+align-items:center;
+justify-content:center;
+
+z-index:10001;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.25);
+
+}
+
+
+.sidebar{
+
+z-index:10000;
+
+}
+
+
+.sidebar-overlay{
+
+position:fixed;
+
+display:none;
+
+inset:0;
+
+background:
+rgba(0,0,0,.45);
+
+z-index:9999;
+
+}
+
+
+.sidebar-overlay.active{
+
+display:block;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.recent-orders,
+.orders-card,
+.card{
+
+border-radius:20px;
+
+}
+
+
+.card h2,
+.card h3{
+
+font-size:20px;
+
+}
+
+
+table{
+
+font-size:13px;
+
+}
+
+
+th,
+td{
+
+padding:10px 8px;
+
+}
+
+
+.orders-table{
+
+max-height:400px;
+
+overflow:auto;
+
+}
+
+
+}

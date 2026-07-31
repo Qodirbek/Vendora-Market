@@ -265,32 +265,117 @@ font-size:50px;
 
 }
 
+/* =====================================
+   SELLER PROFILE EDIT BUTTON
+===================================== */
 
+.edit-btn{
 
+    display:inline-flex;
 
-@media(max-width:900px){
+    align-items:center;
 
+    justify-content:center;
 
-.stats{
+    gap:10px;
 
-grid-template-columns:1fr 1fr;
+    padding:14px 25px;
+
+    border-radius:16px;
+
+    border:none;
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    box-shadow:
+    0 8px 20px rgba(37,99,235,.25);
+
+    cursor:pointer;
+
+    transition:.3s ease;
 
 }
 
 
-.info-grid{
+.edit-btn:hover{
 
-grid-template-columns:1fr;
+    transform:translateY(-3px);
 
-}
-
-
-.profile-header{
-
-flex-direction:column;
-text-align:center;
+    box-shadow:
+    0 12px 30px rgba(37,99,235,.35);
 
 }
 
 
+
+/* ICON */
+
+.edit-btn::before{
+
+    content:"✏️";
+
+    font-size:18px;
+
 }
+
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.edit-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    font-size:16px;
+
+    border-radius:15px;
+
+}
+
+
+}
+
+.email-error{
+    margin-top:8px;
+    padding:12px 15px;
+    background:#ffe5e5;
+    color:#d8000c;
+    border-left:4px solid #d8000c;
+    border-radius:10px;
+    font-size:14px;
+    animation:showError .3s ease;
+}
+
+
+@keyframes showError{
+
+from{
+    opacity:0;
+    transform:translateY(-5px);
+}
+
+to{
+    opacity:1;
+    transform:translateY(0);
+}
+
+}
+
+

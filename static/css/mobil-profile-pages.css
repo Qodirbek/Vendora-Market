@@ -1,0 +1,292 @@
+/* =====================================
+      MOBILE PROFILE PAGES
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+
+/* MAIN BOX */
+
+.profile-box{
+
+    width:100%;
+
+    margin:20px auto;
+
+    padding:20px 15px;
+
+    border-radius:22px;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+.profile-box h2{
+
+    font-size:22px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* FORM FIELD */
+
+
+.field{
+
+    margin-bottom:16px;
+
+}
+
+
+
+.field label{
+
+    font-size:14px;
+
+    margin-bottom:6px;
+
+}
+
+
+
+.field input,
+.field textarea,
+.setting select{
+
+
+    width:100%;
+
+    padding:13px;
+
+    font-size:14px;
+
+    border-radius:13px;
+
+}
+
+
+
+.field textarea{
+
+    min-height:100px;
+
+}
+
+
+
+/* BUTTON */
+
+
+button{
+
+    height:50px;
+
+    padding:12px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+}
+
+
+
+/* ORDERS */
+
+
+.order-card,
+.support-card{
+
+
+    padding:15px;
+
+    border-radius:16px;
+
+    margin-bottom:12px;
+
+}
+
+
+
+.order-card h3{
+
+    font-size:16px;
+
+}
+
+
+
+.order-card p{
+
+    font-size:14px;
+
+}
+
+
+
+.order-card a{
+
+    font-size:14px;
+
+}
+
+
+
+/* SUPPORT */
+
+
+.support-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+
+
+.support-card h3{
+
+    font-size:17px;
+
+}
+
+
+
+.support-card p{
+
+    font-size:14px;
+
+    color:#666;
+
+}
+
+
+
+/* EMPTY */
+
+
+.empty{
+
+    padding:35px 15px;
+
+    font-size:14px;
+
+}
+
+
+
+/* SETTINGS */
+
+
+.setting{
+
+    padding:14px;
+
+    border-radius:14px;
+
+    margin-bottom:12px;
+
+}
+
+
+
+.setting h3{
+
+    font-size:16px;
+
+}
+
+
+
+.setting p{
+
+    font-size:13px;
+
+    color:#777;
+
+}
+
+
+
+.setting select{
+
+    margin-top:10px;
+
+}
+
+
+
+
+}
+
+
+
+/* =====================================
+       SMALL PHONES
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.profile-box{
+
+    padding:15px 10px;
+
+}
+
+
+
+.profile-box h2{
+
+    font-size:20px;
+
+}
+
+
+
+.field input,
+.field textarea,
+.setting select{
+
+    font-size:13px;
+
+}
+
+
+
+button{
+
+    font-size:14px;
+
+}
+
+
+
+.order-card,
+.support-card{
+
+    padding:12px;
+
+}
+
+
+
+}

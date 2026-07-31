@@ -294,22 +294,3 @@ box-shadow:0 5px 15px #0002;
 
 
 
-@media(max-width:900px){
-
-
-.stats{
-
-grid-template-columns:1fr;
-
-}
-
-
-.page-header{
-
-flex-direction:column;
-gap:20px;
-
-}
-
-
-}

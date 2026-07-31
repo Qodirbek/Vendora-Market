@@ -1,0 +1,369 @@
+/* =====================================
+      MOBILE CHECKOUT PRO
+===================================== */
+
+
+@media(max-width:1200px){
+
+.checkout-wrapper{
+
+    grid-template-columns:1fr;
+
+}
+
+
+.delivery-card{
+
+    position:relative;
+
+    top:0;
+
+}
+
+
+}
+
+
+
+/* TABLET */
+
+@media(max-width:800px){
+
+
+.checkout-page{
+
+    padding:20px 15px;
+
+}
+
+
+
+/* HEADER */
+
+
+.checkout-top{
+
+    margin-bottom:25px;
+
+}
+
+
+.checkout-top h1{
+
+    font-size:28px;
+
+}
+
+
+.checkout-top p{
+
+    font-size:15px;
+
+}
+
+
+
+/* CARDS */
+
+
+.order-products,
+.checkout-card,
+.delivery-card{
+
+    padding:20px;
+
+    border-radius:22px;
+
+}
+
+
+
+/* PRODUCT */
+
+
+.order-item{
+
+    padding:12px;
+
+    gap:12px;
+
+}
+
+
+
+.product-img{
+
+    width:75px;
+
+    height:75px;
+
+}
+
+
+
+.product-info h3{
+
+    font-size:15px;
+
+}
+
+
+
+.product-info p{
+
+    font-size:14px;
+
+}
+
+
+
+/* TOTAL */
+
+
+.order-total{
+
+    font-size:18px;
+
+    padding:16px;
+
+}
+
+
+
+/* FORM */
+
+
+.form-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.field label{
+
+    font-size:14px;
+
+}
+
+
+
+input,
+select,
+textarea{
+
+    padding:15px;
+
+    border-radius:15px;
+
+    font-size:16px;
+
+}
+
+
+
+/* PAYMENT */
+
+
+.radio-box label{
+
+    padding:15px;
+
+    border-radius:16px;
+
+}
+
+
+
+/* CARD PAYMENT */
+
+
+.card-payment-box{
+
+    padding:18px;
+
+    border-radius:20px;
+
+}
+
+
+
+.copy-box{
+
+    flex-direction:column;
+
+}
+
+
+
+.copy-box span{
+
+    width:100%;
+
+    text-align:center;
+
+    font-size:17px;
+
+    overflow:hidden;
+
+}
+
+
+
+.copy-box button{
+
+    width:100%;
+
+    padding:15px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.submit-btn{
+
+    padding:17px;
+
+    font-size:16px;
+
+    border-radius:18px;
+
+}
+
+
+
+/* DELIVERY */
+
+
+.delivery-card div{
+
+    padding:13px;
+
+    font-size:14px;
+
+}
+
+
+}
+
+
+
+/* SMALL PHONE */
+
+
+@media(max-width:450px){
+
+
+.checkout-page{
+
+    padding:10px;
+
+}
+
+
+
+.checkout-top h1{
+
+    font-size:23px;
+
+}
+
+
+
+.order-products h2,
+.checkout-card h2,
+.delivery-card h2{
+
+    font-size:20px;
+
+}
+
+
+
+/* PRODUCT MOBILE */
+
+
+.order-item{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+
+
+.product-img{
+
+    width:120px;
+
+    height:120px;
+
+    margin:auto;
+
+}
+
+
+
+.price{
+
+    font-size:17px!important;
+
+}
+
+
+
+/* TOTAL */
+
+
+.order-total{
+
+    flex-direction:column;
+
+    gap:10px;
+
+    text-align:center;
+
+}
+
+
+
+/* RADIO */
+
+
+.radio-box label{
+
+    font-size:14px;
+
+}
+
+
+
+/* FILE */
+
+
+input[type=file]{
+
+    font-size:13px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.submit-btn{
+
+    margin-top:20px;
+
+    padding:15px;
+
+}
+
+
+}

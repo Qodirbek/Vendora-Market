@@ -2049,28 +2049,452 @@ height:200px;
 
 
 
-/* MOBILE */
 
-@media(max-width:700px){
+/* =====================================
+   SELLER PANEL MOBILE PRO v4
+===================================== */
+
+@media(max-width:768px){
+
+/* GLOBAL */
+
+body{
+    overflow-x:hidden;
+    padding-bottom:90px;
+}
 
 
-.form-row{
+/* =========================
+   MOBILE SIDEBAR
+========================= */
 
-    grid-template-columns:1fr;
+
+.sidebar{
+
+    position:fixed;
+
+    left:-280px;
+
+    top:0;
+
+    width:260px;
+
+    height:100vh;
+
+    padding:20px;
+
+    z-index:9999;
+
+    transition:.35s ease;
+
+    box-shadow:
+    10px 0 40px rgba(0,0,0,.25);
 
 }
 
 
+/* OPEN */
+
+.sidebar.active{
+
+    left:0;
+
+}
+
+
+/* LOGO */
+
+.logo h2{
+
+    display:block;
+
+    font-size:24px;
+
+}
+
+
+.logo p{
+
+    display:block;
+
+}
+
+
+/* MENU */
+
+.menu-item{
+
+    justify-content:flex-start;
+
+    gap:15px;
+
+    padding:15px;
+
+    font-size:15px;
+
+}
+
+
+.menu-item span{
+
+    display:block;
+
+}
+
+
+
+/* OVERLAY */
+
+.sidebar-overlay{
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(0,0,0,.45);
+
+z-index:9998;
+
+display:none;
+
+}
+
+
+.sidebar-overlay.active{
+
+display:block;
+
+}
+
+
+
+/* =========================
+   MOBILE MENU BUTTON
+========================= */
+
+
+.mobile-menu-btn{
+
+position:fixed;
+
+top:15px;
+
+left:15px;
+
+width:45px;
+
+height:45px;
+
+border-radius:14px;
+
+border:none;
+
+background:
+
+linear-gradient(
+135deg,
+#2563eb,
+#7c3aed
+);
+
+color:white;
+
+font-size:22px;
+
+z-index:9000;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+
+
+/* =========================
+   MAIN
+========================= */
+
+
+.main{
+
+margin-left:0;
+
+width:100%;
+
+}
+
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+
+.navbar{
+
+height:70px;
+
+padding-left:70px;
+
+padding-right:15px;
+
+border-radius:0 0 20px 20px;
+
+}
+
+
+
+.search{
+
+display:none;
+
+}
+
+
+.right-nav{
+
+gap:10px;
+
+}
+
+
+.notification{
+
+font-size:22px;
+
+}
+
+
+.seller-info img{
+
+width:42px;
+
+height:42px;
+
+}
+
+
+.seller-info div{
+
+display:none;
+
+}
+
+
+
+/* =========================
+ CONTENT
+========================= */
+
+
+.content{
+
+padding:15px;
+
+}
+
+
+
+/* =========================
+ HEADER
+========================= */
+
+
+.page-header{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+
+}
+
+
+.page-header h1{
+
+font-size:25px;
+
+font-weight:800;
+
+}
+
+
+.header-actions{
+
+width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+
+.header-actions .btn{
+
+width:100%;
+
+padding:15px;
+
+}
+
+
+
+/* =========================
+ CARDS
+========================= */
+
+
+.card{
+
+padding:18px;
+
+border-radius:22px;
+
+margin-bottom:18px;
+
+}
+
+
+
+/* =========================
+ STATS
+========================= */
+
+
+.stats,
+.stats-grid{
+
+grid-template-columns:1fr;
+
+gap:15px;
+
+}
+
+
+.stat-card{
+
+padding:20px;
+
+border-radius:20px;
+
+}
+
+
+.stat-card h3{
+
+font-size:26px;
+
+}
+
+
+
+/* =========================
+ PRODUCTS
+========================= */
+
+
+.products-grid{
+
+grid-template-columns:1fr;
+
+gap:18px;
+
+}
+
+
+.product-card{
+
+border-radius:25px;
+
+overflow:hidden;
+
+}
+
+
+.product-image,
+.no-product-image{
+
+height:200px;
+
+}
+
+
+
+.product-body{
+
+padding:18px;
+
+}
+
+
+.product-title h2{
+
+font-size:19px;
+
+}
+
+
+
+/* =========================
+ BUTTONS
+========================= */
+
+
+.actions,
+.product-actions{
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+
+.actions .btn,
+.product-actions .btn{
+
+width:100%;
+
+padding:14px;
+
+}
+
+
+
+/* =========================
+ FORM
+========================= */
+
+
 .product-form-card{
 
-    padding:20px;
+padding:20px;
+
+border-radius:25px;
+
+}
+
+
+.form-row{
+
+grid-template-columns:1fr;
 
 }
 
 
 .form-actions{
 
-    flex-direction:column;
+flex-direction:column;
 
 }
 
@@ -2078,11 +2502,525 @@ height:200px;
 .save-btn,
 .cancel-btn{
 
-    width:100%;
+width:100%;
 
-    text-align:center;
+padding:15px;
 
 }
 
+
+
+/* IMAGE */
+
+.upload-box{
+
+height:160px;
+
+}
+
+
+.image-preview{
+
+width:100%;
+
+height:220px;
+
+}
+
+
+
+/* TABLE */
+
+.table-box{
+
+overflow-x:auto;
+
+border-radius:15px;
+
+}
+
+
+table{
+
+min-width:650px;
+
+}
+
+
+
+/* INPUT */
+
+input,
+textarea,
+select{
+
+font-size:16px;
+
+}
+
+
+
+/* TOUCH */
+
+.product-card:hover,
+.card:hover,
+.stat-card:hover{
+
+transform:none;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+   SMALL PHONE
+===================================== */
+
+
+@media(max-width:400px){
+
+
+.mobile-menu-btn{
+
+width:42px;
+
+height:42px;
+
+font-size:20px;
+
+}
+
+
+.navbar{
+
+padding-left:65px;
+
+}
+
+
+.content{
+
+padding:10px;
+
+}
+
+
+.page-header h1{
+
+font-size:21px;
+
+}
+
+
+.card{
+
+padding:15px;
+
+}
+
+
+.btn{
+
+font-size:14px;
+
+padding:12px;
+
+}
+
+
+.product-image,
+.no-product-image{
+
+height:180px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+   LANDSCAPE PHONE
+===================================== */
+
+
+@media(max-height:500px)
+and (orientation:landscape){
+
+
+.sidebar{
+
+width:230px;
+
+}
+
+
+.navbar{
+
+height:60px;
+
+}
+
+
+}
+
+
+
+/* =====================================
+   SAFE AREA IPHONE
+===================================== */
+
+
+@supports(padding:max(0px)){
+
+
+body{
+
+padding-bottom:
+calc(90px + env(safe-area-inset-bottom));
+
+}
+
+}
+
+/* =====================================
+   SELLER DASHBOARD MOBILE PRO
+===================================== */
+
+
+@media(max-width:768px){
+
+
+/* PAGE HEADER */
+
+.page-header{
+
+padding-top:60px;
+
+}
+
+
+.page-header h1{
+
+font-size:22px;
+
+line-height:1.3;
+
+}
+
+
+.page-header p{
+
+font-size:14px;
+
+color:#64748b;
+
+}
+
+
+
+.page-header .btn{
+
+width:100%;
+
+text-align:center;
+
+padding:14px;
+
+}
+
+
+
+/* =====================
+   STAT CARDS
+===================== */
+
+
+.stats{
+
+display:grid;
+
+grid-template-columns:1fr;
+
+gap:15px;
+
+}
+
+
+.stat-card{
+
+padding:18px;
+
+border-radius:22px;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+.stat-card h3{
+
+font-size:16px;
+
+}
+
+
+.stat-card h1{
+
+font-size:25px;
+
+margin:8px 0;
+
+}
+
+
+.stat-card p{
+
+font-size:13px;
+
+}
+
+
+
+/* =====================
+   GENERAL CARD
+===================== */
+
+
+.card{
+
+padding:18px;
+
+border-radius:22px;
+
+margin-top:18px;
+
+}
+
+
+.card h2{
+
+font-size:20px;
+
+margin-bottom:18px;
+
+}
+
+
+
+/* =====================
+   SHOP PROFILE
+===================== */
+
+
+.shop-profile{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+text-align:center;
+
+gap:15px;
+
+}
+
+
+.shop-profile img,
+.no-image{
+
+width:90px;
+
+height:90px;
+
+}
+
+
+
+.shop-profile h3{
+
+font-size:20px;
+
+}
+
+
+.shop-profile p{
+
+font-size:14px;
+
+}
+
+
+
+/* =====================
+   QUICK ACTION
+===================== */
+
+
+.actions{
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+}
+
+
+.actions .btn{
+
+width:100%;
+
+padding:15px;
+
+font-size:15px;
+
+}
+
+
+
+/* =====================
+   TABLE
+===================== */
+
+
+.card:has(table){
+
+overflow:hidden;
+
+}
+
+
+.card table{
+
+display:block;
+
+overflow-x:auto;
+
+white-space:nowrap;
+
+}
+
+
+table{
+
+min-width:550px;
+
+}
+
+
+th{
+
+font-size:14px;
+
+padding:12px;
+
+}
+
+
+td{
+
+font-size:14px;
+
+padding:12px;
+
+}
+
+
+
+.status{
+
+font-size:12px;
+
+padding:5px 10px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+   SMALL PHONE 360px
+===================================== */
+
+
+@media(max-width:400px){
+
+
+.page-header h1{
+
+font-size:20px;
+
+}
+
+
+.stat-card h1{
+
+font-size:22px;
+
+}
+
+
+.card{
+
+padding:15px;
+
+}
+
+
+.card h2{
+
+font-size:18px;
+
+}
+
+
+
+.actions .btn{
+
+font-size:14px;
+
+padding:13px;
+
+}
+
+
+table{
+
+min-width:480px;
+
+}
+
+
+}
+
+@media(max-width:768px){
+
+.sidebar{
+
+left:-280px;
+transition:.3s ease;
+
+}
+
+
+.sidebar.active{
+
+left:0;
+
+}
 
 }

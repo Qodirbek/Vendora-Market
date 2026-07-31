@@ -431,28 +431,3 @@
 
 
 
-
-/* MOBILE */
-
-
-@media(max-width:600px){
-
-
-    .edit-card{
-
-        padding:25px;
-
-        border-radius:22px;
-
-    }
-
-
-
-    .edit-header h2{
-
-        font-size:24px;
-
-    }
-
-
-}

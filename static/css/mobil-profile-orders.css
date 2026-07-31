@@ -1,0 +1,227 @@
+/* =====================================
+      MOBILE PROFILE ORDERS
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* PAGE */
+
+.orders-page{
+
+    min-height:100vh;
+
+    padding:20px 10px;
+
+}
+
+
+
+/* CONTAINER */
+
+
+.profile-orders-container{
+
+    width:100%;
+
+}
+
+
+
+/* TITLE */
+
+
+.orders-title{
+
+    font-size:24px;
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+}
+
+
+
+/* ORDER CARD */
+
+
+.order-card{
+
+    padding:16px;
+
+    border-radius:18px;
+
+    margin-bottom:15px;
+
+    box-shadow:
+
+    0 8px 25px rgba(0,0,0,.07);
+
+}
+
+
+
+.order-card:hover{
+
+    transform:none;
+
+}
+
+
+
+.order-card h3{
+
+    font-size:17px;
+
+    margin-bottom:12px;
+
+}
+
+
+
+/* TEXT */
+
+
+.order-card p{
+
+    font-size:14px;
+
+    margin:8px 0;
+
+}
+
+
+
+/* STATUS */
+
+
+.order-status{
+
+    padding:6px 12px;
+
+    font-size:12px;
+
+    border-radius:18px;
+
+}
+
+
+
+/* PRICE */
+
+
+.order-price{
+
+    font-size:17px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.order-btn{
+
+    width:100%;
+
+    text-align:center;
+
+    margin-top:15px;
+
+    padding:13px;
+
+    border-radius:14px;
+
+    font-size:14px;
+
+}
+
+
+
+
+/* EMPTY */
+
+
+.empty{
+
+    padding:35px 15px;
+
+    border-radius:18px;
+
+    font-size:16px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+       SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.orders-page{
+
+    padding:15px 8px;
+
+}
+
+
+
+.orders-title{
+
+    font-size:21px;
+
+}
+
+
+
+.order-card{
+
+    padding:14px;
+
+}
+
+
+
+.order-card h3{
+
+    font-size:15px;
+
+}
+
+
+
+.order-card p{
+
+    font-size:13px;
+
+}
+
+
+
+.order-btn{
+
+    font-size:13px;
+
+    padding:12px;
+
+}
+
+
+
+}

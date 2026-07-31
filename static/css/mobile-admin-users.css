@@ -1,0 +1,335 @@
+/* =====================================
+        MOBILE ADMIN USERS
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* HEADER */
+
+
+.users-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.users-header h2{
+
+    font-size:22px;
+
+}
+
+
+
+.users-header p{
+
+    font-size:14px;
+
+}
+
+
+
+.user-count{
+
+    width:100%;
+
+    text-align:center;
+
+    padding:12px;
+
+    border-radius:14px;
+
+}
+
+
+
+/* CARD */
+
+
+.card{
+
+    padding:15px;
+
+    border-radius:18px;
+
+}
+
+
+
+/* TOOLBAR */
+
+
+.toolbar{
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+
+.toolbar input,
+.toolbar select{
+
+    width:100%;
+
+    padding:13px;
+
+    font-size:14px;
+
+}
+
+
+
+/* TABLE */
+
+
+.table-wrapper{
+
+    overflow:visible;
+
+}
+
+
+
+table,
+thead,
+tbody,
+th,
+td,
+tr{
+
+    display:block;
+
+}
+
+
+
+thead{
+
+    display:none;
+
+}
+
+
+
+tr{
+
+    background:#f8fafc;
+
+    margin-bottom:15px;
+
+    border-radius:18px;
+
+    padding:15px;
+
+}
+
+
+
+td{
+
+    border:none;
+
+    padding:10px 5px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:14px;
+
+}
+
+
+
+td::before{
+
+    content:attr(data-label);
+
+    color:#64748b;
+
+    font-weight:600;
+
+    margin-right:15px;
+
+}
+
+
+
+/* USER BOX */
+
+
+.user-box{
+
+    justify-content:flex-start;
+
+}
+
+
+
+.avatar{
+
+    width:42px;
+
+    height:42px;
+
+    font-size:16px;
+
+}
+
+
+
+.user-box small{
+
+    font-size:12px;
+
+}
+
+
+
+/* ORDER BADGE */
+
+
+.order-badge{
+
+    padding:6px 10px;
+
+    font-size:12px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.view-btn{
+
+    width:100%;
+
+    text-align:center;
+
+    padding:10px;
+
+    margin-top:5px;
+
+}
+
+
+
+/* EMPTY */
+
+
+.empty{
+
+    padding:30px 15px;
+
+    font-size:14px;
+
+}
+
+
+}
+
+
+
+/* =====================================
+        SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.users-header h2{
+
+    font-size:20px;
+
+}
+
+
+
+.card{
+
+    padding:12px;
+
+}
+
+
+
+tr{
+
+    padding:12px;
+
+}
+
+
+
+td{
+
+    font-size:13px;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:5px;
+
+}
+
+
+
+td::before{
+
+    font-size:12px;
+
+}
+
+
+
+.user-box{
+
+    gap:10px;
+
+}
+
+
+
+.avatar{
+
+    width:38px;
+
+    height:38px;
+
+}
+
+
+
+.view-btn{
+
+    font-size:13px;
+
+}
+
+
+
+}

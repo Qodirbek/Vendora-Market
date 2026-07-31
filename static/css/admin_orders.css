@@ -432,32 +432,3 @@
 
 
 
-/* MOBILE */
-
-@media(max-width:900px){
-
-.orders-page{
-
-    padding:15px;
-
-}
-
-
-.orders-header{
-
-    flex-direction:column;
-
-    gap:20px;
-
-    align-items:flex-start;
-
-}
-
-
-.orders-table{
-
-    min-width:1000px;
-
-}
-
-}

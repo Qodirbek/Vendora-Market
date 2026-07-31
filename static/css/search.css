@@ -292,37 +292,3 @@ margin-top:50px;
 }
 
 
-
-
-@media(max-width:600px){
-
-
-.search-page{
-
-padding:15px;
-
-}
-
-
-.search-box form{
-
-flex-direction:column;
-
-}
-
-
-.products{
-
-grid-template-columns:repeat(2,1fr);
-
-}
-
-
-.image-box{
-
-height:150px;
-
-}
-
-
-}

@@ -5,17 +5,22 @@ Qo'llab-quvvatlash
 {% endblock %}
 
 
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/support.css')}}">
+{% endblock %}
+
+
+
 {% block content %}
 
-<link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}">
+
+<div class="support-page">
 
 
-<div class="profile-page">
+<div class="support-container">
 
 
-<div class="profile-card">
-
-<div class="profile-title">
+<div class="support-header">
 
 <h2>
 💬 Qo'llab-quvvatlash
@@ -28,14 +33,22 @@ Biz bilan bog'laning
 </div>
 
 
-<div class="support-box">
 
 
-<div class="support-item">
+<div class="support-list">
 
-<div>
+
+
+<!-- PHONE -->
+
+<a href="tel:+998954610206"
+class="support-card">
+
+
+<div class="support-icon phone">
 📞
 </div>
+
 
 <section>
 
@@ -44,20 +57,35 @@ Telefon
 </h3>
 
 <p>
-+998 90 123 45 67
++998 95 461 02 06
 </p>
+
+
+<span>
+Qo'ng'iroq qilish →
+</span>
 
 </section>
 
-</div>
+
+</a>
 
 
 
-<div class="support-item">
 
-<div>
+
+
+<!-- TELEGRAM -->
+
+<a href="https://t.me/Vendora_Market_supportbot"
+target="_blank"
+class="support-card">
+
+
+<div class="support-icon telegram">
 💬
 </div>
+
 
 <section>
 
@@ -65,21 +93,37 @@ Telefon
 Telegram
 </h3>
 
+
 <p>
-@SotuvSupport
+@Vendora_Market_supportbot
 </p>
+
+
+<span>
+Chatga o'tish →
+</span>
+
 
 </section>
 
-</div>
+
+</a>
 
 
 
-<div class="support-item">
 
-<div>
+
+
+<!-- EMAIL -->
+
+<a href="mailto:support@sotuv.uz"
+class="support-card">
+
+
+<div class="support-icon email">
 📧
 </div>
+
 
 <section>
 
@@ -87,44 +131,37 @@ Telegram
 Email
 </h3>
 
+
 <p>
 support@sotuv.uz
 </p>
 
+
+<span>
+Xat yuborish →
+</span>
+
+
 </section>
 
+
+</a>
+
+
+
 </div>
 
 
-</div>
 
 
 
-<form class="message-form">
-
-
-<h3>
-Xabar yuborish
-</h3>
-
-
-<textarea
-placeholder="Muammo yoki savolingizni yozing..."
-></textarea>
-
-
-<button>
-🚀 Yuborish
-</button>
-
-
-</form>
 
 
 </div>
 
 
 </div>
+
 
 
 {% endblock %}

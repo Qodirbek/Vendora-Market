@@ -294,26 +294,3 @@ text-decoration:none;
 
 }
 
-
-
-@media(max-width:700px){
-
-
-.cart-item{
-
-flex-direction:column;
-
-text-align:center;
-
-}
-
-
-.cart-product-image{
-
-width:140px;
-height:140px;
-
-}
-
-
-}

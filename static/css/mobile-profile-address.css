@@ -1,0 +1,221 @@
+/* =====================================
+      MOBILE PROFILE ADDRESS
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+
+/* PAGE */
+
+.address-page{
+
+    min-height:100vh;
+
+    padding:20px 10px;
+
+    align-items:flex-start;
+
+}
+
+
+
+/* CARD */
+
+
+.address-card{
+
+    width:100%;
+
+    padding:22px 15px;
+
+    border-radius:22px;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+/* HEADER */
+
+
+.address-header{
+
+    margin-bottom:25px;
+
+}
+
+
+
+.address-icon{
+
+    width:65px;
+
+    height:65px;
+
+    font-size:32px;
+
+}
+
+
+
+.address-header h2{
+
+    font-size:22px;
+
+    margin-top:12px;
+
+}
+
+
+
+.address-header p{
+
+    font-size:13px;
+
+}
+
+
+
+/* INPUT */
+
+
+.input-box{
+
+    margin-bottom:16px;
+
+}
+
+
+
+.input-box label{
+
+    font-size:14px;
+
+    margin-bottom:6px;
+
+}
+
+
+
+.input-box input,
+.input-box textarea{
+
+    padding:12px 14px;
+
+    font-size:14px;
+
+    border-radius:13px;
+
+}
+
+
+
+.input-box textarea{
+
+    height:110px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.save-address{
+
+    padding:14px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+}
+
+
+
+.back-profile{
+
+    margin-top:15px;
+
+    font-size:14px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+      SMALL DEVICES
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.address-page{
+
+    padding:15px 8px;
+
+}
+
+
+
+.address-card{
+
+    padding:18px 12px;
+
+}
+
+
+
+.address-header h2{
+
+    font-size:20px;
+
+}
+
+
+
+.address-icon{
+
+    width:60px;
+
+    height:60px;
+
+    font-size:28px;
+
+}
+
+
+
+.input-box input,
+.input-box textarea{
+
+    font-size:13px;
+
+}
+
+
+
+.save-address{
+
+    font-size:14px;
+
+}
+
+
+
+}

@@ -1,0 +1,330 @@
+/* =====================================
+        MOBILE ADMIN ORDERS
+===================================== */
+
+
+@media(max-width:900px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* PAGE */
+
+.orders-page{
+
+    padding:15px 10px;
+
+}
+
+
+
+/* HEADER */
+
+
+.orders-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+
+
+.orders-header h1{
+
+    font-size:24px;
+
+}
+
+
+
+.orders-header p{
+
+    font-size:14px;
+
+}
+
+
+
+.order-count{
+
+    width:100%;
+
+    text-align:center;
+
+    padding:14px;
+
+    font-size:16px;
+
+    border-radius:16px;
+
+}
+
+
+
+/* CARD */
+
+
+.orders-card{
+
+    padding:15px;
+
+    border-radius:20px;
+
+    overflow:visible;
+
+}
+
+
+
+/* TABLE TO CARD */
+
+
+.orders-table,
+.orders-table thead,
+.orders-table tbody,
+.orders-table th,
+.orders-table td,
+.orders-table tr{
+
+    display:block;
+
+}
+
+
+
+.orders-table thead{
+
+    display:none;
+
+}
+
+
+
+.orders-table{
+
+    min-width:100%;
+
+}
+
+
+
+.orders-table tbody tr{
+
+    background:white;
+
+    margin-bottom:18px;
+
+    border-radius:20px;
+
+    padding:15px;
+
+    box-shadow:
+
+    0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+.orders-table td{
+
+    border:none!important;
+
+    padding:10px 5px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+    font-size:14px;
+
+}
+
+
+
+.orders-table td::before{
+
+    content:attr(data-label);
+
+    font-weight:700;
+
+    color:#64748b;
+
+}
+
+
+
+/* REMOVE TABLE BORDER */
+
+.orders-table td:first-child,
+.orders-table td:last-child{
+
+    border-radius:0;
+
+}
+
+
+
+/* STATUS */
+
+
+.status{
+
+    padding:7px 12px;
+
+    font-size:12px;
+
+}
+
+
+
+/* BUTTONS */
+
+
+.orders-table td:last-child{
+
+    min-width:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+.orders-table td:last-child a,
+.orders-table td:last-child span{
+
+    width:100%;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.view-btn,
+.btn{
+
+    width:100%;
+
+    padding:12px;
+
+    text-align:center;
+
+    font-size:14px;
+
+}
+
+
+
+/* BADGE */
+
+
+.badge{
+
+    padding:10px;
+
+}
+
+
+
+/* EMPTY */
+
+
+.empty{
+
+    padding:40px 15px;
+
+    font-size:18px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+        SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.orders-page{
+
+    padding:10px 8px;
+
+}
+
+
+
+.orders-header h1{
+
+    font-size:21px;
+
+}
+
+
+
+.orders-card{
+
+    padding:12px;
+
+}
+
+
+
+.orders-table td{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:5px;
+
+}
+
+
+
+.orders-table td::before{
+
+    font-size:12px;
+
+}
+
+
+
+.status{
+
+    font-size:11px;
+
+}
+
+
+
+.view-btn,
+.btn{
+
+    font-size:13px;
+
+}
+
+
+
+}

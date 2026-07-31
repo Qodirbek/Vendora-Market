@@ -214,19 +214,3 @@ text-align:center;
 
 
 
-@media(max-width:800px){
-
-.stats{
-
-grid-template-columns:1fr;
-
-}
-
-
-.page-header{
-
-flex-direction:column;
-
-}
-
-}

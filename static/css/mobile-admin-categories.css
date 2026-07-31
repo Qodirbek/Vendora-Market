@@ -1,0 +1,296 @@
+/* =====================================
+        MOBILE ADMIN CATEGORIES
+===================================== */
+
+
+@media(max-width:768px){
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+
+/* PAGE */
+
+.category-page{
+
+    padding:15px 10px;
+
+    display:block;
+
+}
+
+
+
+/* CARDS */
+
+
+.category-card,
+.category-list-card{
+
+    padding:20px 15px;
+
+    border-radius:20px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* HEADER */
+
+
+.category-icon{
+
+    width:75px;
+
+    height:75px;
+
+    font-size:38px;
+
+}
+
+
+
+.category-header h2{
+
+    font-size:21px;
+
+}
+
+
+
+.category-header p{
+
+    font-size:14px;
+
+}
+
+
+
+/* INPUT */
+
+
+.input-group{
+
+    margin-top:15px;
+
+}
+
+
+
+.input-group label{
+
+    font-size:14px;
+
+}
+
+
+
+.input-group input{
+
+    padding:13px;
+
+    border-radius:13px;
+
+    font-size:14px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.add-btn{
+
+    padding:14px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+}
+
+
+
+/* LIST TITLE */
+
+
+.category-list-card h2{
+
+    font-size:20px;
+
+}
+
+
+
+/* CATEGORY LIST */
+
+
+.category-list{
+
+    grid-template-columns:1fr;
+
+    gap:12px;
+
+}
+
+
+
+/* CATEGORY ITEM */
+
+
+.category-item{
+
+    padding:15px;
+
+    border-radius:16px;
+
+    gap:12px;
+
+}
+
+
+
+.item-icon{
+
+    width:45px;
+
+    height:45px;
+
+    font-size:28px;
+
+}
+
+
+
+.item-name{
+
+    font-size:16px;
+
+}
+
+
+
+/* DELETE */
+
+
+.delete-category{
+
+    width:34px;
+
+    height:34px;
+
+    opacity:1;
+
+    font-size:16px;
+
+}
+
+
+
+/* EMPTY */
+
+
+.empty{
+
+    padding:30px 10px;
+
+    font-size:14px;
+
+}
+
+
+
+}
+
+
+
+/* =====================================
+        SMALL PHONE
+===================================== */
+
+
+@media(max-width:380px){
+
+
+.category-page{
+
+    padding:10px 8px;
+
+}
+
+
+
+.category-card,
+.category-list-card{
+
+    padding:15px 12px;
+
+}
+
+
+
+.category-icon{
+
+    width:65px;
+
+    height:65px;
+
+    font-size:32px;
+
+}
+
+
+
+.category-header h2{
+
+    font-size:19px;
+
+}
+
+
+
+.category-item{
+
+    padding:12px;
+
+}
+
+
+
+.item-icon{
+
+    width:40px;
+
+    height:40px;
+
+    font-size:24px;
+
+}
+
+
+
+.item-name{
+
+    font-size:14px;
+
+}
+
+
+
+.delete-category{
+
+    width:30px;
+
+    height:30px;
+
+}
+
+
+
+}
