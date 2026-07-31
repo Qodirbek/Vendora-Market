@@ -54,4 +54,8 @@ class Config:
 
     SOTUVCHI_KEY = os.getenv(
         "SOTUVCHI_KEY"
+<<<<<<< HEAD
     )
+=======
+    )
+>>>>>>> 4d27729 (fix admin id and create admin)
