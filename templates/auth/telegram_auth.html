@@ -1,0 +1,423 @@
+<<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Vendora | Telegram Login
+</title>
+
+
+<link rel="stylesheet"
+href="{{ url_for(
+'static',
+filename='auth/telegram_auth.css'
+) }}">
+
+
+</head>
+
+
+<body>
+
+
+<div class="background">
+
+
+<div class="card">
+
+
+<!-- LOGO -->
+
+<div class="logo">
+✈️
+</div>
+
+
+<h1>
+Vendora
+</h1>
+
+
+<p class="desc">
+Telegram orqali xavfsiz kirish
+</p>
+
+
+
+<!-- TELEGRAM USER -->
+
+<div class="user">
+
+
+{% if user.tg_photo %}
+
+<img
+src="{{ user.tg_photo }}"
+class="user-photo">
+
+{% else %}
+
+<div class="default-avatar">
+👤
+</div>
+
+{% endif %}
+
+
+
+<div class="user-info">
+
+
+<h3>
+{{ user.tg_first_name or user.name }}
+</h3>
+
+
+<span>
+@{{ user.tg_username or "telegram" }}
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- STATUS -->
+
+<div class="info">
+
+
+<div class="item">
+
+<span>
+✅
+</span>
+
+Telegram tasdiqlandi
+
+</div>
+
+
+
+<div class="item">
+
+<span>
+📱
+</span>
+
+Telefon bog‘langan
+
+</div>
+
+
+
+<div class="item">
+
+<span>
+🔐
+</span>
+
+Xavfsiz kirish
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- LOGIN FORM -->
+
+<form method="POST"
+action="{{ url_for('auth.telegram_connect') }}">
+
+
+
+
+
+<!-- USER ID -->
+
+<input
+type="hidden"
+name="tg_id"
+value="{{ user.tg_id }}">
+
+
+
+
+
+<!-- PHONE -->
+
+<label>
+
+📱 Telefon raqam
+
+</label>
+
+
+
+<div class="phone-display">
+
+
+<div class="flag">
+
+🇺🇿
+
+</div>
+
+
+
+<input
+
+type="text"
+
+value="{{ user.phone }}"
+
+readonly
+
+>
+
+
+
+<div class="lock">
+
+🔒
+
+</div>
+
+
+</div>
+
+
+
+
+<p class="hint">
+
+Telegram orqali tasdiqlangan raqam.
+
+<br>
+
+Telefon raqamni o‘zgartirib bo‘lmaydi.
+
+</p>
+
+
+
+
+
+
+<!-- PASSWORD -->
+
+
+<label>
+
+🔐 Sayt paroli
+
+</label>
+
+
+
+<div class="password-box">
+
+
+<input
+
+id="password"
+
+type="password"
+
+name="password"
+
+placeholder="Saytdagi parolingiz"
+
+required
+
+>
+
+
+
+<button
+
+type="button"
+
+onclick="showPassword()">
+
+👁
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- REMEMBER -->
+
+
+<div class="remember">
+
+
+<label>
+
+
+<input
+
+type="checkbox"
+
+name="remember"
+
+>
+
+
+Meni eslab qolish
+
+
+</label>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- BUTTON -->
+
+
+<button
+
+class="submit"
+
+type="submit">
+
+
+🚀 Vendora ga kirish
+
+
+</button>
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+<!-- FORGOT -->
+
+
+<div class="help">
+
+
+<p>
+
+❓ Parolni unutdingizmi?
+
+</p>
+
+
+<a href="{{ url_for('auth.forgot_password') }}">
+
+Parolni tiklash
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- SECURITY -->
+
+
+<div class="secure">
+
+
+🔒 Ma'lumotlaringiz himoyalangan
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+
+function showPassword(){
+
+
+let input=document.getElementById(
+"password"
+);
+
+
+if(input.type==="password"){
+
+input.type="text";
+
+}
+
+else{
+
+input.type="password";
+
+}
+
+
+}
+
+
+</script>
+
+
+
+
+
+</body>
+
+</html>
