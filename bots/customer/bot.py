@@ -24,10 +24,7 @@ logging.basicConfig(
     )
 )
 
-
 logger = logging.getLogger(__name__)
-
-
 
 
 # =====================================
@@ -39,27 +36,17 @@ session = AiohttpSession(
 )
 
 
-
-
 # =====================================
 # BOT
 # =====================================
 
 bot = Bot(
-
     token=Config.TG_BOT_TOKEN,
-
     session=session,
-
     default=DefaultBotProperties(
-
         parse_mode=ParseMode.HTML
-
     )
-
 )
-
-
 
 
 # =====================================
@@ -68,12 +55,9 @@ bot = Bot(
 
 dp = Dispatcher()
 
-
 dp.include_router(
     router
 )
-
-
 
 
 # =====================================
@@ -86,9 +70,7 @@ async def on_startup():
         drop_pending_updates=True
     )
 
-
     me = await bot.get_me()
-
 
     logger.info(
         """
@@ -112,77 +94,69 @@ ID:
     )
 
 
-
-
 # =====================================
 # SHUTDOWN
 # =====================================
 
 async def on_shutdown():
 
-
     logger.info(
         "Bot to'xtatilmoqda..."
     )
 
-
     await session.close()
-
 
     logger.info(
         "Session yopildi ✅"
     )
 
 
-
-
-
 # =====================================
-# MAIN
+# BOT START
 # =====================================
 
-async def main():
-
+async def start_bot():
 
     try:
 
         await on_startup()
 
-
         await dp.start_polling(
-
             bot,
-
             allowed_updates=
             dp.resolve_used_update_types()
-
         )
 
 
     except Exception as e:
 
-
         logger.exception(
-
             f"Bot xatosi: {e}"
-
         )
 
 
     finally:
 
-
         await on_shutdown()
 
 
 
+# =====================================
+# FLASK UCHUN RUNNER
+# =====================================
+
+def run_bot():
+
+    asyncio.run(
+        start_bot()
+    )
+
+
 
 # =====================================
-# RUN
+# LOCAL TEST
 # =====================================
 
 if __name__ == "__main__":
 
-    asyncio.run(
-        main()
-    )
+    run_bot()

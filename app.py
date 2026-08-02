@@ -1,6 +1,5 @@
 from flask import (
     Flask,
-    jsonify,
     session,
     render_template
 )
@@ -8,6 +7,7 @@ from flask import (
 from config import Config
 from extensions import db, login_manager
 
+import threading
 
 
 # =====================================
@@ -27,16 +27,10 @@ def create_app():
 
 
     # =====================================
-    # LOGIN MANAGER
-    # =====================================
-
-    login_manager.init_app(app)
-
-
-    # =====================================
     # EXTENSIONS
     # =====================================
 
+    login_manager.init_app(app)
     db.init_app(app)
 
 
@@ -56,98 +50,57 @@ def create_app():
     from models.review import Review
     from models.notification import Notification
     from models.withdraw_request import WithdrawRequest
-    from admin.routes import admin_bp
-    from routes.order import order_bp
 
 
     # =====================================
     # BLUEPRINTS
     # =====================================
 
-
-    # USER
-
     from routes.home import home
     from routes.cart import cart
     from routes.profile import profile
     from routes.favorite import favorite
     from routes.search import search
-
-
-    # AUTH
+    from routes.order import order_bp
 
     from auth.routes import auth
-
-
-
-    # SELLER
 
     from seller.routes import seller
     from seller.import_routes import seller_import
     from seller.template_routes import template
 
-
-
-    # EXCEL
-
     from routes.excel import excel
-
-
-
-    # ADMIN
 
     from admin.routes import admin
     from admin.categories import category_admin
     from admin.excel import excel_admin
     from admin.products_excel import product_excel_admin
 
-    from models.admin import Admin
-
-
 
     # =====================================
-    # REGISTER BLUEPRINTS
+    # REGISTER
     # =====================================
-
 
     app.register_blueprint(home)
-
     app.register_blueprint(cart)
-
     app.register_blueprint(profile)
-
     app.register_blueprint(favorite)
-
     app.register_blueprint(search)
-
-
 
     app.register_blueprint(auth)
 
-
-
     app.register_blueprint(seller)
-
     app.register_blueprint(seller_import)
-
     app.register_blueprint(template)
-
-
 
     app.register_blueprint(excel)
 
-
-
     app.register_blueprint(admin)
-
     app.register_blueprint(category_admin)
-
     app.register_blueprint(excel_admin)
-
     app.register_blueprint(product_excel_admin)
-    
-    app.register_blueprint(order_bp)
 
+    app.register_blueprint(order_bp)
 
 
 
@@ -155,12 +108,10 @@ def create_app():
     # GLOBAL VARIABLES
     # =====================================
 
-
     @app.context_processor
     def global_variables():
 
         cart_count = 0
-
 
         if "user_id" in session:
 
@@ -169,24 +120,19 @@ def create_app():
             ).count()
 
 
-
         return {
-
             "site_name":
                 "Sotuv Platform",
 
             "cart_count":
                 cart_count
-
         }
 
 
-    
 
     # =====================================
-    # ERROR HANDLERS
+    # ERRORS
     # =====================================
-
 
     @app.errorhandler(404)
     def not_found(error):
@@ -194,7 +140,6 @@ def create_app():
         return render_template(
             "errors/404.html"
         ),404
-
 
 
 
@@ -209,6 +154,9 @@ def create_app():
 
 
 
+    # =====================================
+    # SESSION CLEAR
+    # =====================================
 
     @app.route("/clear-session")
     def clear_session():
@@ -222,10 +170,11 @@ def create_app():
         </a>
         """
 
+
+
     # =====================================
     # DATABASE
     # =====================================
-
 
     with app.app_context():
 
@@ -237,11 +186,9 @@ def create_app():
 
 
 
-
     # =====================================
     # STATUS
     # =====================================
-
 
     @app.route("/status")
     def status():
@@ -256,34 +203,24 @@ def create_app():
 
             "status":
             "running"
-
         }
 
+
+
     print("REGISTERED ROUTES:")
+
     for rule in app.url_map.iter_rules():
-      print(rule)
 
-    @app.route("/create-admin")
-    def create_admin():
-        from models.admin import Admin
+        print(rule)
 
-        admin = Admin(username="Qodirbek_2007")
-        admin.set_password("Qodirbek_2007")
 
-        db.session.add(admin)
-        db.session.commit()
-
-        return "Admin yaratildi"
-
-    with app.app_context():
-        db.create_all()
 
     return app
 
 
 
 # =====================================
-# START SERVER
+# START APP
 # =====================================
 
 
@@ -291,16 +228,63 @@ app = create_app()
 
 
 
+# =====================================
+# START TELEGRAM BOT
+# =====================================
+
+def start_bot_thread():
+
+    try:
+
+        from bots.customer.bot import run_bot
+
+
+        thread = threading.Thread(
+
+            target=run_bot,
+
+            daemon=True
+
+        )
+
+
+        thread.start()
+
+
+        print(
+            "🤖 Telegram bot thread ishga tushdi"
+        )
+
+
+    except Exception as e:
+
+        print(
+            "BOT START XATO:",
+            e
+        )
+
+
+
+start_bot_thread()
+
+
+
+# =====================================
+# RUN LOCAL
+# =====================================
+
 if __name__ == "__main__":
 
-
-    print("""
-
+    print(
+"""
 ================================
 🚀 SOTUV PLATFORM ISHGA TUSHDI
 
 🌐 Website:
 http://127.0.0.1:5000
+
+🤖 Telegram:
+Vendora Customer Bot
 
 👨‍💼 Admin:
 /admin
@@ -312,8 +296,8 @@ http://127.0.0.1:5000
 /auth/login
 
 ================================
-
-""")
+"""
+    )
 
 
     app.run(
@@ -325,4 +309,3 @@ http://127.0.0.1:5000
         debug=True
 
     )
-    
