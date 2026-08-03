@@ -284,6 +284,11 @@ class Order(db.Model):
         lazy="joined"
     )
 
+    user = db.relationship(
+    "User",
+    back_populates="orders"
+    )
+
 
     notifications = db.relationship(
         "Notification",

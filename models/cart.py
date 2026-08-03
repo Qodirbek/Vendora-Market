@@ -99,6 +99,11 @@ class Cart(db.Model):
         back_populates="carts"
     )
 
+    user = db.relationship(
+    "User",
+    back_populates="carts"
+    )
+
 
     product = db.relationship(
         "Product",

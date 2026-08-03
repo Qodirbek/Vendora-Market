@@ -22,6 +22,11 @@ class Notification(db.Model):
         nullable=False
     )
 
+    user = db.relationship(
+    "User",
+    back_populates="notifications"
+    )
+
 
     message = db.Column(
         db.Text,

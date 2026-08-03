@@ -1,8 +1,17 @@
+/* =====================================
+        VENDORA REGISTER PRO UI
+===================================== */
+
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Segoe UI",sans-serif;
+    font-family:
+    "Inter",
+    "Segoe UI",
+    Arial,
+    sans-serif;
 }
 
 
@@ -12,9 +21,11 @@ body{
 
     display:flex;
 
+    justify-content:center;
+
     align-items:center;
 
-    justify-content:center;
+    padding:25px;
 
     background:
     linear-gradient(
@@ -27,53 +38,77 @@ body{
 
 
 
+
+/* ===============================
+        WRAPPER
+================================ */
+
+
 .auth-wrapper{
 
     width:100%;
 
-    padding:20px;
+    max-width:480px;
 
 }
 
+
+
+
+
+/* ===============================
+        CARD
+================================ */
 
 
 .auth-card{
 
-    max-width:430px;
+    width:100%;
 
-    margin:auto;
+    background:
+    rgba(255,255,255,.97);
 
-    background:white;
+    backdrop-filter:
+    blur(20px);
 
-    border-radius:25px;
 
-    padding:35px;
+    border-radius:32px;
+
+
+    padding:40px;
+
 
     box-shadow:
-    0 20px 50px rgba(0,0,0,.25);
+
+    0 30px 80px
+    rgba(0,0,0,.25);
+
 
     animation:
-    show .5s ease;
+    cardShow .5s ease;
 
 }
 
 
 
-@keyframes show{
+@keyframes cardShow{
 
     from{
 
         opacity:0;
 
-        transform:translateY(30px);
+        transform:
+        translateY(40px);
 
     }
+
 
     to{
 
         opacity:1;
 
-        transform:translateY(0);
+        transform:
+        translateY(0);
 
     }
 
@@ -82,7 +117,11 @@ body{
 
 
 
-/* BRAND */
+
+/* ===============================
+        BRAND
+================================ */
+
 
 .brand{
 
@@ -96,15 +135,14 @@ body{
 
 .logo{
 
-    width:80px;
 
-    height:80px;
+    width:90px;
+
+    height:90px;
+
 
     margin:auto;
 
-    border-radius:50%;
-
-    background:#667eea;
 
     display:flex;
 
@@ -112,7 +150,27 @@ body{
 
     justify-content:center;
 
-    font-size:40px;
+
+    font-size:45px;
+
+
+    border-radius:50%;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #667eea,
+        #764ba2
+    );
+
+
+    box-shadow:
+
+    0 15px 35px
+    rgba(102,126,234,.45);
+
 
 }
 
@@ -122,9 +180,9 @@ body{
 
     margin-top:15px;
 
-    font-size:32px;
+    font-size:34px;
 
-    color:#333;
+    color:#222;
 
 }
 
@@ -132,9 +190,11 @@ body{
 
 .brand p{
 
+    margin-top:8px;
+
     color:#777;
 
-    margin-top:5px;
+    font-size:15px;
 
 }
 
@@ -142,15 +202,18 @@ body{
 
 
 
-/* ALERT */
+/* ===============================
+        ALERT
+================================ */
+
 
 .alert{
 
-    padding:12px;
+    padding:14px;
 
-    border-radius:12px;
+    border-radius:15px;
 
-    margin-bottom:15px;
+    margin-bottom:20px;
 
     font-size:14px;
 
@@ -160,12 +223,11 @@ body{
 
 .alert.success{
 
-    background:#d1fae5;
+    background:#dcfce7;
 
-    color:#065f46;
+    color:#166534;
 
 }
-
 
 
 .alert.danger{
@@ -178,22 +240,136 @@ body{
 
 
 
-.alert.warning{
 
-    background:#fef3c7;
 
-    color:#92400e;
+/* ===============================
+        TELEGRAM BUTTON
+================================ */
+
+
+.telegram-login{
+
+
+    width:100%;
+
+    height:56px;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    gap:10px;
+
+
+    border-radius:18px;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #229ED9,
+        #0088cc
+    );
+
+
+    color:white;
+
+
+    text-decoration:none;
+
+
+    font-size:16px;
+
+
+    font-weight:700;
+
+
+    box-shadow:
+
+    0 12px 30px
+    rgba(0,136,204,.35);
+
+
+    transition:.3s;
+
+}
+
+
+
+.telegram-login:hover{
+
+    transform:
+    translateY(-3px);
 
 }
 
 
 
 
-/* FORM */
+/* ===============================
+        DIVIDER
+================================ */
+
+
+.divider{
+
+
+    display:flex;
+
+    align-items:center;
+
+
+    gap:15px;
+
+
+    margin:25px 0;
+
+
+    color:#999;
+
+
+    font-size:14px;
+
+}
+
+
+
+.divider::before,
+.divider::after{
+
+
+    content:"";
+
+
+    height:1px;
+
+
+    flex:1;
+
+
+    background:#ddd;
+
+
+}
+
+
+
+
+
+/* ===============================
+        FORM
+================================ */
+
 
 .form-group{
 
-    margin-bottom:18px;
+
+    margin-bottom:22px;
 
 }
 
@@ -201,13 +377,36 @@ body{
 
 .form-group label{
 
+
     display:block;
 
-    margin-bottom:8px;
+
+    margin-bottom:9px;
+
 
     font-weight:600;
 
-    color:#444;
+
+    color:#333;
+
+
+    font-size:15px;
+
+}
+
+
+
+.form-group small{
+
+
+    display:block;
+
+
+    margin-top:8px;
+
+
+    color:#888;
+
 
 }
 
@@ -215,17 +414,36 @@ body{
 
 
 
+/* ===============================
+        INPUT
+================================ */
+
+
 .input-box{
+
+
+    height:58px;
+
 
     display:flex;
 
+
     align-items:center;
 
-    border:2px solid #eee;
 
-    border-radius:15px;
+    border:
 
-    padding:0 15px;
+    2px solid #e5e7eb;
+
+
+    border-radius:18px;
+
+
+    background:#fafafa;
+
+
+    overflow:hidden;
+
 
     transition:.3s;
 
@@ -235,10 +453,18 @@ body{
 
 .input-box:focus-within{
 
+
     border-color:#667eea;
 
+
+    background:white;
+
+
     box-shadow:
-    0 0 0 3px rgba(102,126,234,.15);
+
+    0 0 0 5px
+    rgba(102,126,234,.15);
+
 
 }
 
@@ -246,37 +472,16 @@ body{
 
 .input-box span{
 
-    font-size:18px;
 
-}
-
+    width:50px;
 
 
-.input-box input{
+    display:flex;
 
-    width:100%;
+    justify-content:center;
 
-    padding:15px;
+    align-items:center;
 
-    border:none;
-
-    outline:none;
-
-    font-size:16px;
-
-}
-
-
-
-
-
-.eye{
-
-    border:none;
-
-    background:none;
-
-    cursor:pointer;
 
     font-size:20px;
 
@@ -285,16 +490,216 @@ body{
 
 
 
+.input-box input{
 
-/* TERMS */
 
-.terms{
+    flex:1;
 
-    margin:20px 0;
+
+    height:100%;
+
+
+    border:none;
+
+
+    outline:none;
+
+
+    background:none;
+
+
+    font-size:16px;
+
+}
+
+
+
+.input-box input::placeholder{
+
+    color:#aaa;
+
+}
+
+
+
+
+
+/* ===============================
+        PHONE
+================================ */
+
+
+.phone-box{
+
+
+    display:flex;
+
+
+    gap:10px;
+
+
+}
+
+
+
+.phone-box select{
+
+
+    width:145px;
+
+
+    height:58px;
+
+
+    border:
+
+    2px solid #e5e7eb;
+
+
+    border-radius:18px;
+
+
+    background:white;
+
+
+    padding:0 10px;
+
 
     font-size:14px;
 
+
+    outline:none;
+
+
+    cursor:pointer;
+
+
+}
+
+
+
+.phone-box select:focus{
+
+
+    border-color:#667eea;
+
+
+}
+
+
+
+
+
+.phone-box input{
+
+
+    flex:1;
+
+
+    height:58px;
+
+
+    border:
+
+    2px solid #e5e7eb;
+
+
+    border-radius:18px;
+
+
+    padding:0 15px;
+
+
+    outline:none;
+
+
+    font-size:16px;
+
+
+}
+
+
+
+.phone-box input:focus{
+
+
+    border-color:#667eea;
+
+
+    box-shadow:
+
+    0 0 0 5px
+    rgba(102,126,234,.15);
+
+}
+
+
+
+
+
+/* ===============================
+        PASSWORD EYE
+================================ */
+
+
+.eye{
+
+
+    width:45px;
+
+    height:45px;
+
+
+    border:none;
+
+
+    background:none;
+
+
+    cursor:pointer;
+
+
+    font-size:20px;
+
+
+    border-radius:50%;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+.eye:hover{
+
+
+    background:#eef2ff;
+
+
+}
+
+
+
+
+
+/* ===============================
+        TERMS
+================================ */
+
+
+.terms{
+
+
+    margin:20px 0;
+
+
+    font-size:14px;
+
+
     color:#555;
+
 
 }
 
@@ -302,7 +707,15 @@ body{
 
 .terms input{
 
-    margin-right:7px;
+
+    width:16px;
+
+
+    height:16px;
+
+
+    margin-right:8px;
+
 
 }
 
@@ -310,34 +723,66 @@ body{
 
 
 
-/* REGISTER BUTTON */
+/* ===============================
+        REGISTER BUTTON
+================================ */
+
 
 .register-btn{
 
+
     width:100%;
 
-    padding:16px;
+
+    height:58px;
+
 
     border:none;
 
-    border-radius:15px;
 
-    background:
-    linear-gradient(
-        135deg,
-        #667eea,
-        #764ba2
-    );
+    border-radius:18px;
 
-    color:white;
-
-    font-size:17px;
-
-    font-weight:bold;
 
     cursor:pointer;
 
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    background:
+
+
+    linear-gradient(
+        135deg,
+        #00c853,
+        #009624
+    );
+
+
+    color:white;
+
+
+    font-size:17px;
+
+
+    font-weight:700;
+
+
+    box-shadow:
+
+
+    0 15px 35px
+    rgba(0,200,83,.35);
+
+
     transition:.3s;
+
 
 }
 
@@ -345,10 +790,10 @@ body{
 
 .register-btn:hover{
 
-    transform:translateY(-2px);
 
-    box-shadow:
-    0 10px 25px rgba(102,126,234,.4);
+    transform:
+    translateY(-3px);
+
 
 }
 
@@ -356,72 +801,38 @@ body{
 
 
 
-/* DIVIDER */
-
-.divider{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin:25px 0;
-
-    color:#999;
-
-}
+/* ===============================
+        LOGIN LINK
+================================ */
 
 
+.login-text{
 
-.divider:before,
-.divider:after{
-
-    content:"";
-
-    height:1px;
-
-    background:#ddd;
-
-    flex:1;
-
-}
-
-
-
-
-
-/* LOGIN LINK */
-
-.login-link{
-
-    display:block;
 
     text-align:center;
 
-    padding:15px;
 
-    border-radius:15px;
+    margin-top:25px;
 
-    border:2px solid #667eea;
+
+    color:#777;
+
+
+}
+
+
+
+.login-text a{
+
 
     color:#667eea;
 
+
+    font-weight:700;
+
+
     text-decoration:none;
 
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-
-
-.login-link:hover{
-
-    background:#667eea;
-
-    color:white;
 
 }
 
@@ -429,108 +840,33 @@ body{
 
 
 
-@media(max-width:480px){
-
-    .auth-card{
-
-        padding:25px;
-
-        border-radius:20px;
-
-    }
+/* ===============================
+        LOADING
+================================ */
 
 
-    .brand h1{
+button:disabled{
 
-        font-size:26px;
 
-    }
+    opacity:.7;
+
+    cursor:not-allowed;
 
 }
 
-/* =====================================
-      REGISTER MOBILE PRO DESIGN
-===================================== */
 
 
-@media(max-width:700px){
+
+
+/* ===============================
+        MOBILE
+================================ */
+
+
+@media(max-width:600px){
 
 
 body{
-
-    padding:15px;
-
-}
-
-
-
-/* WRAPPER */
-
-.auth-wrapper{
-
-    padding:0;
-
-}
-
-
-
-/* CARD */
-
-.auth-card{
-
-    width:100%;
-
-    padding:28px 20px;
-
-    border-radius:22px;
-
-}
-
-
-
-/* BRAND */
-
-.brand{
-
-    margin-bottom:25px;
-
-}
-
-
-
-.logo{
-
-    width:70px;
-
-    height:70px;
-
-    font-size:35px;
-
-}
-
-
-
-.brand h1{
-
-    font-size:27px;
-
-}
-
-
-
-.brand p{
-
-    font-size:14px;
-
-}
-
-
-
-/* ALERT */
-
-.alert{
-
-    font-size:13px;
 
     padding:12px;
 
@@ -538,147 +874,14 @@ body{
 
 
 
-/* FORM */
-
-.form-group{
-
-    margin-bottom:16px;
-
-}
-
-
-
-.form-group label{
-
-    font-size:14px;
-
-}
-
-
-
-/* INPUT */
-
-.input-box{
-
-    border-radius:14px;
-
-    padding:0 12px;
-
-}
-
-
-
-.input-box span{
-
-    font-size:17px;
-
-}
-
-
-
-.input-box input{
-
-    padding:14px 10px;
-
-    font-size:15px;
-
-}
-
-
-
-/* EYE BUTTON */
-
-.eye{
-
-    font-size:18px;
-
-}
-
-
-
-/* TERMS */
-
-.terms{
-
-    font-size:13px;
-
-    line-height:20px;
-
-}
-
-
-
-.terms input{
-
-    width:16px;
-
-    height:16px;
-
-}
-
-
-
-/* REGISTER BUTTON */
-
-.register-btn{
-
-    padding:15px;
-
-    font-size:16px;
-
-    border-radius:15px;
-
-}
-
-
-
-/* LOGIN LINK */
-
-.login-link{
-
-    padding:14px;
-
-    font-size:15px;
-
-    border-radius:14px;
-
-}
-
-
-
-/* DIVIDER */
-
-.divider{
-
-    margin:20px 0;
-
-}
-
-
-}
-
-
-
-
-/* =====================================
-      SMALL PHONE 320px
-===================================== */
-
-
-@media(max-width:380px){
-
-
-body{
-
-    padding:10px;
-
-}
-
-
-
 .auth-card{
 
-    padding:22px 16px;
+
+    padding:28px 18px;
+
+
+    border-radius:25px;
+
 
 }
 
@@ -686,11 +889,15 @@ body{
 
 .logo{
 
-    width:60px;
 
-    height:60px;
+    width:75px;
 
-    font-size:30px;
+
+    height:75px;
+
+
+    font-size:36px;
+
 
 }
 
@@ -698,7 +905,9 @@ body{
 
 .brand h1{
 
-    font-size:23px;
+
+    font-size:28px;
+
 
 }
 
@@ -706,111 +915,124 @@ body{
 
 .brand p{
 
-    font-size:12px;
-
-}
-
-
-
-.input-box input{
 
     font-size:14px;
 
-}
-
-
-
-.register-btn{
-
-    padding:13px;
 
 }
 
 
 
-.login-link{
+.input-box,
+.phone-box input,
+.phone-box select{
 
-    padding:13px;
 
-}
+    height:54px;
 
 
 }
 
 
 
+.register-btn,
+.telegram-login{
 
-/* =====================================
-      TOUCH OPTIMIZATION
-===================================== */
+
+    height:52px;
+
+
+    font-size:15px;
+
+
+}
+
+
+.phone-box select{
+
+
+    width:115px;
+
+
+}
+
+
+}
+
+
+
+
+
+/* ===============================
+        SMALL PHONE
+================================ */
+
+
+@media(max-width:360px){
+
+
+.auth-card{
+
+
+    padding:22px 14px;
+
+
+}
+
+
+
+.phone-box{
+
+
+    gap:6px;
+
+}
+
+
+
+.phone-box select{
+
+
+    width:95px;
+
+
+    font-size:12px;
+
+
+}
+
+
+
+.input-box input,
+.phone-box input{
+
+
+    font-size:14px;
+
+
+}
+
+
+}
+
+
+
+
+
+/* ===============================
+        TOUCH DEVICE
+================================ */
 
 
 @media(hover:none){
 
 
+.telegram-login:hover,
 .register-btn:hover{
+
 
     transform:none;
 
-    box-shadow:none;
-
-}
-
-
-
-.login-link:hover{
-
-    background:white;
-
-    color:#667eea;
-
-}
-
-
-}
-
-
-
-
-/* =====================================
-      LANDSCAPE PHONE
-===================================== */
-
-
-@media(max-height:500px) and (orientation:landscape){
-
-
-body{
-
-    align-items:flex-start;
-
-    padding:20px;
-
-}
-
-
-
-.auth-card{
-
-    margin:auto;
-
-}
-
-
-
-.logo{
-
-    width:55px;
-
-    height:55px;
-
-}
-
-
-
-.brand{
-
-    margin-bottom:15px;
 
 }
 

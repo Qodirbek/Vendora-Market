@@ -1,8 +1,10 @@
 {% extends "admin/base.html" %}
 
+
 {% block title %}
 Foydalanuvchi profili
 {% endblock %}
+
 
 
 {% block page_title %}
@@ -10,42 +12,194 @@ Foydalanuvchi profili
 {% endblock %}
 
 
+
+
+
 {% block content %}
 
+
 <link rel="stylesheet"
-href="{{url_for('static',filename='admin/css/users.css')}}">
+href="{{url_for(
+'static',
+filename='admin/css/users.css'
+)}}">
+
+
+
+
 
 
 <div class="user-profile">
 
 
+
+
+
+
+<!-- PROFILE CARD -->
+
 <div class="profile-card">
 
-<div class="avatar">
+
+
+<div class="avatar large">
+
+
+{% if user.tg_photo %}
+
+
+<img src="{{user.tg_photo}}">
+
+
+{% elif user.name %}
+
+
+{{user.name[0]|upper}}
+
+
+{% else %}
+
 👤
+
+{% endif %}
+
+
+
 </div>
+
+
+
 
 
 <div class="profile-info">
 
+
 <h2>
-{{user.username or user.name}}
+
+{{user.name or user.username or "Nomsiz"}}
+
 </h2>
 
 
+
 <p>
-📞 {{user.phone or "Telefon yo'q"}}
+
+📱
+
+{{user.phone or "Telefon yo'q"}}
+
+</p>
+
+
+
+<p>
+
+📧
+
+{{user.email or "Email yo'q"}}
+
+</p>
+
+
+
+<p>
+
+👑
+
+Rol:
+
+<b>
+
+{{user.role}}
+
+</b>
+
+</p>
+
+
+
+
+<p>
+
+📍
+
+{{user.address or "Manzil kiritilmagan"}}
+
+</p>
+
+
+
+
+
+{% if user.tg_id %}
+
+
+<div class="telegram-box">
+
+
+<h3>
+✈️ Telegram
+</h3>
+
+
+
+<p>
+
+Username:
+
+<b>
+
+@{{user.tg_username or "yo'q"}}
+
+</b>
+
+
 </p>
 
 
 <p>
-📧 {{user.email or "Email yo'q"}}
+
+ID:
+
+{{user.tg_id}}
+
 </p>
 
 
-<p>
-📍 {{user.address or "Manzil kiritilmagan"}}
-</p>
+
+
+{% if user.telegram_verified %}
+
+
+<span class="success">
+
+✅ Tasdiqlangan
+
+</span>
+
+
+{% else %}
+
+
+<span class="warning">
+
+⏳ Tasdiqlanmagan
+
+</span>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+{% endif %}
+
+
+
+
 
 
 <span class="badge 
@@ -56,52 +210,97 @@ active
 {% endif %}
 ">
 
+
 {% if user.is_blocked %}
+
 🚫 Bloklangan
+
+
 {% else %}
+
 ✅ Aktiv
+
+
 {% endif %}
+
+
 
 </span>
 
 
-</div>
+
+
 
 </div>
 
 
+</div>
+
+
+
+
+
+
+
+
+
+<!-- STATS -->
 
 <div class="stats">
 
 
+
+
+
 <div class="stat-card">
+
 <h3>
-📦
+🛒
 </h3>
+
 <p>
 Buyurtmalar
 </p>
+
+
 <strong>
+
 {{user.orders|length}}
+
 </strong>
+
+
 </div>
 
 
 
+
+
 <div class="stat-card">
+
 <h3>
 💰
 </h3>
 
+
 <p>
-Xarid
+Umumiy xarid
 </p>
 
+
 <strong>
-{{"{:,}".format(total_buy)}} so'm
+
+{{"{:,}".format(total_buy)}}
+
+so'm
+
 </strong>
 
+
 </div>
+
+
+
 
 
 
@@ -111,46 +310,183 @@ Xarid
 📅
 </h3>
 
+
 <p>
 Ro'yxatdan o'tgan
 </p>
 
+
 <strong>
+
 {{user.created_at.strftime('%d.%m.%Y')}}
+
 </strong>
 
+
+</div>
+
+
+
+
+
+
+<div class="stat-card">
+
+<h3>
+🌐
+</h3>
+
+
+<p>
+Oxirgi IP
+</p>
+
+
+<strong>
+
+{{user.last_ip or "-"}}
+
+</strong>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- LOGIN INFO -->
+
+<div class="card">
+
+
+<h2>
+
+🔐 Kirish ma'lumotlari
+
+</h2>
+
+
+<div class="info-grid">
+
+
+<div>
+
+<b>
+Telegram ID
+</b>
+
+<p>
+
+{{user.tg_id or "-"}}
+
+</p>
+
+</div>
+
+
+
+<div>
+
+<b>
+Telegram username
+</b>
+
+<p>
+
+@{{user.tg_username or "-"}}
+
+</p>
+
+</div>
+
+
+
+<div>
+
+<b>
+Oxirgi kirish
+</b>
+
+<p>
+
+{% if user.last_login %}
+
+{{user.last_login.strftime('%d.%m.%Y %H:%M')}}
+
+{% else %}
+
+-
+
+{% endif %}
+
+</p>
+
 </div>
 
 
 </div>
 
 
+</div>
+
+
+
+
+
+
+
+
+
+<!-- SETTINGS -->
 
 
 <div class="card">
 
+
 <h2>
-💳 To'lov sozlamalari
+
+⚙️ Foydalanuvchi sozlamalari
+
 </h2>
 
 
+
+
 <form method="POST"
+action="{{url_for('admin.user_detail', id=user.id)}}"
 onsubmit="return saveConfirm()">
 
 
 <label class="switch-row">
 
+
 <span>
-Naqd pulga ruxsat
+
+💵 Naqd pulga ruxsat
+
 </span>
 
 
-<input 
+<input
+
 type="checkbox"
+
 name="allow_cash"
 
 {% if user.allow_cash %}
+
 checked
+
 {% endif %}
 
 >
@@ -161,56 +497,87 @@ checked
 
 
 
+
+
 <label class="switch-row">
 
+
 <span>
-Karta orqali to'lov
+
+💳 Karta orqali to'lov
+
 </span>
 
 
-<input 
+<input
+
 type="checkbox"
+
 name="allow_card"
 
 {% if user.allow_card %}
+
 checked
+
 {% endif %}
 
 >
 
 
 </label>
+
+
+
+
 
 
 
 <label class="switch-row">
 
+
 <span>
-Foydalanuvchini bloklash
+
+🚫 Foydalanuvchini bloklash
+
 </span>
 
 
-<input 
+<input
+
 type="checkbox"
+
 name="is_blocked"
 
 {% if user.is_blocked %}
+
 checked
+
 {% endif %}
 
 >
 
 
 </label>
+
+
+
+
 
 
 
 <button class="save-btn">
+
+
 💾 Saqlash
+
+
 </button>
 
 
+
 </form>
+
+
 
 </div>
 
@@ -218,46 +585,80 @@ checked
 
 
 
+
+
+
+
+<!-- ORDERS -->
+
 <div class="card">
 
+
 <h2>
+
 🛒 Buyurtmalar tarixi
+
 </h2>
 
 
 
+
+
 <div class="table-box">
+
 
 <table>
 
 
 <thead>
 
+
 <tr>
 
-<th>
-Raqam
-</th>
 
 <th>
+
+№
+
+</th>
+
+
+<th>
+
 Summa
+
 </th>
 
+
 <th>
+
 To'lov
+
 </th>
 
+
 <th>
+
 Status
+
 </th>
 
+
 <th>
+
 Sana
+
 </th>
+
 
 </tr>
 
+
 </thead>
+
+
+
+
 
 
 
@@ -266,68 +667,114 @@ Sana
 
 {% for order in user.orders %}
 
+
+
 <tr>
 
 
 <td>
+
+
 <b>
+
 {{order.order_number}}
+
 </b>
+
+
 </td>
 
 
+
+
 <td>
+
+
 {{"{:,}".format(order.total_price)}}
+
 so'm
+
+
 </td>
 
 
+
+
+
+
 <td>
+
 
 {{order.payment_method}}
 
+
 <br>
 
+
 <small>
+
 {{order.payment_status}}
+
 </small>
+
 
 </td>
 
 
 
+
+
+
 <td>
+
 
 <span class="status">
 
+
 {{order.status}}
+
 
 </span>
 
+
 </td>
+
+
+
 
 
 
 <td>
 
-{{order.created_at.strftime('%d.%m.%Y')}}
+
+{{order.created_at.strftime('%d.%m.%Y %H:%M')}}
+
 
 </td>
+
 
 
 </tr>
 
 
+
 {% else %}
+
 
 
 <tr>
 
-<td colspan="5">
 
-Buyurtma yo'q
+<td colspan="5"
+
+class="empty">
+
+
+📦 Buyurtmalar yo'q
+
 
 </td>
+
 
 </tr>
 
@@ -336,22 +783,47 @@ Buyurtma yo'q
 
 
 
+
 </tbody>
+
 
 
 </table>
 
 
-</div>
 
 </div>
 
 
+
 </div>
 
 
-<script src="{{url_for('static',filename='admin/js/users.js')}}">
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<script src="{{url_for(
+
+'static',
+
+filename='admin/js/users.js'
+
+)}}">
+
 </script>
+
 
 
 {% endblock %}

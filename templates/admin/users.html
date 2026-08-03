@@ -1,8 +1,10 @@
 {% extends "admin/base.html" %}
 
+
 {% block title %}
 Foydalanuvchilar
 {% endblock %}
+
 
 
 {% block page_title %}
@@ -11,36 +13,68 @@ Foydalanuvchilar
 
 
 
+
 {% block content %}
 
-<link rel="stylesheet" href="{{url_for('static',filename='admin/css/users.css')}}">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-admin-users.css') }}">
+
+<link rel="stylesheet"
+href="{{url_for(
+'static',
+filename='admin/css/users.css'
+)}}">
+
+
+<link rel="stylesheet"
+href="{{url_for(
+'static',
+filename='css/mobile-admin-users.css'
+)}}">
+
+
+
+
 
 <div class="users-header">
 
+
 <div>
+
 <h2>
 👥 Foydalanuvchilar
 </h2>
 
+
 <p>
-Barcha ro'yxatdan o'tgan mijozlar
+Vendora tizimidagi barcha mijozlar
 </p>
 
+
 </div>
+
 
 
 <div class="user-count">
 
+
 Jami:
+
 <strong>
+
 {{users|length}}
+
 </strong>
 
-</div>
+
+ta
+
 
 </div>
+
+
+</div>
+
+
 
 
 
@@ -48,32 +82,64 @@ Jami:
 <div class="card">
 
 
+
+
+
+<!-- SEARCH -->
+
 <div class="toolbar">
 
-<input 
+
+<input
+
 id="userSearch"
-placeholder="🔍 Ism yoki telefon qidirish..."
+
+placeholder="🔍 Ism, telefon yoki Telegram qidirish..."
+
 >
 
 
 <select id="statusFilter">
 
+
 <option value="all">
+
 Barchasi
+
 </option>
+
 
 <option value="active">
-Faol
+
+🟢 Faol
+
 </option>
 
+
+
 <option value="blocked">
-Bloklangan
+
+🔴 Bloklangan
+
 </option>
+
+
+<option value="telegram">
+
+✈️ Telegram
+
+</option>
+
 
 </select>
 
 
+
 </div>
+
+
+
+
 
 
 
@@ -85,17 +151,29 @@ Bloklangan
 <table id="usersTable">
 
 
+
 <thead>
 
+
 <tr>
+
 
 <th>
 ID
 </th>
 
+
+
 <th>
 Foydalanuvchi
 </th>
+
+
+
+<th>
+Telegram
+</th>
+
 
 
 <th>
@@ -103,14 +181,17 @@ Telefon
 </th>
 
 
+
 <th>
-Manzil
+Rol
 </th>
 
 
+
 <th>
-Buyurtmalar
+Buyurtma
 </th>
+
 
 
 <th>
@@ -118,9 +199,11 @@ Holat
 </th>
 
 
+
 <th>
-Ro'yxat sana
+Ro'yxat
 </th>
+
 
 
 <th>
@@ -135,20 +218,40 @@ Amal
 
 
 
+
+
+
+
 <tbody>
+
 
 
 {% for u in users %}
 
 
+
+
+
 <tr>
 
 
+
+
+
+<!-- ID -->
+
 <td>
+
 #{{u.id}}
+
 </td>
 
 
+
+
+
+
+<!-- USER -->
 
 <td>
 
@@ -156,40 +259,70 @@ Amal
 <div class="user-box">
 
 
+
 <div class="avatar">
 
-{{u.username[0]|upper}}
+
+
+{% if u.tg_photo %}
+
+
+<img src="{{u.tg_photo}}">
+
+
+{% elif u.name %}
+
+
+{{u.name[0]|upper}}
+
+
+{% else %}
+
+
+?
+
+
+{% endif %}
+
+
 
 </div>
 
 
+
+
 <div>
 
+
 <b>
-{{u.username or u.name}}
+
+
+{{u.name or u.username or "Nomsiz"}}
+
+
 </b>
 
 
+
 <small>
+
+
+📧
+
 {{u.email or "Email yo'q"}}
+
+
+
 </small>
 
 
 </div>
 
 
+
 </div>
 
 
-</td>
-
-
-
-
-
-<td>
-
-📞 {{u.phone or "-"}}
 
 </td>
 
@@ -197,64 +330,125 @@ Amal
 
 
 
-<td>
-
-{{u.region or ""}}
-{{u.city or ""}}
-
-</td>
 
 
 
 
+
+<!-- TELEGRAM -->
 
 <td>
 
-<span class="order-badge">
 
-🛒 {{u.orders|length}} ta
+
+{% if u.tg_id %}
+
+
+
+<div class="telegram-info">
+
+
+
+<span>
+
+✈️
 
 </span>
 
 
-</td>
+
+<div>
+
+
+<b>
+
+{{u.tg_username or "Username yo'q"}}
+
+</b>
+
+
+<small>
+
+ID:
+
+{{u.tg_id}}
+
+</small>
 
 
 
+</div>
 
 
-<td>
+
+</div>
 
 
-{% if u.is_blocked %}
+
+{% if u.telegram_verified %}
 
 
-<span class="danger">
-● Bloklangan
+
+<span class="success">
+
+✓ Tasdiqlangan
+
 </span>
+
 
 
 {% else %}
 
 
-<span class="success">
-● Faol
+<span class="warning">
+
+Kutmoqda
+
 </span>
 
 
 {% endif %}
 
 
+
+{% else %}
+
+
+
+<span>
+
+Telegram yo'q
+
+</span>
+
+
+
+{% endif %}
+
+
+
 </td>
 
 
 
 
+
+
+
+
+
+
+<!-- PHONE -->
 
 
 <td>
 
-{{u.created_at.strftime("%d.%m.%Y")}}
+
+📱
+
+
+{{u.phone or "Raqam yo'q"}}
+
 
 
 </td>
@@ -263,40 +457,230 @@ Amal
 
 
 
+
+
+
+
+
+<!-- ROLE -->
 
 <td>
 
 
-<a class="view-btn"
-href="{{url_for('admin.user_detail',id=u.id)}}">
-
-👁 Ko'rish
-
-</a>
+{% if u.role=="admin" %}
 
 
-</td>
+<span class="role admin">
+
+👑 Admin
+
+</span>
 
 
-</tr>
+
+{% elif u.role=="seller" %}
+
+
+
+<span class="role seller">
+
+🏪 Seller
+
+</span>
 
 
 
 {% else %}
 
 
-<tr>
 
-<td colspan="8" class="empty">
+<span class="role user">
 
-Foydalanuvchilar yo'q
+👤 User
+
+</span>
+
+
+
+{% endif %}
+
+
 
 </td>
+
+
+
+
+
+
+
+
+
+<!-- ORDERS -->
+
+
+<td>
+
+
+
+<span class="order-badge">
+
+
+🛒
+
+{{u.orders|length}}
+
+ta
+
+
+</span>
+
+
+
+</td>
+
+
+
+
+
+
+
+
+
+<!-- STATUS -->
+
+<td>
+
+
+
+{% if u.is_blocked %}
+
+
+
+<span class="danger">
+
+● Bloklangan
+
+</span>
+
+
+
+{% else %}
+
+
+
+<span class="success">
+
+● Faol
+
+</span>
+
+
+
+{% endif %}
+
+
+
+</td>
+
+
+
+
+
+
+
+
+
+<!-- DATE -->
+
+
+<td>
+
+
+{{
+
+u.created_at.strftime(
+"%d.%m.%Y %H:%M"
+)
+
+}}
+
+
+
+</td>
+
+
+
+
+
+
+
+
+
+<!-- ACTION -->
+
+<td>
+
+
+<a
+
+class="view-btn"
+
+href="{{url_for(
+'admin.user_detail',
+id=u.id
+)}}"
+
+>
+
+
+👁 Ko'rish
+
+
+</a>
+
+
+
+</td>
+
+
+
+
+
 
 </tr>
 
 
+
+
+
+
+
+{% else %}
+
+
+
+<tr>
+
+
+<td colspan="9"
+
+class="empty">
+
+
+👤 Foydalanuvchilar topilmadi
+
+
+</td>
+
+
+</tr>
+
+
+
 {% endfor %}
+
+
 
 
 
@@ -309,12 +693,30 @@ Foydalanuvchilar yo'q
 </div>
 
 
+
+
+
 </div>
 
 
 
 
-<script src="{{url_for('static',filename='admin/js/users.js')}}"></script>
+
+
+
+<script
+
+src="{{url_for(
+
+'static',
+
+filename='admin/js/users.js'
+
+)}}">
+
+</script>
+
+
 
 
 {% endblock %}

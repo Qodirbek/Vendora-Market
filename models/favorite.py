@@ -32,6 +32,11 @@ class Favorite(db.Model):
 
     )
 
+    user = db.relationship(
+    "User",
+    back_populates="favorites"
+    )
+
 
 
     product_id = db.Column(

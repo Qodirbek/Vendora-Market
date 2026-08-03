@@ -19,6 +19,11 @@ class Profile(db.Model):
         db.String(100)
     )
 
+    user = db.relationship(
+    "User",
+    back_populates="profile"
+    )
+
 
     phone = db.Column(
         db.String(20),
