@@ -1,5 +1,4 @@
 from extensions import db
-
 from datetime import datetime
 
 from werkzeug.security import (
@@ -8,84 +7,36 @@ from werkzeug.security import (
 )
 
 
-
 class User(db.Model):
 
     __tablename__ = "user"
 
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-
-    username = db.Column(
-        db.String(100)
-    )
-
-    phone = db.Column(
-        db.String(20),
-        unique=True
-    )
-
-    email = db.Column(
-        db.String(120)
-    )
-
-    address = db.Column(
-        db.Text
-    )
-
-
-    # TO'LOV RUXSATLARI
-
-    allow_cash = db.Column(
-        db.Boolean,
-        default=True
-    )
-
-    allow_card = db.Column(
-        db.Boolean,
-        default=True
-    )
-
-
-    is_blocked = db.Column(
-        db.Boolean,
-        default=False
-    )
-
-
-    created_at = db.Column(
-        db.DateTime,
-        default=datetime.utcnow
-    )
-
-
-    orders = db.relationship(
-        "Order",
-        backref="user",
-        lazy=True
-    )
-    # =====================================
-    # BASIC
-    # =====================================
+    # =========================
+    # ID
+    # =========================
 
     id = db.Column(
         db.Integer,
         primary_key=True
     )
 
+
+    # =========================
+    # BASIC INFO
+    # =========================
 
     name = db.Column(
         db.String(100),
-        nullable=False
+        nullable=False,
+        default="User"
     )
 
 
-    username = db.Column(
-        db.String(50),
+    phone = db.Column(
+        db.String(20),
         unique=True,
+        nullable=True,
         index=True
     )
 
@@ -93,34 +44,76 @@ class User(db.Model):
     email = db.Column(
         db.String(120),
         unique=True,
-        index=True
+        nullable=True
     )
 
 
-    phone = db.Column(
-        db.String(20),
+    username = db.Column(
+        db.String(50),
         unique=True,
-        nullable=False,
-        index=True
+        nullable=True
     )
 
 
     password = db.Column(
         db.String(255),
-        nullable=False
+        nullable=True
     )
 
+
+
+    # =========================
+    # TELEGRAM AUTH
+    # =========================
+
+    tg_id = db.Column(
+        db.String(50),
+        unique=True,
+        nullable=True,
+        index=True
+    )
+
+
+    tg_username = db.Column(
+        db.String(100),
+        nullable=True
+    )
+
+
+    tg_first_name = db.Column(
+        db.String(100),
+        nullable=True
+    )
+
+
+    tg_last_name = db.Column(
+        db.String(100),
+        nullable=True
+    )
+
+
+    tg_photo = db.Column(
+        db.String(500),
+        nullable=True
+    )
+
+
+    telegram_verified = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+
+
+    # =========================
+    # PROFILE
+    # =========================
 
     avatar = db.Column(
         db.String(500),
         default="/static/images/default-avatar.png"
     )
 
-
-
-    # =====================================
-    # LOCATION
-    # =====================================
 
     country = db.Column(
         db.String(50),
@@ -129,24 +122,42 @@ class User(db.Model):
 
 
     region = db.Column(
-        db.String(100)
+        db.String(100),
+        nullable=True
     )
 
 
     city = db.Column(
-        db.String(100)
+        db.String(100),
+        nullable=True
     )
 
 
     address = db.Column(
-        db.Text
+        db.Text,
+        nullable=True
     )
 
 
+    allow_cash = db.Column(
+        db.Boolean,
+        default=True
+    )
+    
+    allow_card = db.Column(
+        db.Boolean,
+        default=True
+    )
+    
+    is_blocked = db.Column(
+        db.Boolean,
+        default=False
+    )
 
-    # =====================================
-    # ACCOUNT
-    # =====================================
+
+    # =========================
+    # ROLE
+    # =========================
 
     role = db.Column(
         db.String(30),
@@ -167,30 +178,32 @@ class User(db.Model):
 
 
     language = db.Column(
-        db.String(20),
+        db.String(10),
         default="uz"
     )
 
 
 
-    # =====================================
-    # LOGIN INFO
-    # =====================================
+    # =========================
+    # SECURITY
+    # =========================
 
     last_login = db.Column(
-        db.DateTime
+        db.DateTime,
+        nullable=True
     )
 
 
     last_ip = db.Column(
-        db.String(50)
+        db.String(50),
+        nullable=True
     )
 
 
 
-    # =====================================
-    # TIME
-    # =====================================
+    # =========================
+    # DATE
+    # =========================
 
     created_at = db.Column(
         db.DateTime,
@@ -206,104 +219,9 @@ class User(db.Model):
 
 
 
-    # =====================================
-    # PASSWORD
-    # =====================================
-
-    def set_password(
-        self,
-        password
-    ):
-
-        self.password = generate_password_hash(
-            password
-        )
-
-
-
-    def check_password(
-        self,
-        password
-    ):
-
-        return check_password_hash(
-            self.password,
-            password
-        )
-
-
-
-    # =====================================
-    # USER INFO
-    # =====================================
-
-    def get_full_name(self):
-
-        return self.name
-
-
-
-    def is_admin(self):
-
-        return self.role == "admin"
-
-
-
-    def is_seller(self):
-
-        return self.role == "seller"
-
-
-
-    # =====================================
-    # RELATIONSHIPS
-    # =====================================
-
-
-    carts = db.relationship(
-        "Cart",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy=True
-    )
-
-
-
-    favorites = db.relationship(
-        "Favorite",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy=True
-    )
-
-
-
-    orders = db.relationship(
-        "Order",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy=True
-    )
-
-
-
-    reviews = db.relationship(
-        "Review",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy=True
-    )
-
-
-
-    notifications = db.relationship(
-        "Notification",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy=True
-    )
-
-
+    # =========================
+    # RELATIONS
+    # =========================
 
     profile = db.relationship(
         "Profile",
@@ -313,42 +231,161 @@ class User(db.Model):
     )
 
 
-
-    # =====================================
-    # JSON
-    # =====================================
-
-    def to_dict(self):
-
-        return {
-
-            "id": self.id,
-
-            "name": self.name,
-
-            "username": self.username,
-
-            "phone": self.phone,
-
-            "avatar": self.avatar,
-
-            "country": self.country,
-
-            "region": self.region,
-
-            "role": self.role,
-
-            "created_at":
-                self.created_at.strftime(
-                    "%Y-%m-%d"
-                )
-        }
+    notifications = db.relationship(
+        "Notification",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
 
 
+    carts = db.relationship(
+        "Cart",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
 
-    # =====================================
-    # DELETE ACCOUNT
-    # =====================================
+
+    orders = db.relationship(
+        "Order",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
+
+
+    favorites = db.relationship(
+        "Favorite",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
+
+
+    reviews = db.relationship(
+        "Review",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
+
+
+
+    # =========================
+    # PASSWORD SYSTEM
+    # =========================
+
+    def set_password(self, password):
+
+        self.password = generate_password_hash(
+            password
+        )
+
+
+
+    def check_password(self, password):
+
+        if not self.password:
+            return False
+
+
+        return check_password_hash(
+            self.password,
+            password
+        )
+
+
+
+    # =========================
+    # NAME
+    # =========================
+
+    def full_name(self):
+
+        return (
+            self.name
+            or self.tg_first_name
+            or self.tg_username
+            or "User"
+        )
+
+
+
+    def telegram_name(self):
+
+        return (
+            self.tg_first_name
+            or self.tg_username
+            or "Telegram User"
+        )
+
+
+
+    # =========================
+    # LOGIN TYPE
+    # =========================
+
+    def has_password(self):
+
+        return bool(
+            self.password
+        )
+
+
+    def has_phone(self):
+
+        return bool(
+            self.phone
+        )
+
+
+    def telegram_login_ready(self):
+
+        return (
+            self.tg_id
+            and self.phone
+            and self.password
+        )
+
+
+
+    # =========================
+    # ROLE CHECK
+    # =========================
+
+    def is_admin(self):
+
+        return self.role == "admin"
+
+
+    def is_seller(self):
+
+        return self.role == "seller"
+
+
+    def is_customer(self):
+
+        return self.role == "user"
+
+
+
+    # =========================
+    # STATUS
+    # =========================
+
+    def block(self):
+
+        self.is_blocked = True
+
+
+
+    def unblock(self):
+
+        self.is_blocked = False
+
+
+
+    def activate(self):
+
+        self.is_active = True
+
+
 
     def deactivate(self):
 
@@ -356,12 +393,34 @@ class User(db.Model):
 
 
 
-    # =====================================
-    # STRING
-    # =====================================
+    # =========================
+    # API
+    # =========================
+
+    def to_dict(self):
+
+        return {
+
+            "id": self.id,
+
+            "name": self.full_name(),
+
+            "phone": self.phone,
+
+            "email": self.email,
+
+            "telegram": self.telegram_verified,
+
+            "tg_id": self.tg_id,
+
+            "avatar": self.avatar,
+
+            "role": self.role
+
+        }
+
+
 
     def __repr__(self):
 
-        return (
-            f"<User {self.phone}>"
-        )
+        return f"<User {self.id} {self.name}>"

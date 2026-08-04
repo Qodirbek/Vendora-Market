@@ -7,6 +7,8 @@ from flask import (
 from config import Config
 from extensions import db, login_manager
 
+import subprocess
+
 import threading
 
 
@@ -231,41 +233,42 @@ app = create_app()
 # =====================================
 # START TELEGRAM BOT
 # =====================================
-
 def start_bot_thread():
-
     try:
-
         from bots.customer.bot import run_bot
 
-
         thread = threading.Thread(
-
             target=run_bot,
-
             daemon=True
-
         )
 
-
         thread.start()
-
 
         print(
             "🤖 Telegram bot thread ishga tushdi"
         )
 
-
     except Exception as e:
-
         print(
             "BOT START XATO:",
             e
         )
 
-
-
 start_bot_thread()
+
+
+# =====================================
+# RUN LOCAL
+# =====================================
+def run_bot():
+    subprocess.call(
+        ["python", "bots/customer/bot.py"]
+    )
+
+threading.Thread(
+    target=run_bot,
+    daemon=True
+).start()
 
 
 
@@ -286,26 +289,12 @@ http://127.0.0.1:5000
 🤖 Telegram:
 Vendora Customer Bot
 
-👨‍💼 Admin:
-/admin
-
-🏪 Seller:
-/seller
-
-🔐 Login:
-/auth/login
-
 ================================
 """
     )
 
-
     app.run(
-
         host="0.0.0.0",
-
         port=5000,
-
         debug=True
-
     )

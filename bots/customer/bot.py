@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import os
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
@@ -16,15 +17,25 @@ from .handlers import router
 
 logging.basicConfig(
     level=logging.INFO,
-    format=(
-        "%(asctime)s | "
-        "%(levelname)s | "
-        "%(name)s | "
-        "%(message)s"
-    )
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
 )
 
 logger = logging.getLogger(__name__)
+
+
+# =====================================
+# TOKEN
+# =====================================
+
+BOT_TOKEN = (
+    getattr(Config, "TG_BOT_TOKEN", None)
+    or os.getenv("TG_BOT_TOKEN")
+)
+
+if not BOT_TOKEN:
+    raise Exception(
+        "TG_BOT_TOKEN topilmadi. .env yoki Render Environment ga qo'shing"
+    )
 
 
 # =====================================
@@ -41,7 +52,7 @@ session = AiohttpSession(
 # =====================================
 
 bot = Bot(
-    token=Config.TG_BOT_TOKEN,
+    token=BOT_TOKEN,
     session=session,
     default=DefaultBotProperties(
         parse_mode=ParseMode.HTML
@@ -55,9 +66,7 @@ bot = Bot(
 
 dp = Dispatcher()
 
-dp.include_router(
-    router
-)
+dp.include_router(router)
 
 
 # =====================================
@@ -76,10 +85,9 @@ async def on_startup():
         """
 ==================================
  Vendora Customer Bot
- Telegram Auth System
 ==================================
 
-Bot ishga tushdi ✅
+BOT ISHGA TUSHDI ✅
 
 Username:
 @%s
@@ -104,7 +112,7 @@ async def on_shutdown():
         "Bot to'xtatilmoqda..."
     )
 
-    await session.close()
+    await bot.session.close()
 
     logger.info(
         "Session yopildi ✅"
@@ -112,7 +120,7 @@ async def on_shutdown():
 
 
 # =====================================
-# BOT START
+# MAIN BOT LOOP
 # =====================================
 
 async def start_bot():
@@ -123,17 +131,14 @@ async def start_bot():
 
         await dp.start_polling(
             bot,
-            allowed_updates=
-            dp.resolve_used_update_types()
+            allowed_updates=dp.resolve_used_update_types()
         )
 
-
-    except Exception as e:
+    except Exception:
 
         logger.exception(
-            f"Bot xatosi: {e}"
+            "Bot ishlashida xato"
         )
-
 
     finally:
 
@@ -142,19 +147,28 @@ async def start_bot():
 
 
 # =====================================
-# FLASK UCHUN RUNNER
+# FLASK THREAD UCHUN
 # =====================================
 
 def run_bot():
 
-    asyncio.run(
-        start_bot()
-    )
+    try:
+        asyncio.run(
+            start_bot()
+        )
 
+    except RuntimeError:
+
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        loop.run_until_complete(
+            start_bot()
+        )
 
 
 # =====================================
-# LOCAL TEST
+# DIRECT TEST
 # =====================================
 
 if __name__ == "__main__":
