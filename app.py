@@ -228,47 +228,22 @@ def create_app():
 
 app = create_app()
 
+@app.route("/manifest.json")
+def manifest():
 
-
-# =====================================
-# START TELEGRAM BOT
-# =====================================
-def start_bot_thread():
-    try:
-        from bots.customer.bot import run_bot
-
-        thread = threading.Thread(
-            target=run_bot,
-            daemon=True
-        )
-
-        thread.start()
-
-        print(
-            "🤖 Telegram bot thread ishga tushdi"
-        )
-
-    except Exception as e:
-        print(
-            "BOT START XATO:",
-            e
-        )
-
-start_bot_thread()
-
-
-# =====================================
-# RUN LOCAL
-# =====================================
-def run_bot():
-    subprocess.call(
-        ["python", "bots/customer/bot.py"]
+    return app.send_static_file(
+        "manifest.json"
     )
 
-threading.Thread(
-    target=run_bot,
-    daemon=True
-).start()
+
+@app.route("/service-worker.js")
+def sw():
+
+    return app.send_static_file(
+        "service-worker.js"
+    )
+
+
 
 
 
@@ -286,8 +261,7 @@ if __name__ == "__main__":
 🌐 Website:
 http://127.0.0.1:5000
 
-🤖 Telegram:
-Vendora Customer Bot
+
 
 ================================
 """
