@@ -1,27 +1,27 @@
 {
-  "name": "Vendora Market",
-  "short_name": "Vendora",
-  "description": "Vendora Market — onlayn marketplace. Xaridorlar mahsulot sotib oladi, sotuvchilar esa o'z mahsulotlarini joylaydi va boshqaradi.",
-  "lang": "uz",
-  "start_url": "/",
-  "scope": "/",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+"name": "Vendora Market",
+"short_name": "Vendora",
+"description": "Vendora Market — xaridorlar va sotuvchilarni birlashtiruvchi raqamli marketplace. Mahsulot joylash, buyurtma boshqarish va qulay onlayn savdo imkoniyatlari.",
+"lang": "uz",
+"start_url": "/",
+"scope": "/",
+"display": "standalone",
+"orientation": "portrait",
+"background_color": "#ffffff",
+"theme_color": "#6c5ce7",
 
-  "icons": [
-    {
-      "src": "/static/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/static/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
-  ]
+"icons": [
+ {
+  "src": "/static/icons/icon-192.png",
+  "sizes": "192x192",
+  "type": "image/png",
+  "purpose": "any"
+ },
+ {
+  "src": "/static/icons/icon-512.png",
+  "sizes": "512x512",
+  "type": "image/png",
+  "purpose": "any maskable"
+ }
+]
 }
