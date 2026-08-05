@@ -1,5 +1,10 @@
 {
+"id": "/",
 "name": "Vendora Market",
+"categories": [
+  "shopping",
+  "business"
+],
 "short_name": "Vendora",
 "description": "Vendora Market — xaridorlar va sotuvchilarni birlashtiruvchi raqamli marketplace. Mahsulot joylash, buyurtma boshqarish va qulay onlayn savdo imkoniyatlari.",
 "lang": "uz",
