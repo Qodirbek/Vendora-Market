@@ -172,9 +172,7 @@ def create_app():
         </a>
         """
 
-    @app.route("/service-worker.js")
-    def service_worker():
-         return app.send_static_file("service-worker.js")
+    
 
     # =====================================
     # DATABASE
@@ -254,7 +252,7 @@ def sw():
 # =====================================
 
 if __name__ == "__main__":
-
+    # Run server
     print(
 """
 ================================
@@ -269,6 +267,7 @@ http://127.0.0.1:5000
 """
     )
 
+    
     app.run(
         host="0.0.0.0",
         port=5000,
