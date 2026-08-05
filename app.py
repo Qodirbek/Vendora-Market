@@ -172,7 +172,9 @@ def create_app():
         </a>
         """
 
-
+    @app.route("/service-worker.js")
+    def service_worker():
+         return app.send_static_file("service-worker.js")
 
     # =====================================
     # DATABASE

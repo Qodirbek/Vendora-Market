@@ -11,8 +11,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Vendora">
 
-<link rel="manifest" href="/static/manifest.json">
 
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 
 
 <meta name="theme-color" content="#000000">
@@ -215,7 +215,7 @@ src="{{ url_for('static', filename='js/app.js') }}">
 if ("serviceWorker" in navigator) {
 
     navigator.serviceWorker.register(
-        "/static/service-worker.js"
+       "/service-worker.js"
     )
     .then(function(registration){
         console.log(
