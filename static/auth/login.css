@@ -17,25 +17,11 @@
 
 
 body{
-
-    min-height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:20px;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #667eea,
-        #764ba2
-    );
-
+ min-height:100vh;
+ display:flex;
+ justify-content:center;
+ align-items:flex-start;
+ padding:15px 10px;
 }
 
 
@@ -1284,4 +1270,79 @@ select {
     h2 {
         font-size: 20px;
     }
+}
+
+/* ===============================
+   MOBILE PHONE INPUT FIX
+=============================== */
+
+.phone-row{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.phone-row select{
+    flex:0 0 95px;
+    width:95px;
+    min-width:95px;
+}
+
+.phone-row input{
+    flex:1;
+    width:100%;
+    min-width:0;
+}
+
+
+/* Android WebView kichik ekran */
+@media(max-width:420px){
+
+    body{
+        padding:8px;
+    }
+
+    .auth-wrapper{
+        width:100%;
+    }
+
+    .auth-card{
+        width:100%;
+        padding:22px 15px;
+        border-radius:22px;
+    }
+
+    .phone-row{
+        gap:6px;
+    }
+
+    .phone-row select{
+        flex:0 0 80px;
+        width:80px;
+        font-size:13px;
+        padding:0 5px;
+    }
+
+    .phone-row input{
+        font-size:15px;
+        height:52px;
+    }
+
+}
+
+
+/* Juda kichik telefon */
+@media(max-width:350px){
+
+    .phone-row{
+        flex-direction:column;
+    }
+
+    .phone-row select,
+    .phone-row input{
+        width:100%;
+        height:52px;
+    }
+
 }
