@@ -7,13 +7,19 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta name="theme-color" content="#ff6600">
+
 <title>
-Seller Login
+Seller Login | Vendora Market
 </title>
 
 
-<link rel="stylesheet" href="/static/seller/css/style.css">
+<link rel="stylesheet"
+href="{{ url_for('static', filename='seller/css/style.css') }}">
 
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -27,20 +33,30 @@ Seller Login
 <div class="auth-card">
 
 
+<!-- LOGO -->
+
 <div class="auth-logo">
 
+<div class="logo-icon">
+🛒
+</div>
+
+
 <h1>
-🛒 SOTUV
+Vendora Seller
 </h1>
 
+
 <p>
-Seller kabinetiga kirish
+Seller kabinetiga xavfsiz kirish
 </p>
+
 
 </div>
 
 
 
+<!-- FLASH MESSAGE -->
 
 {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -61,28 +77,96 @@ Seller kabinetiga kirish
 
 
 
-
-
 <form method="POST">
 
 
+{% if csrf_token %}
+
+<input 
+type="hidden"
+name="csrf_token"
+value="{{csrf_token()}}">
+
+{% endif %}
+
+
+
+
+<!-- PHONE -->
+
+<div class="form-group">
+
 
 <label>
-Telefon raqam
+📱 Telefon raqam
 </label>
 
 
-<div class="input-box">
+
+<div class="phone-row">
+
+
+<select name="country_code">
+
+
+<option value="+998">
+🇺🇿 +998
+</option>
+
+
+<option value="+996">
+🇰🇬 +996
+</option>
+
+
+<option value="+7">
+🇷🇺 +7
+</option>
+
+
+<option value="+90">
+🇹🇷 +90
+</option>
+
+
+<option value="+1">
+🇺🇸 +1
+</option>
+
+
+<option value="+49">
+🇩🇪 +49
+</option>
+
+
+<option value="+44">
+🇬🇧 +44
+</option>
+
+
+<option value="+86">
+🇨🇳 +86
+</option>
+
+
+</select>
+
+
 
 <input
 
-type="text"
+type="tel"
 
 name="phone"
 
-placeholder="+998 90 123 45 67"
+placeholder="90 123 45 67"
 
 required>
+
+
+
+</div>
+
 
 </div>
 
@@ -90,31 +174,35 @@ required>
 
 
 
+<!-- PASSWORD -->
+
+
+<div class="form-group">
+
 
 <label>
-Parol
+🔒 Parol
 </label>
+
 
 
 <div class="input-box">
 
-
 <input
-
 id="password"
-
 type="password"
-
 name="password"
-
 placeholder="Parol"
-
 required>
 
+<button
+type="button"
+class="eye"
+onclick="showPassword()">
+👁️
+</button>
 
-<span onclick="showPassword()">
-👁
-</span>
+</div>
 
 
 </div>
@@ -123,6 +211,8 @@ required>
 
 
 
+
+<!-- REMEMBER -->
 
 
 <div class="remember">
@@ -144,6 +234,13 @@ Meni eslab qolish
 </label>
 
 
+
+<a href="#">
+Parolni unutdingizmi?
+</a>
+
+
+
 </div>
 
 
@@ -151,13 +248,20 @@ Meni eslab qolish
 
 
 
-<button class="auth-btn">
+<!-- BUTTON -->
 
-Kirish
+
+<button
+
+class="auth-btn"
+
+type="submit">
+
+
+🚀 Seller kirish
+
 
 </button>
-
-
 
 
 
@@ -165,6 +269,11 @@ Kirish
 
 
 
+
+
+
+
+<!-- REGISTER -->
 
 <div class="auth-footer">
 
@@ -174,9 +283,10 @@ Hali seller emasmisiz?
 </p>
 
 
+
 <a href="/seller/register">
 
-Ro'yxatdan o'tish
+📝 Seller bo'lish
 
 </a>
 
@@ -194,10 +304,12 @@ Ro'yxatdan o'tish
 
 
 
+
 <script>
 
 
 function showPassword(){
+
 
 let pass =
 document.getElementById(
@@ -205,26 +317,33 @@ document.getElementById(
 );
 
 
+
 if(pass.type==="password"){
 
+
 pass.type="text";
+
 
 }
 
 else{
 
+
 pass.type="password";
 
-}
 
 }
+
+
+}
+
 
 
 </script>
 
 
 
-</body>
 
+</body>
 
 </html>
