@@ -26,6 +26,7 @@
             margin-bottom: 12px;
             transition: all 0.2s ease;
             box-sizing: border-box;
+            text-decoration: none;
         }
         .google-login:hover {
             background: #f9fafb;
@@ -113,22 +114,6 @@
 
                     <input type="tel" id="phone_input" name="phone" placeholder="90 123 45 67" autocomplete="tel" maxlength="12" required>
                 </div>
-
-                <!-- 🔴 VAQTINCHALIK O'CHIRILGAN: SMS OTP TUGMASI VA RECAPTCHA -->
-                <!--
-                <button type="button" id="btn-send-otp" class="btn-otp-send">
-                    📲 SMS Kod Olish
-                </button>
-
-                <div id="recaptcha-container"></div>
-
-                <div id="otp-container" style="display: none;">
-                    <div class="otp-box">
-                        <input type="text" id="otp_code_input" class="otp-input" placeholder="6 xonali SMS kod" maxlength="6">
-                        <button type="button" id="btn-verify-otp" class="btn-otp-verify">Tasdiqlash</button>
-                    </div>
-                </div>
-                -->
 
                 <small id="phone-status-text" class="status-msg">
                     Telefon raqam login sifatida ishlatiladi
@@ -222,24 +207,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function togglePassword(id) {
     const input = document.getElementById(id);
-    if (input.type === "password") {
-        input.type = "text";
-    } else {
-        input.type = "password";
+    if (input) {
+        input.type = input.type === "password" ? "text" : "password";
     }
 }
 </script>
 
 <!-- FIREBASE INTEGRATION SCRIPT -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { 
         getAuth, 
         GoogleAuthProvider, 
-        signInWithPopup
+        signInWithPopup 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // FLASK CONFIG ORQALI .ENV O'ZGARUVCHILARI YUKLANADI
+    // 1. FIREBASE CONFIG
     const firebaseConfig = {
         apiKey: "{{ config['FIREBASE_API_KEY'] }}",
         authDomain: "{{ config['FIREBASE_AUTH_DOMAIN'] }}",
@@ -250,35 +233,39 @@ function togglePassword(id) {
         measurementId: "{{ config['FIREBASE_MEASUREMENT_ID'] }}"
     };
 
-    const app = initializeApp(firebaseConfig);
+    // 2. INITIALIZE FIREBASE (Takroriy initialize bo'lishining va crash xatolarining oldini oladi)
+    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
 
-    // GOOGLE OAUTH ORQALI KIRISH
-    document.getElementById('btn-google-login').addEventListener('click', async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const token = await result.user.getIdToken();
+    // 3. GOOGLE OAUTH ORQALI KIRISH
+    const googleBtn = document.getElementById('btn-google-login');
+    if (googleBtn) {
+        googleBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const provider = new GoogleAuthProvider();
+            try {
+                googleBtn.disabled = true;
+                googleBtn.style.opacity = '0.6';
 
-            document.getElementById('firebase_id_token').value = token;
-            
-            const form = document.getElementById('register-form');
-            form.action = "{{ url_for('auth.google_login_callback') }}";
-            form.submit();
-        } catch (error) {
-            console.error("Google Auth Error:", error);
-            alert("Google orqali kirishda xatolik yuz berdi: " + error.message);
-        }
-    });
+                const result = await signInWithPopup(auth, provider);
+                const token = await result.user.getIdToken();
 
-    /* 🔴 VAQTINCHALIK O'CHIRILGAN (SMS OTP KODLAR):
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        'size': 'invisible'
-    });
+                document.getElementById('firebase_id_token').value = token;
+                
+                const form = document.getElementById('register-form');
+                form.action = "{{ url_for('auth.google_login_callback') }}";
+                form.submit();
+            } catch (error) {
+                googleBtn.disabled = false;
+                googleBtn.style.opacity = '1';
 
-    document.getElementById('btn-send-otp').addEventListener('click', async () => { ... });
-    document.getElementById('btn-verify-otp').addEventListener('click', async () => { ... });
-    */
+                if (error.code !== 'auth/popup-closed-by-user' && error.code !== 'auth/cancelled-popup-request') {
+                    console.error("Google Auth Error:", error);
+                    alert("Google orqali kirishda xatolik yuz berdi: " + error.message);
+                }
+            }
+        });
+    }
 </script>
 
 </body>
