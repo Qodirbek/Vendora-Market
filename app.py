@@ -6,6 +6,7 @@ from flask import (
 
 from config import Config
 from extensions import db, login_manager
+from api import api
 
 import subprocess
 
@@ -103,6 +104,7 @@ def create_app():
     app.register_blueprint(product_excel_admin)
 
     app.register_blueprint(order_bp)
+    app.register_blueprint(api)
 
 
 
