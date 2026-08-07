@@ -2,625 +2,284 @@
 <html lang="uz">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<meta charset="UTF-8">
+    <title>Ro'yxatdan o'tish | Vendora</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth/register.css') }}">
 
-
-<title>
-Ro'yxatdan o'tish | Vendora
-</title>
-
-
-<link rel="stylesheet"
-href="{{ url_for(
-'static',
-filename='auth/register.css'
-) }}">
-
-
+    <style>
+        .google-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            background: #ffffff;
+            color: #333333;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        .google-login:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .status-msg {
+            display: block;
+            margin-top: 6px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+    </style>
 </head>
-
 
 <body>
 
-
 <div class="auth-wrapper">
+    <div class="auth-card">
 
+        <!-- BRAND -->
+        <div class="brand">
+            <div class="logo">🛒</div>
+            <h1>Vendora</h1>
+            <p>Yangi hisob yarating</p>
+        </div>
 
-<div class="auth-card">
+        <!-- FLASH -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
 
+        <form id="register-form" method="POST" action="{{ url_for('auth.register') }}">
 
+            {% if csrf_token %}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {% endif %}
 
-<!-- BRAND -->
+            <!-- FIREBASE ID TOKEN -->
+            <input type="hidden" id="firebase_id_token" name="firebase_id_token" value="">
 
-<div class="brand">
+            <!-- NAME -->
+            <div class="form-group">
+                <label>👤 Ism familiya</label>
+                <div class="input-box">
+                    <span>👤</span>
+                    <input type="text" name="name" placeholder="Ismingiz" autocomplete="name" required>
+                </div>
+            </div>
 
+            <!-- PHONE -->
+            <div class="form-group">
+                <label>📱 Telefon raqam</label>
+                <div class="phone-box">
+                    <select name="country_code" id="country_code">
+                        <option value="+998">🇺🇿 O'zbekiston +998</option>
+                        <option value="+996">🇰🇬 Qirg'iziston +996</option>
+                        <option value="+7">🇷🇺 Rossiya +7</option>
+                        <option value="+77">🇰🇿 Qozog'iston +77</option>
+                        <option value="+1">🇺🇸 AQSH +1</option>
+                        <option value="+44">🇬🇧 Angliya +44</option>
+                        <option value="+49">🇩🇪 Germaniya +49</option>
+                        <option value="+33">🇫🇷 Fransiya +33</option>
+                        <option value="+39">🇮🇹 Italiya +39</option>
+                        <option value="+34">🇪🇸 Ispaniya +34</option>
+                        <option value="+90">🇹🇷 Turkiya +90</option>
+                        <option value="+971">🇦🇪 BAA +971</option>
+                        <option value="+966">🇸🇦 Saudiya +966</option>
+                        <option value="+91">🇮🇳 Hindiston +91</option>
+                        <option value="+86">🇨🇳 Xitoy +86</option>
+                        <option value="+81">🇯🇵 Yaponiya +81</option>
+                        <option value="+82">🇰🇷 Koreya +82</option>
+                        <option value="+61">🇦🇺 Avstraliya +61</option>
+                        <option value="+55">🇧🇷 Braziliya +55</option>
+                        <option value="+27">🇿🇦 Janubiy Afrika +27</option>
+                    </select>
 
-<div class="logo">
+                    <input type="tel" id="phone_input" name="phone" placeholder="90 123 45 67" autocomplete="tel" maxlength="12" required>
+                </div>
 
-🛒
+                <!-- 🔴 VAQTINCHALIK O'CHIRILGAN: SMS OTP TUGMASI VA RECAPTCHA -->
+                <!--
+                <button type="button" id="btn-send-otp" class="btn-otp-send">
+                    📲 SMS Kod Olish
+                </button>
 
+                <div id="recaptcha-container"></div>
+
+                <div id="otp-container" style="display: none;">
+                    <div class="otp-box">
+                        <input type="text" id="otp_code_input" class="otp-input" placeholder="6 xonali SMS kod" maxlength="6">
+                        <button type="button" id="btn-verify-otp" class="btn-otp-verify">Tasdiqlash</button>
+                    </div>
+                </div>
+                -->
+
+                <small id="phone-status-text" class="status-msg">
+                    Telefon raqam login sifatida ishlatiladi
+                </small>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-group">
+                <label>🔒 Parol <span>(Majburiy)</span></label>
+                <div class="input-box">
+                    <span>🔐</span>
+                    <input id="password" type="password" name="password" placeholder="Parol yarating" autocomplete="new-password" required>
+                    <button type="button" class="eye" onclick="togglePassword('password')">👁</button>
+                </div>
+            </div>
+
+            <!-- CONFIRM -->
+            <div class="form-group">
+                <label>🔐 Parolni tasdiqlash</label>
+                <div class="input-box">
+                    <span>🔐</span>
+                    <input id="confirm_password" type="password" name="confirm_password" placeholder="Parolni qayta kiriting" required>
+                    <button type="button" class="eye" onclick="togglePassword('confirm_password')">👁</button>
+                </div>
+            </div>
+
+            <!-- TERMS -->
+            <div class="terms">
+                <label>
+                    <input type="checkbox" required>
+                    Foydalanish shartlariga roziman
+                </label>
+            </div>
+
+            <!-- REGISTER BUTTON -->
+            <button type="submit" id="btn-register-submit" class="register-btn">
+                🚀 Hisob yaratish
+            </button>
+
+        </form>
+
+        <div class="divider">
+            <span>yoki</span>
+        </div>
+
+        <!-- GOOGLE LOGIN BUTTON -->
+        <button type="button" id="btn-google-login" class="google-login">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon">
+            Google orqali kirish
+        </button>
+
+        <!-- TELEGRAM BUTTON -->
+        <a href="{{ url_for('auth.telegram_login') }}" class="telegram-login">
+            ✈️ Telegram orqali kirish
+        </a>
+
+        <div class="login-text">
+            Hisobingiz bormi?
+            <a href="{{ url_for('auth.login') }}">Kirish</a>
+        </div>
+
+    </div>
 </div>
 
-
-<h1>
-Vendora
-</h1>
-
-
-<p>
-Yangi hisob yarating
-</p>
-
-
-</div>
-
-
-
-
-
-
-<!-- FLASH -->
-
-
-{% with messages =
-get_flashed_messages(with_categories=true)
-%}
-
-{% if messages %}
-
-{% for category,message in messages %}
-
-
-<div class="alert {{category}}">
-
-{{message}}
-
-</div>
-
-
-{% endfor %}
-
-{% endif %}
-
-{% endwith %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form method="POST"
-action="{{ url_for('auth.register') }}">
-
-
-
-
-
-{% if csrf_token %}
-
-<input
-type="hidden"
-name="csrf_token"
-value="{{ csrf_token() }}"
->
-
-{% endif %}
-
-
-
-
-
-
-<!-- NAME -->
-
-
-<div class="form-group">
-
-
-<label>
-
-👤 Ism familiya
-
-</label>
-
-
-
-<div class="input-box">
-
-
-<span>
-👤
-</span>
-
-
-<input
-
-type="text"
-
-name="name"
-
-placeholder="Ismingiz"
-
-autocomplete="name"
-
-required
-
->
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- PHONE -->
-
-
-<div class="form-group">
-
-
-<label>
-
-📱 Telefon raqam
-
-</label>
-
-
-
-<div class="phone-box">
-
-
-
-<select name="country_code">
-
-
-<option value="+998">
-🇺🇿 O'zbekiston +998
-</option>
-
-
-<option value="+996">
-🇰🇬 Qirg'iziston +996
-</option>
-
-
-<option value="+7">
-🇷🇺 Rossiya +7
-</option>
-
-
-<option value="+77">
-🇰🇿 Qozog'iston +77
-</option>
-
-
-<option value="+1">
-🇺🇸 AQSH +1
-</option>
-
-
-<option value="+44">
-🇬🇧 Angliya +44
-</option>
-
-
-<option value="+49">
-🇩🇪 Germaniya +49
-</option>
-
-
-<option value="+33">
-🇫🇷 Fransiya +33
-</option>
-
-
-<option value="+39">
-🇮🇹 Italiya +39
-</option>
-
-
-<option value="+34">
-🇪🇸 Ispaniya +34
-</option>
-
-
-<option value="+90">
-🇹🇷 Turkiya +90
-</option>
-
-
-<option value="+971">
-🇦🇪 BAA +971
-</option>
-
-
-<option value="+966">
-🇸🇦 Saudiya +966
-</option>
-
-
-<option value="+91">
-🇮🇳 Hindiston +91
-</option>
-
-
-<option value="+86">
-🇨🇳 Xitoy +86
-</option>
-
-
-<option value="+81">
-🇯🇵 Yaponiya +81
-</option>
-
-
-<option value="+82">
-🇰🇷 Koreya +82
-</option>
-
-
-<option value="+61">
-🇦🇺 Avstraliya +61
-</option>
-
-
-<option value="+55">
-🇧🇷 Braziliya +55
-</option>
-
-
-<option value="+27">
-🇿🇦 Janubiy Afrika +27
-</option>
-
-
-</select>
-
-
-
-
-
-
-<input
-
-type="tel"
-
-name="phone"
-
-placeholder="90 123 45 67"
-
-autocomplete="tel"
-
-required
-
->
-
-
-
-</div>
-
-
-
-<small>
-
-Telefon raqam login uchun ishlatiladi
-
-</small>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- PASSWORD -->
-
-
-<div class="form-group">
-
-
-<label>
-
-🔒 Parol
-
-<span>
-(Majburiy)
-</span>
-
-</label>
-
-
-
-
-<div class="input-box">
-
-
-<span>
-🔐
-</span>
-
-
-
-<input
-
-id="password"
-
-type="password"
-
-name="password"
-
-placeholder="Parol yarating"
-
-autocomplete="new-password"
-
->
-
-
-
-
-<button
-
-type="button"
-
-class="eye"
-
-onclick="togglePassword('password')"
-
->
-
-👁
-
-</button>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- CONFIRM -->
-
-
-<div class="form-group">
-
-
-<label>
-
-🔐 Parolni tasdiqlash
-
-</label>
-
-
-
-<div class="input-box">
-
-
-<span>
-🔐
-</span>
-
-
-
-<input
-
-id="confirm_password"
-
-type="password"
-
-name="confirm_password"
-
-placeholder="Parolni qayta kiriting"
-
->
-
-
-<button
-
-type="button"
-
-class="eye"
-
-onclick="togglePassword('confirm_password')"
-
->
-
-👁
-
-</button>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- TERMS -->
-
-
-<div class="terms">
-
-
-<label>
-
-
-<input
-
-type="checkbox"
-
-required
-
->
-
-
-Foydalanish shartlariga roziman
-
-
-
-</label>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- REGISTER -->
-
-
-<button
-
-type="submit"
-
-class="register-btn"
-
->
-
-
-🚀 Hisob yaratish
-
-
-</button>
-
-
-
-
-
-</form>
-
-
-
-
-
-
-
-
-
-<div class="divider">
-
-<span>
-yoki
-</span>
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- TELEGRAM BUTTON -->
-
-
-<a href="{{ url_for('auth.telegram_login') }}" class="telegram-login">
-    ✈️ Telegram orqali kirish
-</a>
-
-
-
-
-
-
-
-
-
-<div class="login-text">
-
-
-Hisobingiz bormi?
-
-
-<a href="{{ url_for('auth.login') }}">
-
-Kirish
-
-</a>
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<script
-
-src="{{ url_for(
-'static',
-filename='auth/register.js'
-) }}">
-
+<script src="{{ url_for('static', filename='auth/register.js') }}"></script>
+
+<!-- TELEFON RAQAMINI AVTOMATIK FORMATLASH MASKA SKRIPTI -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const phoneInput = document.getElementById('phone_input');
+    const countryCodeSelect = document.getElementById('country_code');
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '');
+            
+            if (countryCodeSelect && countryCodeSelect.value === '+998') {
+                x = x.substring(0, 9);
+                let formatted = '';
+                if (x.length > 0) formatted += x.substring(0, 2);
+                if (x.length >= 3) formatted += ' ' + x.substring(2, 5);
+                if (x.length >= 6) formatted += ' ' + x.substring(5, 7);
+                if (x.length >= 8) formatted += ' ' + x.substring(7, 9);
+                e.target.value = formatted;
+            } else {
+                e.target.value = x.replace(/(\d{3})(?=\d)/g, '$1 ').trim();
+            }
+        });
+    }
+});
+
+function togglePassword(id) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+        input.type = "text";
+    } else {
+        input.type = "password";
+    }
+}
 </script>
 
+<!-- FIREBASE INTEGRATION SCRIPT -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+        getAuth, 
+        GoogleAuthProvider, 
+        signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+    // FLASK CONFIG ORQALI .ENV O'ZGARUVCHILARI YUKLANADI
+    const firebaseConfig = {
+        apiKey: "{{ config['FIREBASE_API_KEY'] }}",
+        authDomain: "{{ config['FIREBASE_AUTH_DOMAIN'] }}",
+        projectId: "{{ config['FIREBASE_PROJECT_ID'] }}",
+        storageBucket: "{{ config['FIREBASE_STORAGE_BUCKET'] }}",
+        messagingSenderId: "{{ config['FIREBASE_MESSAGING_SENDER_ID'] }}",
+        appId: "{{ config['FIREBASE_APP_ID'] }}",
+        measurementId: "{{ config['FIREBASE_MEASUREMENT_ID'] }}"
+    };
 
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // GOOGLE OAUTH ORQALI KIRISH
+    document.getElementById('btn-google-login').addEventListener('click', async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const token = await result.user.getIdToken();
+
+            document.getElementById('firebase_id_token').value = token;
+            
+            const form = document.getElementById('register-form');
+            form.action = "{{ url_for('auth.google_login_callback') }}";
+            form.submit();
+        } catch (error) {
+            console.error("Google Auth Error:", error);
+            alert("Google orqali kirishda xatolik yuz berdi: " + error.message);
+        }
+    });
+
+    /* 🔴 VAQTINCHALIK O'CHIRILGAN (SMS OTP KODLAR):
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'invisible'
+    });
+
+    document.getElementById('btn-send-otp').addEventListener('click', async () => { ... });
+    document.getElementById('btn-verify-otp').addEventListener('click', async () => { ... });
+    */
+</script>
 
 </body>
-
 </html>
