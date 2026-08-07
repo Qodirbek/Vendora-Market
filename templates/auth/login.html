@@ -2,566 +2,339 @@
 <html lang="uz">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#6c5ce7">
 
-<meta charset="UTF-8">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-<meta name="theme-color" content="#6c5ce7">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kirish | Vendora Market</title>
 
-<title>
-Kirish | Vendora Market
-</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth/login.css') }}">
 
-
-<link rel="stylesheet"
-href="{{ url_for('static', filename='auth/login.css') }}">
-
+    <style>
+        .google-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            background: #ffffff;
+            color: #333333;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+        .google-login:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .otp-status-msg {
+            font-size: 13px;
+            margin-top: 8px;
+            text-align: center;
+            color: #6c5ce7;
+        }
+    </style>
 </head>
-
 
 <body>
 
-
 <div class="auth-wrapper">
+    <div class="auth-card">
 
+        <!-- BRAND -->
+        <div class="brand">
+            <div class="logo">🛒</div>
+            <h1>Vendora</h1>
+            <p>Hisobingizga xavfsiz kiring</p>
+        </div>
 
-<div class="auth-card">
+        <!-- FLASH -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
 
+        <!-- SOCIAL LOGIN BUTTONS -->
+        <div class="social-buttons">
+            <!-- GOOGLE OAUTH BUTTON -->
+            <button type="button" id="btn-google-login" class="google-login">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon">
+                Google orqali kirish
+            </button>
 
+            <!-- TELEGRAM -->
+            <a href="https://t.me/Vendora_Marketbot?start=login" class="telegram-login" target="_blank">
+                ✈️ Telegram orqali kirish
+            </a>
+        </div>
 
-<!-- BRAND -->
+        <div class="divider">
+            <span>yoki</span>
+        </div>
 
-<div class="brand">
+        <!-- LOGIN FORM -->
+        <form method="POST" action="{{ url_for('auth.login') }}" id="loginForm">
 
-<div class="logo">
-🛒
+            {% if csrf_token %}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {% endif %}
+
+            <!-- FIREBASE ID TOKEN & LOGIN TYPE -->
+            <input type="hidden" id="firebase_id_token" name="firebase_id_token" value="">
+            <input type="hidden" id="login_type" name="login_type" value="password">
+
+            <!-- PHONE -->
+            <div class="form-group">
+                <label>📱 Telefon raqam</label>
+                <div class="phone-row">
+                    <select name="country_code" id="country_code">
+                        <option value="+998">🇺🇿 +998</option>
+                        <option value="+996">🇰🇬 +996</option>
+                        <option value="+7">🇷🇺 +7</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+90">🇹🇷 +90</option>
+                        <option value="+49">🇩🇪 +49</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+86">🇨🇳 +86</option>
+                    </select>
+
+                    <input type="tel" name="phone" id="phone" placeholder="90 123 45 67" required>
+                </div>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-group">
+                <label>🔒 Parol <small>(Majburiy)</small></label>
+                <div class="input-box">
+                    <span>🔐</span>
+                    <input id="password" type="password" name="password" placeholder="Parolingiz" autocomplete="current-password">
+                    <button type="button" class="eye" onclick="togglePassword('password')">👁</button>
+                </div>
+            </div>
+
+            <!-- OPTIONS -->
+            <div class="options">
+                <label>
+                    <input type="checkbox" name="remember">
+                    Meni eslab qol
+                </label>
+                <a href="{{ url_for('auth.forgot_password') }}">Parolni unutdingizmi?</a>
+            </div>
+
+            <!-- LOGIN BUTTON -->
+            <button type="submit" class="login-btn" id="loginButton">
+                🚀 Kirish
+            </button>
+
+        </form>
+
+        <!-- OTP -->
+        <div class="quick-login">
+            <div class="divider">
+                <span>yoki</span>
+            </div>
+            <button type="button" class="otp-btn" id="btn-request-otp">
+                📩 Kod orqali kirish
+            </button>
+        </div>
+
+        <!-- REGISTER -->
+        <div class="divider">
+            <span>Hisobingiz yo'qmi?</span>
+        </div>
+
+        <a href="{{ url_for('auth.register') }}" class="register-btn">
+            📝 Yangi hisob yaratish
+        </a>
+
+    </div>
 </div>
 
-
-<h1>
-Vendora
-</h1>
-
-
-<p>
-Hisobingizga xavfsiz kiring
-</p>
-
-
-</div>
-
-
-
-
-
-<!-- FLASH -->
-
-{% with messages =
-get_flashed_messages(with_categories=true)
-%}
-
-{% if messages %}
-
-{% for category,message in messages %}
-
-
-<div class="alert {{category}}">
-
-{{message}}
-
-</div>
-
-
-{% endfor %}
-
-{% endif %}
-
-{% endwith %}
-
-
-
-
-
-
-
-<!-- TELEGRAM -->
-
-<a
-
-href="https://t.me/Vendora_Marketbot?start=login"
-
-class="telegram-login"
-
-target="_blank"
-
->
-
-✈️
-
-Telegram orqali kirish
-
-</a>
-
-
-
-
-
-<div class="divider">
-
-<span>
-yoki
-</span>
-
-</div>
-
-
-
-
-
-
-
-<form
-
-method="POST"
-
-action="{{ url_for('auth.login') }}"
-
-id="loginForm"
-
->
-
-
-{% if csrf_token %}
-
-<input
-
-type="hidden"
-
-name="csrf_token"
-
-value="{{csrf_token()}}"
-
->
-
-{% endif %}
-
-
-
-
-
-
-<!-- PHONE -->
-
-
-<div class="form-group">
-
-
-<label>
-📱 Telefon raqam
-</label>
-
-
-
-<div class="phone-row">
-
-
-
-<select name="country_code">
-
-<option value="+998">
-🇺🇿 +998
-</option>
-
-<option value="+996">
-🇰🇬 +996
-</option>
-
-<option value="+7">
-🇷🇺 +7
-</option>
-
-<option value="+1">
-🇺🇸 +1
-</option>
-
-<option value="+90">
-🇹🇷 +90
-</option>
-
-<option value="+49">
-🇩🇪 +49
-</option>
-
-<option value="+44">
-🇬🇧 +44
-</option>
-
-<option value="+86">
-🇨🇳 +86
-</option>
-
-</select>
-
-
-
-<input
-
-type="tel"
-
-name="phone"
-
-id="phone"
-
-placeholder="90 123 45 67"
-
-required
-
->
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- PASSWORD -->
-
-
-<div class="form-group">
-
-
-<label>
-
-🔒 Parol
-
-<small>
-(Majburiy)
-</small>
-
-</label>
-
-
-
-<div class="input-box">
-
-
-<span>
-🔐
-</span>
-
-
-<input
-
-id="password"
-
-type="password"
-
-name="password"
-
-placeholder="Parolingiz"
-
-autocomplete="current-password"
-
->
-
-
-
-<button
-
-type="button"
-
-class="eye"
-
-onclick="togglePassword('password')"
-
->
-
-👁
-
-</button>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<!-- OPTIONS -->
-
-
-<div class="options">
-
-
-<label>
-
-<input
-
-type="checkbox"
-
-name="remember"
-
->
-
-Meni eslab qol
-
-</label>
-
-
-
-<a
-
-href="{{url_for('auth.forgot_password')}}"
-
->
-
-Parolni unutdingizmi?
-
-</a>
-
-
-
-</div>
-
-
-
-
-
-
-
-<!-- LOGIN BUTTON -->
-
-
-<button
-
-type="submit"
-
-class="login-btn"
-
-id="loginButton"
-
->
-
-🚀 Kirish
-
-</button>
-
-
-
-</form>
-
-
-
-
-
-
-
-
-
-<!-- OTP -->
-
-
-<div class="quick-login">
-
-
-<div class="divider">
-
-<span>
-yoki
-</span>
-
-</div>
-
-
-
-<button
-
-class="otp-btn"
-
-onclick="openOTP()"
-
->
-
-📩 Kod orqali kirish
-
-</button>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- REGISTER -->
-
-
-<div class="divider">
-
-<span>
-Hisobingiz yo'qmi?
-</span>
-
-
-</div>
-
-
-
-
-<a
-
-href="{{url_for('auth.register')}}"
-
-class="register-btn"
-
->
-
-📝 Yangi hisob yaratish
-
-</a>
-
-
-
-
-</div>
-
-</div>
-
-
-
-
-
-
-
-
+<!-- Invisible ReCAPTCHA Container -->
+<div id="recaptcha-container"></div>
 
 <!-- OTP MODAL -->
+<div class="otp-modal" id="otpModal" style="display: none;">
+    <div class="otp-card">
+        <button type="button" class="close" id="btn-close-otp">✕</button>
+        <h2>🔐 Tasdiqlash kodi</h2>
+        <p>Telefoningizga yuborilgan 6 xonali kodni kiriting</p>
 
+        <input type="text" maxlength="6" placeholder="123456" id="otpCode">
+        
+        <div id="otpModalStatus" class="otp-status-msg"></div>
 
-<div
-
-class="otp-modal"
-
-id="otpModal"
-
->
-
-
-<div class="otp-card">
-
-
-<button
-
-class="close"
-
-onclick="closeOTP()"
-
->
-
-✕
-
-</button>
-
-
-<h2>
-
-🔐 Tasdiqlash kodi
-
-</h2>
-
-
-<p>
-
-Telefoningizga yuborilgan 6 xonali kodni kiriting
-
-</p>
-
-
-
-<input
-
-type="text"
-
-maxlength="6"
-
-placeholder="123456"
-
-id="otpCode"
-
->
-
-
-
-<button
-
-class="verify-btn"
-
->
-
-Tasdiqlash
-
-</button>
-
-
-
+        <button type="button" class="verify-btn" id="btn-verify-otp">
+            Tasdiqlash
+        </button>
+    </div>
 </div>
 
-
-</div>
-
-
-
-
-
-
-
-
-
-<script
-
-src="{{url_for(
-
-'static',
-
-filename='auth/login.js'
-
-)}}">
-
-</script>
+<!-- EXTERNAL SCRIPTS -->
+<script src="{{ url_for('static', filename='auth/login.js') }}"></script>
 
 <script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register(
-        "/service-worker.js"
-    )
-    .then(function(registration){
-        console.log("SW ishladi:", registration.scope);
-    })
-    .catch(function(error){
-        console.log("SW xato:", error);
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js")
+            .then(function(registration){
+                console.log("SW ishladi:", registration.scope);
+            })
+            .catch(function(error){
+                console.log("SW xato:", error);
+            });
+    }
+
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        if (input.type === "password") {
+            input.type = "text";
+        } else {
+            input.type = "password";
+        }
+    }
+</script>
+
+<!-- FIREBASE AUTH INTEGRATION MODULE -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+        getAuth, 
+        GoogleAuthProvider, 
+        signInWithPopup, 
+        RecaptchaVerifier, 
+        signInWithPhoneNumber 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // FLASK CONFIG ORQALI .ENV MATNLARI SHABLONGA INJECT QILINADI
+    const firebaseConfig = {
+        apiKey: "{{ config['FIREBASE_API_KEY'] }}",
+        authDomain: "{{ config['FIREBASE_AUTH_DOMAIN'] }}",
+        projectId: "{{ config['FIREBASE_PROJECT_ID'] }}",
+        storageBucket: "{{ config['FIREBASE_STORAGE_BUCKET'] }}",
+        messagingSenderId: "{{ config['FIREBASE_MESSAGING_SENDER_ID'] }}",
+        appId: "{{ config['FIREBASE_APP_ID'] }}",
+        measurementId: "{{ config['FIREBASE_MEASUREMENT_ID'] }}"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    let confirmationResultGlobal = null;
+
+    // Invisible ReCAPTCHA Tayyorlash
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'invisible'
     });
-}
+
+    const otpModal = document.getElementById('otpModal');
+    function openModal() { otpModal.style.display = 'flex'; }
+    function closeModal() { otpModal.style.display = 'none'; }
+    
+    document.getElementById('btn-close-otp').addEventListener('click', closeModal);
+
+    // GOOGLE OAUTH ORQALI KIRISH
+    document.getElementById('btn-google-login').addEventListener('click', async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const token = await result.user.getIdToken();
+
+            document.getElementById('firebase_id_token').value = token;
+            document.getElementById('login_type').value = 'google';
+
+            const form = document.getElementById('loginForm');
+            form.action = "{{ url_for('auth.google_login_callback') }}";
+            form.submit();
+        } catch (error) {
+            console.error("Google Login Error:", error);
+            alert("Google orqali kirishda xatolik yuz berdi: " + error.message);
+        }
+    });
+
+    // SMS OTP KOD YUBORISH
+    document.getElementById('btn-request-otp').addEventListener('click', async () => {
+        const countryCode = document.getElementById('country_code').value;
+        const phoneRaw = document.getElementById('phone').value.replace(/\D/g, '');
+
+        if (!phoneRaw) {
+            alert("Iltimos, avval telefon raqamingizni kiriting!");
+            document.getElementById('phone').focus();
+            return;
+        }
+
+        const fullPhoneNumber = countryCode + phoneRaw;
+        const appVerifier = window.recaptchaVerifier;
+        const otpBtn = document.getElementById('btn-request-otp');
+
+        try {
+            otpBtn.disabled = true;
+            otpBtn.innerText = "SMS Yuborilmoqda...";
+
+            confirmationResultGlobal = await signInWithPhoneNumber(auth, fullPhoneNumber, appVerifier);
+
+            document.getElementById('otpModalStatus').innerText = "SMS kod yuborildi!";
+            document.getElementById('otpModalStatus').style.color = "#10b981";
+            
+            openModal();
+
+            otpBtn.innerText = "📩 Kod orqali kirish";
+            otpBtn.disabled = false;
+        } catch (error) {
+            console.error("SMS Sending Error:", error);
+            alert("SMS yuborishda xatolik yuz berdi: " + error.message);
+            otpBtn.innerText = "📩 Kod orqali kirish";
+            otpBtn.disabled = false;
+        }
+    });
+
+    // MODAL ICHIDA SMS KODNI TASDIQLASH
+    document.getElementById('btn-verify-otp').addEventListener('click', async () => {
+        const otpCode = document.getElementById('otpCode').value.trim();
+
+        if (otpCode.length !== 6) {
+            alert("Iltimos, 6 xonali tasdiqlash kodini to'liq kiriting!");
+            return;
+        }
+
+        try {
+            const result = await confirmationResultGlobal.confirm(otpCode);
+            const idToken = await result.user.getIdToken();
+
+            document.getElementById('firebase_id_token').value = idToken;
+            document.getElementById('login_type').value = 'otp';
+
+            document.getElementById('password').required = false;
+
+            const form = document.getElementById('loginForm');
+            form.submit();
+        } catch (error) {
+            console.error("OTP Verification Error:", error);
+            const statusBox = document.getElementById('otpModalStatus');
+            statusBox.innerText = "Kod noto'g'ri yoki uning vaqti o'tgan!";
+            statusBox.style.color = "#ef4444";
+        }
+    });
 </script>
 
 </body>
-
 </html>
