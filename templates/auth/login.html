@@ -66,7 +66,7 @@
             <p>Hisobingizga xavfsiz kiring</p>
         </div>
 
-        <!-- FLASH -->
+        <!-- FLASH MESSAGES -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
@@ -204,20 +204,11 @@
                 console.log("SW xato:", error);
             });
     }
-
-    function togglePassword(id) {
-        const input = document.getElementById(id);
-        if (input.type === "password") {
-            input.type = "text";
-        } else {
-            input.type = "password";
-        }
-    }
 </script>
 
 <!-- FIREBASE AUTH INTEGRATION MODULE -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { 
         getAuth, 
         GoogleAuthProvider, 
@@ -226,7 +217,7 @@
         signInWithPhoneNumber 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // FLASK CONFIG ORQALI .ENV MATNLARI SHABLONGA INJECT QILINADI
+    // 1. FIREBASE CONFIG
     const firebaseConfig = {
         apiKey: "{{ config['FIREBASE_API_KEY'] }}",
         authDomain: "{{ config['FIREBASE_AUTH_DOMAIN'] }}",
@@ -237,103 +228,125 @@
         measurementId: "{{ config['FIREBASE_MEASUREMENT_ID'] }}"
     };
 
-    const app = initializeApp(firebaseConfig);
+    // 2. INITIALIZE FIREBASE (Takroriy initialize va crash bo'lishining oldini oladi)
+    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
     let confirmationResultGlobal = null;
 
-    // Invisible ReCAPTCHA Tayyorlash
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        'size': 'invisible'
-    });
-
+    // Modal oynani boshqarish
     const otpModal = document.getElementById('otpModal');
-    function openModal() { otpModal.style.display = 'flex'; }
-    function closeModal() { otpModal.style.display = 'none'; }
+    function openModal() { if (otpModal) otpModal.style.display = 'flex'; }
+    function closeModal() { if (otpModal) otpModal.style.display = 'none'; }
     
-    document.getElementById('btn-close-otp').addEventListener('click', closeModal);
+    const closeOtpBtn = document.getElementById('btn-close-otp');
+    if (closeOtpBtn) {
+        closeOtpBtn.addEventListener('click', closeModal);
+    }
 
-    // GOOGLE OAUTH ORQALI KIRISH
-    document.getElementById('btn-google-login').addEventListener('click', async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const token = await result.user.getIdToken();
+    // 3. GOOGLE OAUTH ORQALI KIRISH
+    const googleBtn = document.getElementById('btn-google-login');
+    if (googleBtn) {
+        googleBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const provider = new GoogleAuthProvider();
+            try {
+                googleBtn.disabled = true;
+                const result = await signInWithPopup(auth, provider);
+                const token = await result.user.getIdToken();
 
-            document.getElementById('firebase_id_token').value = token;
-            document.getElementById('login_type').value = 'google';
+                document.getElementById('firebase_id_token').value = token;
+                document.getElementById('login_type').value = 'google';
 
-            const form = document.getElementById('loginForm');
-            form.action = "{{ url_for('auth.google_login_callback') }}";
-            form.submit();
-        } catch (error) {
-            console.error("Google Login Error:", error);
-            alert("Google orqali kirishda xatolik yuz berdi: " + error.message);
-        }
-    });
+                const form = document.getElementById('loginForm');
+                form.action = "{{ url_for('auth.google_login_callback') }}";
+                form.submit();
+            } catch (error) {
+                googleBtn.disabled = false;
+                if (error.code !== 'auth/popup-closed-by-user' && error.code !== 'auth/cancelled-popup-request') {
+                    console.error("Google Login Error:", error);
+                    alert("Google orqali kirishda xatolik yuz berdi: " + error.message);
+                }
+            }
+        });
+    }
 
-    // SMS OTP KOD YUBORISH
-    document.getElementById('btn-request-otp').addEventListener('click', async () => {
-        const countryCode = document.getElementById('country_code').value;
-        const phoneRaw = document.getElementById('phone').value.replace(/\D/g, '');
+    // 4. SMS OTP KOD YUBORISH (ReCAPTCHA faqat tugma bosilganda dangasa/lazy usulda ishga tushadi)
+    const requestOtpBtn = document.getElementById('btn-request-otp');
+    if (requestOtpBtn) {
+        requestOtpBtn.addEventListener('click', async () => {
+            const countryCode = document.getElementById('country_code').value;
+            const phoneRaw = document.getElementById('phone').value.replace(/\D/g, '');
 
-        if (!phoneRaw) {
-            alert("Iltimos, avval telefon raqamingizni kiriting!");
-            document.getElementById('phone').focus();
-            return;
-        }
+            if (!phoneRaw) {
+                alert("Iltimos, avval telefon raqamingizni kiriting!");
+                document.getElementById('phone').focus();
+                return;
+            }
 
-        const fullPhoneNumber = countryCode + phoneRaw;
-        const appVerifier = window.recaptchaVerifier;
-        const otpBtn = document.getElementById('btn-request-otp');
+            const fullPhoneNumber = countryCode + phoneRaw;
 
-        try {
-            otpBtn.disabled = true;
-            otpBtn.innerText = "SMS Yuborilmoqda...";
+            try {
+                requestOtpBtn.disabled = true;
+                requestOtpBtn.innerText = "SMS Yuborilmoqda...";
 
-            confirmationResultGlobal = await signInWithPhoneNumber(auth, fullPhoneNumber, appVerifier);
+                if (!window.recaptchaVerifier) {
+                    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                        'size': 'invisible'
+                    });
+                }
 
-            document.getElementById('otpModalStatus').innerText = "SMS kod yuborildi!";
-            document.getElementById('otpModalStatus').style.color = "#10b981";
-            
-            openModal();
+                confirmationResultGlobal = await signInWithPhoneNumber(auth, fullPhoneNumber, window.recaptchaVerifier);
 
-            otpBtn.innerText = "📩 Kod orqali kirish";
-            otpBtn.disabled = false;
-        } catch (error) {
-            console.error("SMS Sending Error:", error);
-            alert("SMS yuborishda xatolik yuz berdi: " + error.message);
-            otpBtn.innerText = "📩 Kod orqali kirish";
-            otpBtn.disabled = false;
-        }
-    });
+                const statusBox = document.getElementById('otpModalStatus');
+                if (statusBox) {
+                    statusBox.innerText = "SMS kod yuborildi!";
+                    statusBox.style.color = "#10b981";
+                }
 
-    // MODAL ICHIDA SMS KODNI TASDIQLASH
-    document.getElementById('btn-verify-otp').addEventListener('click', async () => {
-        const otpCode = document.getElementById('otpCode').value.trim();
+                openModal();
+            } catch (error) {
+                console.error("SMS Sending Error:", error);
+                alert("SMS yuborishda xatolik yuz berdi: " + error.message);
+            } finally {
+                requestOtpBtn.innerText = "📩 Kod orqali kirish";
+                requestOtpBtn.disabled = false;
+            }
+        });
+    }
 
-        if (otpCode.length !== 6) {
-            alert("Iltimos, 6 xonali tasdiqlash kodini to'liq kiriting!");
-            return;
-        }
+    // 5. MODAL ICHIDA SMS KODNI TASDIQLASH
+    const verifyOtpBtn = document.getElementById('btn-verify-otp');
+    if (verifyOtpBtn) {
+        verifyOtpBtn.addEventListener('click', async () => {
+            const otpCode = document.getElementById('otpCode').value.trim();
 
-        try {
-            const result = await confirmationResultGlobal.confirm(otpCode);
-            const idToken = await result.user.getIdToken();
+            if (otpCode.length !== 6) {
+                alert("Iltimos, 6 xonali tasdiqlash kodini to'liq kiriting!");
+                return;
+            }
 
-            document.getElementById('firebase_id_token').value = idToken;
-            document.getElementById('login_type').value = 'otp';
+            try {
+                const result = await confirmationResultGlobal.confirm(otpCode);
+                const idToken = await result.user.getIdToken();
 
-            document.getElementById('password').required = false;
+                document.getElementById('firebase_id_token').value = idToken;
+                document.getElementById('login_type').value = 'otp';
 
-            const form = document.getElementById('loginForm');
-            form.submit();
-        } catch (error) {
-            console.error("OTP Verification Error:", error);
-            const statusBox = document.getElementById('otpModalStatus');
-            statusBox.innerText = "Kod noto'g'ri yoki uning vaqti o'tgan!";
-            statusBox.style.color = "#ef4444";
-        }
-    });
+                const passInput = document.getElementById('password');
+                if (passInput) passInput.required = false;
+
+                const form = document.getElementById('loginForm');
+                form.submit();
+            } catch (error) {
+                console.error("OTP Verification Error:", error);
+                const statusBox = document.getElementById('otpModalStatus');
+                if (statusBox) {
+                    statusBox.innerText = "Kod noto'g'ri yoki uning vaqti o'tgan!";
+                    statusBox.style.color = "#ef4444";
+                }
+            }
+        });
+    }
 </script>
 
 </body>
