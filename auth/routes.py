@@ -9,9 +9,14 @@ from flask import (
 )
 
 from datetime import datetime
+from flask import current_app
+import time
 
 from extensions import db
 from models.user import User
+from flask import request, redirect, url_for, flash, session, render_template
+import firebase_admin
+from firebase_admin import credentials, auth as firebase_auth
 
 
 auth = Blueprint(
@@ -941,3 +946,83 @@ def logout():
             "auth.login"
         )
     )
+
+# GOOGLE LOGIN CALLBACK MARSHRUTI
+@auth.route('/google-login-callback', methods=['POST'])
+def google_login_callback():
+    id_token = request.form.get('firebase_id_token')
+    
+    if not id_token:
+        flash("Google avtorizatsiya kaliti topilmadi!", "danger")
+        return redirect(url_for('auth.login'))
+
+    try:
+        # Vaqt tafovuti bo'lsa 1 soniya kutib qayta tekshiramiz
+        try:
+            decoded_token = firebase_auth.verify_id_token(id_token)
+        except Exception as token_err:
+            if "Token used too early" in str(token_err):
+                time.sleep(1.5)  # 1.5 soniya kutamiz
+                decoded_token = firebase_auth.verify_id_token(id_token)
+            else:
+                raise token_err
+
+        email = decoded_token.get('email')
+        name = decoded_token.get('name', 'Google Foydalanuvchisi')
+        uid = decoded_token.get('uid')
+
+        # ... qolgan bazaga saqlash kodingiz ...
+        # 1. Firebase tokenini tekshirish va ma'lumotlarni olish
+        decoded_token = firebase_auth.verify_id_token(id_token)
+        
+        email = decoded_token.get('email')
+        name = decoded_token.get('name', 'Google Foydalanuvchisi')
+        uid = decoded_token.get('uid')
+
+        if not email:
+            flash("Google hisobingizdan email olinmadi!", "danger")
+            return redirect(url_for('auth.login'))
+
+        # 2. Bazadan foydalanuvchini email bo'yicha qidiramiz
+        user = User.query.filter_by(email=email).first()
+
+        # 3. Agar foydalanuvchi bazada bo'lmasa, yangi obyekt yaratib bazaga qo'shamiz
+        if not user:
+            user = User(
+                name=name,
+                email=email
+            )
+            
+            # Agar User modelingizda parol maydoni majburiy bo'lsa:
+            if hasattr(user, 'set_password'):
+                user.set_password(f"google_oauth_{uid[:8]}")
+            elif hasattr(user, 'password'):
+                user.password = f"google_oauth_{uid[:8]}"
+
+            db.session.add(user)
+            db.session.commit()
+            print(f"✅ Yangi foydalanuvchi bazaga qo'shildi: {email}")
+
+        # 4. Foydalanuvchi bazadagi ID'si bilan sessiyaga saqlanadi
+        session['user_id'] = user.id
+        session['user_name'] = user.name
+        session['user_email'] = user.email
+
+        flash(f"Xush kelibsiz, {user.name}!", "success")
+        
+        # Profil sahifasiga yo'naltirish
+        return redirect(url_for('profile.profile') if 'profile.profile' in current_app.view_functions else '/')
+
+    except Exception as e:
+        db.session.rollback()
+        print("----------------------------------------")
+        print("Google Login / DB Error:", str(e))
+        print("----------------------------------------")
+        flash(f"Google orqali kirishda xatolik yuz berdi: {str(e)}", "danger")
+        return redirect(url_for('auth.login'))
+
+    # Firebase Admin-ni retsipatsiyasiz 1 marta retsipatsiya qilish
+    if not firebase_admin._apps:
+            # serviceAccountKey.json faylingiz ildiz papkada bo'lishi kerak
+            cred = credentials.Certificate('serviceAccountKey.json')
+            firebase_admin.initialize_app(cred)
