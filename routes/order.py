@@ -10,9 +10,11 @@ from flask import (
 
 from extensions import db
 
+
 from models.cart import Cart
 from models.order import Order
 from models.order_item import OrderItem
+from models.user import User
 
 
 import os
@@ -105,60 +107,43 @@ def checkout():
 # CREATE ORDER
 # =================================
 
-@order_bp.route(
-    "/create",
-    methods=["POST"]
-)
+
+@order_bp.route("/create", methods=["POST"])
 def create_order():
-    print("creat order ishladi ✅")
+    print("create order ishladi ✅")
 
+    # 1. Tizimga kirganlikni tekshirish
     if "user_id" not in session:
-        return redirect(
-            url_for("auth.login")
-        )
-
+        flash("Buyurtma berish uchun avval tizimga kiring!", "warning")
+        return redirect(url_for("auth.login"))
 
     user_id = session["user_id"]
 
+    # 2. Formadan kelgan ma'lumotlarni qabul qilish
+    fullname = request.form.get("fullname")
+    phone = request.form.get("phone")
 
-    cart_items = Cart.query.filter_by(
-        user_id=user_id
-    ).all()
+    # 3. Majburiy maydonlarni tekshirish
+    if not fullname or not phone or not phone.strip():
+        flash("Iltimos, ism va telefon raqamingizni to'liq kiriting!", "danger")
+        return redirect(url_for("order.checkout"))
 
+    # 4. Kiritilgan raqamni User bazasiga va Session-ga saqlash
+    user = User.query.get(user_id)
+    if user:
+        user.phone = phone
+        db.session.commit()
+        session['user_phone'] = phone  # Keyingi safar avto-chiqishi uchun
 
+    # 5. Savatni tekshirish
+    cart_items = Cart.query.filter_by(user_id=user_id).all()
     if not cart_items:
+        flash("Savatingiz bo'sh!", "danger")
+        return redirect(url_for("cart.index"))
 
-        flash(
-            "Savat bo'sh",
-            "danger"
-        )
-
-        return redirect(
-            url_for("cart.index")
-        )
-
-
-
-    fullname = request.form.get(
-        "fullname"
-    )
-
-    phone = request.form.get(
-        "phone"
-    )
-
-
-
-    if not fullname or not phone:
-
-        flash(
-            "Ma'lumotlarni to'liq kiriting",
-            "danger"
-        )
-
-        return redirect(
-            url_for("order.checkout")
-        )
+    # =========================================================
+    # ... Bu yerdan pastga buyurtmani saqlash mantiqingiz davom etadi ...
+    # =========================================================
 
 
 
