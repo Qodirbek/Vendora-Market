@@ -17,16 +17,18 @@ function togglePassword(id) {
 // =====================================
 // PHONE FORMAT (+998 90 123 45 67)
 // =====================================
-const phoneInput = document.querySelector('input[name="phone"]');
+const phoneInput = document.getElementById("phone_input") || document.querySelector('input[name="phone"]');
 
 if (phoneInput) {
     phoneInput.addEventListener("input", function () {
         let value = this.value.replace(/\D/g, "");
 
+        // 998 bilan boshlansa olib tashlash
         if (value.startsWith("998")) {
             value = value.substring(3);
         }
 
+        // Faqat 9 ta raqam kiritishga ruxsat
         value = value.substring(0, 9);
 
         let result = "";
@@ -170,7 +172,7 @@ if (passwordInput) {
 // =====================================
 // AUTO FOCUS
 // =====================================
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const nameInput = document.querySelector('input[name="name"]');
     if (nameInput) {
         nameInput.focus();
