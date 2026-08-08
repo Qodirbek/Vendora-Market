@@ -1,11 +1,9 @@
 import os
 import json
-import subprocess
-import threading
 from dotenv import load_dotenv
 
-# 1. ENVIRONMENT O'ZGARUVCHILARINI DASTUR BOSHDAN YUKLASH
 load_dotenv()
+
 
 from flask import (
     Flask,
@@ -15,73 +13,199 @@ from flask import (
 
 from config import Config
 from extensions import db, login_manager
-from api import api
+
 
 import firebase_admin
-from firebase_admin import credentials, auth as firebase_auth
+from firebase_admin import credentials
+
 
 
 # =====================================
-# FIREBASE INITIALIZATION
+# FIREBASE ADMIN INITIALIZATION
 # =====================================
-base_dir = os.path.dirname(os.path.abspath(__file__))
-cred_path = os.path.join(base_dir, 'serviceAccountKey.json')
-service_account_env = os.getenv('FIREBASE_SERVICE_ACCOUNT_JSON')
+
+base_dir = os.path.dirname(
+    os.path.abspath(__file__)
+)
+
+cred_path = os.path.join(
+    base_dir,
+    "serviceAccountKey.json"
+)
+
+
+service_account_env = os.getenv(
+    "FIREBASE_SERVICE_ACCOUNT_JSON"
+)
+
 
 if not firebase_admin._apps:
+
     try:
-        # 1-ustuvorlik: .env ichidagi JSON matndan o'qish (Production/Server uchun)
+
         if service_account_env:
-            service_account_info = json.loads(service_account_env)
-            cred = credentials.Certificate(service_account_info)
-            firebase_admin.initialize_app(cred)
-            print("✅ Firebase Admin SDK (.env JSON orqali) muvaffaqiyatli ishga tushirildi!")
-        # 2-ustuvorlik: Mahalliy fayldan o'qish (Development uchun)
-        elif os.path.exists(cred_path):
-            cred = credentials.Certificate(cred_path)
-            firebase_admin.initialize_app(cred)
-            print("✅ Firebase Admin SDK (serviceAccountKey.json orqali) muvaffaqiyatli ishga tushirildi!")
+
+            service_account_info = json.loads(
+                service_account_env
+            )
+
+            cred = credentials.Certificate(
+                service_account_info
+            )
+
+            firebase_admin.initialize_app(
+                cred
+            )
+
+            print(
+                "✅ Firebase Admin SDK .env orqali ishga tushdi"
+            )
+
+
+        elif os.path.exists(
+            cred_path
+        ):
+
+            cred = credentials.Certificate(
+                cred_path
+            )
+
+            firebase_admin.initialize_app(
+                cred
+            )
+
+            print(
+                "✅ Firebase Admin SDK serviceAccountKey.json orqali ishga tushdi"
+            )
+
+
         else:
-            print("⚠️ Ogohlantirish: Firebase Admin kaliti topilmadi (.env yoki serviceAccountKey.json)")
+
+            print(
+                "⚠️ Firebase key topilmadi"
+            )
+
+
     except Exception as e:
-        print(f"❌ Firebase initialization xatosi: {e}")
+
+        print(
+            "❌ Firebase xatosi:",
+            e
+        )
+
+
 
 
 # =====================================
 # APPLICATION FACTORY
 # =====================================
 
+
 def create_app():
 
-    app = Flask(__name__)
 
-    # =====================================
-    # CONFIG & ENVIRONMENT SETUP
-    # =====================================
-    app.config.from_object(Config)
+    app = Flask(
+        __name__
+    )
 
-    # .env faylidagi maxfiy kalitlarni Flask config-ga o'tkazish
-    if os.getenv('FLASK_SECRET_KEY'):
-        app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
 
-    # Firebase Frontend (HTML shablonlar) uchun konfiguratsiya
-    app.config['FIREBASE_API_KEY'] = os.getenv('FIREBASE_API_KEY')
-    app.config['FIREBASE_AUTH_DOMAIN'] = os.getenv('FIREBASE_AUTH_DOMAIN')
-    app.config['FIREBASE_PROJECT_ID'] = os.getenv('FIREBASE_PROJECT_ID')
-    app.config['FIREBASE_STORAGE_BUCKET'] = os.getenv('FIREBASE_STORAGE_BUCKET')
-    app.config['FIREBASE_MESSAGING_SENDER_ID'] = os.getenv('FIREBASE_MESSAGING_SENDER_ID')
-    app.config['FIREBASE_APP_ID'] = os.getenv('FIREBASE_APP_ID')
-    app.config['FIREBASE_MEASUREMENT_ID'] = os.getenv('FIREBASE_MEASUREMENT_ID')
+    # =================================
+    # CONFIG
+    # =================================
 
-    # =====================================
+    app.config.from_object(
+        Config
+    )
+
+
+    if os.getenv(
+        "FLASK_SECRET_KEY"
+    ):
+
+        app.config[
+            "SECRET_KEY"
+        ] = os.getenv(
+            "FLASK_SECRET_KEY"
+        )
+
+
+
+    # =================================
+    # FIREBASE FRONTEND CONFIG
+    # =================================
+
+
+    app.config[
+        "FIREBASE_API_KEY"
+    ] = os.getenv(
+        "FIREBASE_API_KEY"
+    )
+
+
+    app.config[
+        "FIREBASE_AUTH_DOMAIN"
+    ] = os.getenv(
+        "FIREBASE_AUTH_DOMAIN"
+    )
+
+
+    app.config[
+        "FIREBASE_PROJECT_ID"
+    ] = os.getenv(
+        "FIREBASE_PROJECT_ID"
+    )
+
+
+    app.config[
+        "FIREBASE_STORAGE_BUCKET"
+    ] = os.getenv(
+        "FIREBASE_STORAGE_BUCKET"
+    )
+
+
+    app.config[
+        "FIREBASE_MESSAGING_SENDER_ID"
+    ] = os.getenv(
+        "FIREBASE_MESSAGING_SENDER_ID"
+    )
+
+
+    app.config[
+        "FIREBASE_APP_ID"
+    ] = os.getenv(
+        "FIREBASE_APP_ID"
+    )
+
+
+    app.config[
+        "FIREBASE_MEASUREMENT_ID"
+    ] = os.getenv(
+        "FIREBASE_MEASUREMENT_ID"
+    )
+
+
+
+    # =================================
     # EXTENSIONS
-    # =====================================
-    login_manager.init_app(app)
-    db.init_app(app)
+    # =================================
 
-    # =====================================
+
+    db.init_app(
+        app
+    )
+
+
+    login_manager.init_app(
+        app
+    )
+
+
+
+    # =================================
     # MODELS
-    # =====================================
+    # =================================
+
+
     from models.user import User
     from models.profile import Profile
     from models.category import Category
@@ -95,9 +219,13 @@ def create_app():
     from models.notification import Notification
     from models.withdraw_request import WithdrawRequest
 
-    # =====================================
+
+
+    # =================================
     # BLUEPRINTS
-    # =====================================
+    # =================================
+
+
     from routes.home import home
     from routes.cart import cart
     from routes.profile import profile
@@ -105,147 +233,331 @@ def create_app():
     from routes.search import search
     from routes.order import order_bp
 
+
     from auth.routes import auth
+
 
     from seller.routes import seller
     from seller.import_routes import seller_import
     from seller.template_routes import template
 
+
     from routes.excel import excel
+
 
     from admin.routes import admin
     from admin.categories import category_admin
     from admin.excel import excel_admin
     from admin.products_excel import product_excel_admin
 
-    # =====================================
+
+    from api import api
+
+
+
+
+    # =================================
     # REGISTER BLUEPRINTS
-    # =====================================
-    app.register_blueprint(home)
-    app.register_blueprint(cart)
-    app.register_blueprint(profile)
-    app.register_blueprint(favorite)
-    app.register_blueprint(search)
+    # =================================
 
-    app.register_blueprint(auth)
 
-    app.register_blueprint(seller)
-    app.register_blueprint(seller_import)
-    app.register_blueprint(template)
+    app.register_blueprint(
+        home
+    )
 
-    app.register_blueprint(excel)
 
-    app.register_blueprint(admin)
-    app.register_blueprint(category_admin)
-    app.register_blueprint(excel_admin)
-    app.register_blueprint(product_excel_admin)
+    app.register_blueprint(
+        cart
+    )
 
-    app.register_blueprint(order_bp)
-    app.register_blueprint(api)
 
-    # =====================================
+    app.register_blueprint(
+        profile
+    )
+
+
+    app.register_blueprint(
+        favorite
+    )
+
+
+    app.register_blueprint(
+        search
+    )
+
+
+    app.register_blueprint(
+        order_bp
+    )
+
+
+    app.register_blueprint(
+        auth
+    )
+
+
+    app.register_blueprint(
+        seller
+    )
+
+
+    app.register_blueprint(
+        seller_import
+    )
+
+
+    app.register_blueprint(
+        template
+    )
+
+
+    app.register_blueprint(
+        excel
+    )
+
+
+    app.register_blueprint(
+        admin
+    )
+
+
+    app.register_blueprint(
+        category_admin
+    )
+
+
+    app.register_blueprint(
+        excel_admin
+    )
+
+
+    app.register_blueprint(
+        product_excel_admin
+    )
+
+
+    app.register_blueprint(
+        api
+    )
+
+
+
+    # =================================
     # GLOBAL VARIABLES
-    # =====================================
+    # =================================
+
+
     @app.context_processor
     def global_variables():
+
         cart_count = 0
+
+
         if "user_id" in session:
+
+
             cart_count = Cart.query.filter_by(
                 user_id=session["user_id"]
             ).count()
 
+
         return {
-            "site_name": "Sotuv Platform",
-            "cart_count": cart_count
+
+            "site_name":
+            "Vendora Market",
+
+            "cart_count":
+            cart_count
+
         }
 
-    # =====================================
-    # ERRORS
-    # =====================================
+
+
+
+    # =================================
+    # ERROR HANDLER
+    # =================================
+
+
     @app.errorhandler(404)
     def not_found(error):
-        return render_template("errors/404.html"), 404
+
+        return render_template(
+            "errors/404.html"
+        ),404
+
+
 
     @app.errorhandler(500)
     def internal_error(error):
-        db.session.rollback()
-        return render_template("errors/500.html"), 500
 
- 
+        db.session.rollback()
+
+        return render_template(
+            "errors/500.html"
+        ),500
+
+
+
+
+    # =================================
+    # SECURITY
+    # =================================
+
+
     @app.after_request
     def add_security_headers(response):
-        # Google Auth Popup brauzer tomonidan bloklanmasligi uchun COOP sarlavhasi
-        response.headers['Cross-Origin-Opener-Policy'] = 'same-origin-allow-popups'
+
+        response.headers[
+            "Cross-Origin-Opener-Policy"
+        ] = "same-origin-allow-popups"
+
+
         return response
 
 
-    # =====================================
-    # SESSION CLEAR
-    # =====================================
-    @app.route("/clear-session")
+
+
+    # =================================
+    # CLEAR SESSION
+    # =================================
+
+
+    @app.route(
+        "/clear-session"
+    )
     def clear_session():
+
         session.clear()
+
         return """
         <h2>Session tozalandi ✅</h2>
-        <a href="/auth/login">Login qilish</a>
+        <a href="/auth/login">
+        Login qilish
+        </a>
         """
 
-    # =====================================
-    # DATABASE INITIALIZATION
-    # =====================================
-    with app.app_context():
-        db.create_all()
-        print("✅ DATABASE tayyor")
 
-    # =====================================
-    # STATUS ROUTE
-    # =====================================
-    @app.route("/status")
+
+
+    # =================================
+    # DATABASE
+    # =================================
+
+
+    with app.app_context():
+
+        db.create_all()
+
+        print(
+            "✅ DATABASE tayyor"
+        )
+
+
+
+
+    # =================================
+    # STATUS
+    # =================================
+
+
+    @app.route(
+        "/status"
+    )
     def status():
+
         return {
-            "app": "Sotuv Platform",
-            "version": "1.0.0",
-            "status": "running"
+
+            "app":
+            "Vendora Market",
+
+            "version":
+            "1.0.0",
+
+            "status":
+            "running"
+
         }
 
-    print("REGISTERED ROUTES:")
+
+
+    print(
+        "\nREGISTERED ROUTES:"
+    )
+
+
     for rule in app.url_map.iter_rules():
-        print(rule)
+
+        print(
+            rule
+        )
+
 
     return app
 
 
+
+
 # =====================================
-# START APP & STATIC ROUTES
+# CREATE APP
 # =====================================
+
+
 app = create_app()
 
-@app.route("/manifest.json")
+
+
+# =====================================
+# PWA
+# =====================================
+
+
+@app.route(
+    "/manifest.json"
+)
 def manifest():
-    return app.send_static_file("manifest.json")
 
-@app.route("/service-worker.js")
-def sw():
-    return app.send_static_file("service-worker.js")
+    return app.send_static_file(
+        "manifest.json"
+    )
+
+
+
+@app.route(
+    "/service-worker.js"
+)
+def service_worker():
+
+    return app.send_static_file(
+        "service-worker.js"
+    )
+
+
 
 
 # =====================================
-# RUN LOCAL
+# RUN
 # =====================================
+
+
 if __name__ == "__main__":
+
+
     print(
         """
 ================================
-🚀 SOTUV PLATFORM ISHGA TUSHDI
 
-🌐 Website:
-http://127.0.0.1:5000
+🚀 VENDORA MARKET ISHGA TUSHDI
+
+🌐 http://127.0.0.1:5000
+
 ================================
         """
     )
 
+
     app.run(
-        host="0.0.0.0",
+        host="localhost",
         port=5000,
         debug=True
     )
