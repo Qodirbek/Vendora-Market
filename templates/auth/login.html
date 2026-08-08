@@ -128,7 +128,7 @@
                 <label>🔒 Parol <small>(Majburiy)</small></label>
                 <div class="input-box">
                     <span>🔐</span>
-                    <input id="password" type="password" name="password" placeholder="Parolingiz" autocomplete="current-password">
+                    <input id="password" type="password" name="password" placeholder="Parolingiz" autocomplete="current-password" required>
                     <button type="button" class="eye" onclick="togglePassword('password')">👁</button>
                 </div>
             </div>
@@ -201,7 +201,7 @@
                 console.log("SW ishladi:", registration.scope);
             })
             .catch(function(error){
-                console.log("SW xato:", error);
+                console.warn("SW ogohlantirish:", error);
             });
     }
 </script>
@@ -217,19 +217,23 @@
         signInWithPhoneNumber 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // 1. FIREBASE CONFIG
+    // 1. FIREBASE CONFIG (Flask config orqali xavfsiz yuklash)
     const firebaseConfig = {
-        apiKey: "AIzaSyChCKjkKv-qtJr02Twbzf22KO-3IB64Q-Y",
-        authDomain: "vendora-market.firebaseapp.com",
-        projectId: "vendora-market",
-        storageBucket: "vendora-market.firebasestorage.app",
-        messagingSenderId: "1090696986645",
-        appId: "1:1090696986645:web:6053b2abbd7a1ea7dcce1c",
-        measurementId: "G-0XRPPB7QWR"
+        apiKey: "{{ config.get('FIREBASE_API_KEY', '') }}",
+        authDomain: "{{ config.get('FIREBASE_AUTH_DOMAIN', '') }}",
+        projectId: "{{ config.get('FIREBASE_PROJECT_ID', '') }}",
+        storageBucket: "{{ config.get('FIREBASE_STORAGE_BUCKET', '') }}",
+        messagingSenderId: "{{ config.get('FIREBASE_MESSAGING_SENDER_ID', '') }}",
+        appId: "{{ config.get('FIREBASE_APP_ID', '') }}",
+        measurementId: "{{ config.get('FIREBASE_MEASUREMENT_ID', '') }}"
     };
 
+    // Kalit mavjudligini tekshirish
+    if (!firebaseConfig.apiKey) {
+        console.error("Firebase API Key Render environment variables tarkibida topilmadi!");
+    }
 
-    // 2. INITIALIZE FIREBASE (Takroriy initialize va crash bo'lishining oldini oladi)
+    // 2. INITIALIZE FIREBASE (Takroriy init xatoliklarini oldini olish)
     const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
     let confirmationResultGlobal = null;
@@ -252,17 +256,25 @@
             const provider = new GoogleAuthProvider();
             try {
                 googleBtn.disabled = true;
+                googleBtn.style.opacity = "0.7";
+
                 const result = await signInWithPopup(auth, provider);
                 const token = await result.user.getIdToken();
 
                 document.getElementById('firebase_id_token').value = token;
                 document.getElementById('login_type').value = 'google';
 
+                // Google orqali kirishda parol kiritilishini talab qilmaymiz
+                const passInput = document.getElementById('password');
+                if (passInput) passInput.required = false;
+
                 const form = document.getElementById('loginForm');
                 form.action = "{{ url_for('auth.google_login_callback') }}";
                 form.submit();
             } catch (error) {
                 googleBtn.disabled = false;
+                googleBtn.style.opacity = "1";
+
                 if (error.code !== 'auth/popup-closed-by-user' && error.code !== 'auth/cancelled-popup-request') {
                     console.error("Google Login Error:", error);
                     alert("Google orqali kirishda xatolik yuz berdi: " + error.message);
@@ -271,7 +283,7 @@
         });
     }
 
-    // 4. SMS OTP KOD YUBORISH (ReCAPTCHA faqat tugma bosilganda dangasa/lazy usulda ishga tushadi)
+    // 4. SMS OTP KOD YUBORISH
     const requestOtpBtn = document.getElementById('btn-request-otp');
     if (requestOtpBtn) {
         requestOtpBtn.addEventListener('click', async () => {
