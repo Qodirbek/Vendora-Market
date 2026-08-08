@@ -17,7 +17,7 @@ function togglePassword(id) {
 // =====================================
 // PHONE FORMAT (+998 90 123 45 67)
 // =====================================
-const phoneInput = document.querySelector('input[name="phone"]');
+const phoneInput = document.getElementById("phone") || document.querySelector('input[name="phone"]');
 
 if (phoneInput) {
     phoneInput.addEventListener("input", function () {
@@ -93,13 +93,18 @@ function showError(text) {
 // =====================================
 // FORM SUBMIT INTERCEPTOR
 // =====================================
-const loginForm = document.querySelector("form");
+const loginForm = document.getElementById("loginForm") || document.querySelector("form");
 
 if (loginForm) {
     loginForm.addEventListener("submit", function (e) {
-        // Agar Google Login yoki OTP orqali yuborilayotgan bo'lsa, telefon tekshiruvini o'tkazib yuboramiz
+        // Google Login yoki OTP/Firebase token orqali kirilayotgan bo'lsa, telefon tekshiruvini o'tkazib yuboramiz
         const loginType = document.getElementById("login_type");
-        if (loginType && (loginType.value === "google" || loginType.value === "otp")) {
+        const firebaseToken = document.getElementById("firebase_id_token");
+
+        if (
+            (loginType && (loginType.value === "google" || loginType.value === "otp")) ||
+            (firebaseToken && firebaseToken.value.trim() !== "")
+        ) {
             return;
         }
 
@@ -108,7 +113,7 @@ if (loginForm) {
             return;
         }
 
-        const btn = document.querySelector(".login-btn");
+        const btn = document.getElementById("loginButton") || document.querySelector(".login-btn");
         if (btn) {
             btn.innerHTML = "⏳ Tekshirilmoqda...";
             btn.disabled = true;
@@ -132,7 +137,7 @@ if (passwordInput) {
 // =====================================
 // AUTO FOCUS
 // =====================================
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
     if (phoneInput) {
         phoneInput.focus();
     }
