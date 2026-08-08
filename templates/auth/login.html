@@ -217,23 +217,17 @@
         signInWithPhoneNumber 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // 1. FIREBASE CONFIG (Flask config orqali xavfsiz yuklash)
+    // 1. FIREBASE CONFIG (Flask environment yoki avtomatik tayyor zaxira)
     const firebaseConfig = {
-        apiKey: "{{ config.get('FIREBASE_API_KEY', '') }}",
-        authDomain: "{{ config.get('FIREBASE_AUTH_DOMAIN', '') }}",
-        projectId: "{{ config.get('FIREBASE_PROJECT_ID', '') }}",
-        storageBucket: "{{ config.get('FIREBASE_STORAGE_BUCKET', '') }}",
-        messagingSenderId: "{{ config.get('FIREBASE_MESSAGING_SENDER_ID', '') }}",
-        appId: "{{ config.get('FIREBASE_APP_ID', '') }}",
-        measurementId: "{{ config.get('FIREBASE_MEASUREMENT_ID', '') }}"
+        apiKey: "{{ config.get('FIREBASE_API_KEY') or 'AIzaSyChCKjkKv-qtJr02Twbzf22KO-3IB64Q-Y' }}",
+        authDomain: "{{ config.get('FIREBASE_AUTH_DOMAIN') or 'vendora-market.firebaseapp.com' }}",
+        projectId: "{{ config.get('FIREBASE_PROJECT_ID') or 'vendora-market' }}",
+        storageBucket: "{{ config.get('FIREBASE_STORAGE_BUCKET') or 'vendora-market.firebasestorage.app' }}",
+        messagingSenderId: "{{ config.get('FIREBASE_MESSAGING_SENDER_ID') or '1090696986645' }}",
+        appId: "{{ config.get('FIREBASE_APP_ID') or '1:1090696986645:web:6053b2abbd7a1ea7dcce1c' }}"
     };
 
-    // Kalit mavjudligini tekshirish
-    if (!firebaseConfig.apiKey) {
-        console.error("Firebase API Key Render environment variables tarkibida topilmadi!");
-    }
-
-    // 2. INITIALIZE FIREBASE (Takroriy init xatoliklarini oldini olish)
+    // 2. INITIALIZE FIREBASE
     const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
     let confirmationResultGlobal = null;
@@ -264,7 +258,7 @@
                 document.getElementById('firebase_id_token').value = token;
                 document.getElementById('login_type').value = 'google';
 
-                // Google orqali kirishda parol kiritilishini talab qilmaymiz
+                // Google orqali kirilayotganda parol kiritilishi shart emas
                 const passInput = document.getElementById('password');
                 if (passInput) passInput.required = false;
 
