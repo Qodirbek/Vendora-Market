@@ -2,359 +2,991 @@
 <html lang="uz">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#6c5ce7">
 
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+<meta charset="UTF-8">
 
-    <title>Kirish | Vendora Market</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='auth/login.css') }}">
+<title>
+Kirish | Vendora Market
+</title>
 
-    <style>
-        .google-login {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 12px;
-            background: #ffffff;
-            color: #333333;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 12px;
-            transition: all 0.2s ease;
-            box-sizing: border-box;
-            text-decoration: none;
-        }
-        .google-login:hover {
-            background: #f9fafb;
-            border-color: #9ca3af;
-        }
-        .google-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-        .social-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .otp-status-msg {
-            font-size: 13px;
-            margin-top: 8px;
-            text-align: center;
-            color: #6c5ce7;
-        }
-    </style>
+<link rel="stylesheet"
+href="{{ url_for('static', filename='auth/login.css') }}">
+
+
+<style>
+
+.google-login{
+display:flex;
+align-items:center;
+justify-content:center;
+width:100%;
+padding:12px;
+background:white;
+border:1px solid #ddd;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+}
+
+.google-icon{
+width:20px;
+margin-right:10px;
+}
+
+.social-buttons{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+
+</style>
+
+
 </head>
+
 
 <body>
 
+
 <div class="auth-wrapper">
-    <div class="auth-card">
 
-        <!-- BRAND -->
-        <div class="brand">
-            <div class="logo">🛒</div>
-            <h1>Vendora</h1>
-            <p>Hisobingizga xavfsiz kiring</p>
-        </div>
 
-        <!-- FLASH MESSAGES -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert {{ category }}">{{ message }}</div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+<div class="auth-card">
 
-        <!-- SOCIAL LOGIN BUTTONS -->
-        <div class="social-buttons">
-            <!-- GOOGLE OAUTH BUTTON -->
-            <button type="button" id="btn-google-login" class="google-login">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon">
-                Google orqali kirish
-            </button>
 
-            <!-- TELEGRAM -->
-            <a href="https://t.me/Vendora_Marketbot?start=login" class="telegram-login" target="_blank">
-                ✈️ Telegram orqali kirish
-            </a>
-        </div>
+<div class="brand">
 
-        <div class="divider">
-            <span>yoki</span>
-        </div>
-
-        <!-- LOGIN FORM -->
-        <form method="POST" action="{{ url_for('auth.login') }}" id="loginForm">
-
-            {% if csrf_token %}
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            {% endif %}
-
-            <!-- FIREBASE ID TOKEN & LOGIN TYPE -->
-            <input type="hidden" id="firebase_id_token" name="firebase_id_token" value="">
-            <input type="hidden" id="login_type" name="login_type" value="password">
-
-            <!-- PHONE -->
-            <div class="form-group">
-                <label>📱 Telefon raqam</label>
-                <div class="phone-row">
-                    <select name="country_code" id="country_code">
-                        <option value="+998">🇺🇿 +998</option>
-                        <option value="+996">🇰🇬 +996</option>
-                        <option value="+7">🇷🇺 +7</option>
-                        <option value="+1">🇺🇸 +1</option>
-                        <option value="+90">🇹🇷 +90</option>
-                        <option value="+49">🇩🇪 +49</option>
-                        <option value="+44">🇬🇧 +44</option>
-                        <option value="+86">🇨🇳 +86</option>
-                    </select>
-
-                    <input type="tel" name="phone" id="phone" placeholder="90 123 45 67" required>
-                </div>
-            </div>
-
-            <!-- PASSWORD -->
-            <div class="form-group">
-                <label>🔒 Parol <small>(Majburiy)</small></label>
-                <div class="input-box">
-                    <span>🔐</span>
-                    <input id="password" type="password" name="password" placeholder="Parolingiz" autocomplete="current-password" required>
-                    <button type="button" class="eye" onclick="togglePassword('password')">👁</button>
-                </div>
-            </div>
-
-            <!-- OPTIONS -->
-            <div class="options">
-                <label>
-                    <input type="checkbox" name="remember">
-                    Meni eslab qol
-                </label>
-                <a href="{{ url_for('auth.forgot_password') }}">Parolni unutdingizmi?</a>
-            </div>
-
-            <!-- LOGIN BUTTON -->
-            <button type="submit" class="login-btn" id="loginButton">
-                🚀 Kirish
-            </button>
-
-        </form>
-
-        <!-- OTP -->
-        <div class="quick-login">
-            <div class="divider">
-                <span>yoki</span>
-            </div>
-            <button type="button" class="otp-btn" id="btn-request-otp">
-                📩 Kod orqali kirish
-            </button>
-        </div>
-
-        <!-- REGISTER -->
-        <div class="divider">
-            <span>Hisobingiz yo'qmi?</span>
-        </div>
-
-        <a href="{{ url_for('auth.register') }}" class="register-btn">
-            📝 Yangi hisob yaratish
-        </a>
-
-    </div>
+<div class="logo">
+🛒
 </div>
 
-<!-- Invisible ReCAPTCHA Container -->
+<h1>
+Vendora
+</h1>
+
+<p>
+Hisobingizga xavfsiz kiring
+</p>
+
+</div>
+
+
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category,message in messages %}
+
+<div class="alert {{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+
+
+<div class="social-buttons">
+
+
+<button 
+id="btn-google-login"
+type="button"
+class="google-login">
+
+
+<img 
+src="https://www.svgrepo.com/show/475656/google-color.svg"
+class="google-icon">
+
+Google orqali kirish
+
+
+</button>
+
+
+
+<a href="https://t.me/Vendora_Marketbot?start=login"
+class="telegram-login">
+
+✈️ Telegram orqali kirish
+
+</a>
+
+
+</div>
+
+
+
+<div class="divider">
+<span>
+yoki
+</span>
+</div>
+
+
+
+
+<form 
+method="POST"
+id="loginForm"
+action="{{url_for('auth.login')}}">
+
+
+<input type="hidden"
+name="firebase_id_token"
+id="firebase_id_token">
+
+
+<input type="hidden"
+name="login_type"
+id="login_type"
+value="password">
+
+
+
+<div class="form-group">
+
+<label>
+📱 Telefon raqam
+</label>
+
+
+<div class="phone-row">
+
+
+<select name="country_code"
+id="country_code">
+
+
+<option value="+998">
+🇺🇿 +998
+</option>
+
+
+<option value="+996">
+🇰🇬 +996
+</option>
+
+
+<option value="+7">
+🇷🇺 +7
+</option>
+
+
+</select>
+
+
+<input
+type="tel"
+name="phone"
+id="phone"
+placeholder="90 123 45 67">
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="form-group">
+
+
+<label>
+🔒 Parol
+</label>
+
+
+<div class="input-box">
+
+
+<input
+id="password"
+type="password"
+name="password"
+placeholder="Parol">
+
+
+</div>
+
+
+</div>
+
+
+
+
+<button
+class="login-btn"
+type="submit">
+
+🚀 Kirish
+
+</button>
+
+
+
+</form>
+<!-- FIREBASE AUTH -->
+
 <div id="recaptcha-container"></div>
 
+
+<script type="module">
+
+import {
+    initializeApp,
+    getApps,
+    getApp
+}
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithRedirect,
+    getRedirectResult,
+    RecaptchaVerifier,
+    signInWithPhoneNumber
+}
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+
+
+// ============================
+// FIREBASE CONFIG
+// ============================
+
+const firebaseConfig = {
+
+apiKey:
+"{{config['FIREBASE_API_KEY']}}",
+
+authDomain:
+"{{config['FIREBASE_AUTH_DOMAIN']}}",
+
+projectId:
+"{{config['FIREBASE_PROJECT_ID']}}",
+
+storageBucket:
+"{{config['FIREBASE_STORAGE_BUCKET']}}",
+
+messagingSenderId:
+"{{config['FIREBASE_MESSAGING_SENDER_ID']}}",
+
+appId:
+"{{config['FIREBASE_APP_ID']}}"
+
+};
+
+
+
+
+// ============================
+// INIT FIREBASE
+// ============================
+
+
+const app =
+!getApps().length
+?
+initializeApp(firebaseConfig)
+:
+getApp();
+console.log(firebaseConfig);
+
+
+
+const auth =
+getAuth(app);
+
+
+
+
+
+// ============================
+// GOOGLE REDIRECT QAYTGANDA
+// ============================
+
+
+getRedirectResult(auth)
+
+.then(async(result)=>{
+
+
+if(!result){
+
+return;
+
+}
+
+
+
+const user =
+result.user;
+
+
+
+const token =
+await user.getIdToken();
+
+
+
+document.getElementById(
+"firebase_id_token"
+).value = token;
+
+
+
+document.getElementById(
+"login_type"
+).value="google";
+
+
+
+const form =
+document.getElementById(
+"loginForm"
+);
+
+
+
+form.action =
+"{{url_for('auth.google_login_callback')}}";
+
+
+
+form.submit();
+
+
+
+})
+
+
+.catch((error)=>{
+
+
+console.error(
+"Google redirect error:",
+error
+);
+
+
+alert(
+"Google login xatosi: "
++
+error.message
+);
+
+
+});
+
+
+
+
+
+
+
+// ============================
+// GOOGLE BUTTON
+// ============================
+
+
+const googleBtn =
+document.getElementById(
+"btn-google-login"
+);
+
+
+
+if(googleBtn){
+
+
+googleBtn.onclick =
+async()=>{
+
+
+const provider =
+new GoogleAuthProvider();
+
+
+
+provider.setCustomParameters({
+
+prompt:"select_account"
+
+});
+
+
+
+try{
+
+
+googleBtn.disabled=true;
+
+
+
+await signInWithRedirect(
+auth,
+provider
+);
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+error
+);
+
+
+
+googleBtn.disabled=false;
+
+
+
+alert(
+error.message
+);
+
+
+
+}
+
+
+
+};
+
+
+}
+
+
+
+
+
+
+
+
+
+// ============================
+// SMS OTP
+// ============================
+
+
+let confirmationResultGlobal=null;
+
+
+
+const otpBtn =
+document.getElementById(
+"btn-request-otp"
+);
+
+
+
+if(otpBtn){
+
+
+otpBtn.onclick =
+async()=>{
+
+
+let code =
+document.getElementById(
+"country_code"
+).value;
+
+
+
+let phone =
+document.getElementById(
+"phone"
+).value
+.replace(/\D/g,'');
+
+
+
+if(!phone){
+
+
+alert(
+"Telefon raqam kiriting"
+);
+
+
+return;
+
+}
+
+
+
+let fullPhone =
+code + phone;
+
+
+
+try{
+
+
+
+if(!window.recaptchaVerifier){
+
+
+window.recaptchaVerifier =
+new RecaptchaVerifier(
+
+auth,
+
+"recaptcha-container",
+
+{
+
+size:"invisible"
+
+}
+
+);
+
+
+}
+
+
+
+
+
+confirmationResultGlobal =
+await signInWithPhoneNumber(
+
+auth,
+
+fullPhone,
+
+window.recaptchaVerifier
+
+);
+
+
+
+alert(
+"SMS kod yuborildi"
+);
+
+
+
+}
+
+
+
+catch(error){
+
+
+console.error(
+error
+);
+
+
+
+alert(
+"SMS xatosi: "
++
+error.message
+);
+
+
+
+}
+
+
+
+};
+
+
+}
+
+
+
+
+
+
+
+// ============================
+// OTP TASDIQLASH
+// ============================
+
+
+const verifyBtn =
+document.getElementById(
+"btn-verify-otp"
+);
+
+
+
+if(verifyBtn){
+
+
+
+verifyBtn.onclick =
+async()=>{
+
+
+
+let code =
+document.getElementById(
+"otpCode"
+).value;
+
+
+
+if(code.length!==6){
+
+
+alert(
+"6 xonali kod kiriting"
+);
+
+
+return;
+
+}
+
+
+
+try{
+
+
+
+const result =
+await confirmationResultGlobal.confirm(
+code
+);
+
+
+
+const token =
+await result.user.getIdToken();
+
+
+
+
+document.getElementById(
+"firebase_id_token"
+).value =
+token;
+
+
+
+document.getElementById(
+"login_type"
+).value =
+"otp";
+
+
+
+document.getElementById(
+"loginForm"
+).submit();
+
+
+
+}
+
+
+
+catch(error){
+
+
+console.error(
+error
+);
+
+
+
+alert(
+"Kod xato"
+);
+
+
+
+}
+
+
+
+};
+
+
+
+}
+
+
+
+</script>
 <!-- OTP MODAL -->
-<div class="otp-modal" id="otpModal" style="display: none;">
-    <div class="otp-card">
-        <button type="button" class="close" id="btn-close-otp">✕</button>
-        <h2>🔐 Tasdiqlash kodi</h2>
-        <p>Telefoningizga yuborilgan 6 xonali kodni kiriting</p>
 
-        <input type="text" maxlength="6" placeholder="123456" id="otpCode">
-        
-        <div id="otpModalStatus" class="otp-status-msg"></div>
+<div 
+class="otp-modal"
+id="otpModal"
+style="display:none;">
 
-        <button type="button" class="verify-btn" id="btn-verify-otp">
-            Tasdiqlash
-        </button>
-    </div>
+
+<div class="otp-card">
+
+
+<button 
+type="button"
+id="btn-close-otp"
+class="close">
+
+✕
+
+</button>
+
+
+
+<h2>
+🔐 Tasdiqlash kodi
+</h2>
+
+
+
+<p>
+Telefoningizga yuborilgan 6 xonali kodni kiriting
+</p>
+
+
+
+<input
+type="text"
+id="otpCode"
+maxlength="6"
+placeholder="123456">
+
+
+
+<div 
+id="otpModalStatus">
 </div>
 
-<!-- EXTERNAL SCRIPTS -->
-<script src="{{ url_for('static', filename='auth/login.js') }}"></script>
+
+
+
+<button
+type="button"
+id="btn-verify-otp"
+class="verify-btn">
+
+Tasdiqlash
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- REGISTER -->
+
+<div class="divider">
+
+<span>
+Hisobingiz yo'qmi?
+</span>
+
+</div>
+
+
+
+<a 
+href="{{url_for('auth.register')}}"
+class="register-btn">
+
+📝 Yangi hisob yaratish
+
+</a>
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
 
 <script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js")
-            .then(function(registration){
-                console.log("SW ishladi:", registration.scope);
-            })
-            .catch(function(error){
-                console.warn("SW ogohlantirish:", error);
-            });
-    }
+
+
+// ===========================
+// OTP MODAL OPEN CLOSE
+// ===========================
+
+
+const modal =
+document.getElementById(
+"otpModal"
+);
+
+
+
+const closeBtn =
+document.getElementById(
+"btn-close-otp"
+);
+
+
+
+function openOtp(){
+
+if(modal){
+
+modal.style.display="flex";
+
+}
+
+}
+
+
+
+function closeOtp(){
+
+if(modal){
+
+modal.style.display="none";
+
+}
+
+}
+
+
+
+
+if(closeBtn){
+
+closeBtn.onclick =
+()=>{
+
+closeOtp();
+
+};
+
+}
+
+
+
+
+
+
+// ===========================
+// SERVICE WORKER
+// ===========================
+
+
+if(
+"serviceWorker" in navigator
+){
+
+
+navigator.serviceWorker.register(
+"/service-worker.js"
+)
+
+.then(
+
+(reg)=>{
+
+console.log(
+"Service Worker ishladi",
+reg.scope
+);
+
+}
+
+)
+
+.catch(
+
+(err)=>{
+
+console.log(
+"SW error:",
+err
+);
+
+}
+
+);
+
+
+}
+
+
+
+
+
+// ===========================
+// PASSWORD SHOW/HIDE
+// ===========================
+
+
+function togglePassword(id){
+
+
+const input =
+document.getElementById(id);
+
+
+
+if(input.type==="password"){
+
+
+input.type="text";
+
+
+}
+
+else{
+
+
+input.type="password";
+
+
+}
+
+
+}
+
+
+
 </script>
 
-<!-- FIREBASE AUTH INTEGRATION MODULE -->
-<script type="module">
-    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { 
-        getAuth, 
-        GoogleAuthProvider, 
-        signInWithPopup, 
-        RecaptchaVerifier, 
-        signInWithPhoneNumber 
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // 1. FIREBASE CONFIG (Flask environment yoki avtomatik tayyor zaxira)
-    const firebaseConfig = {
-        apiKey: "{{ config.get('FIREBASE_API_KEY') or 'AIzaSyChCKjkKv-qtJr02Twbzf22KO-3IB64Q-Y' }}",
-        authDomain: "{{ config.get('FIREBASE_AUTH_DOMAIN') or 'vendora-market.firebaseapp.com' }}",
-        projectId: "{{ config.get('FIREBASE_PROJECT_ID') or 'vendora-market' }}",
-        storageBucket: "{{ config.get('FIREBASE_STORAGE_BUCKET') or 'vendora-market.firebasestorage.app' }}",
-        messagingSenderId: "{{ config.get('FIREBASE_MESSAGING_SENDER_ID') or '1090696986645' }}",
-        appId: "{{ config.get('FIREBASE_APP_ID') or '1:1090696986645:web:6053b2abbd7a1ea7dcce1c' }}"
-    };
 
-    // 2. INITIALIZE FIREBASE
-    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-    const auth = getAuth(app);
-    let confirmationResultGlobal = null;
-
-    // Modal oynani boshqarish
-    const otpModal = document.getElementById('otpModal');
-    function openModal() { if (otpModal) otpModal.style.display = 'flex'; }
-    function closeModal() { if (otpModal) otpModal.style.display = 'none'; }
-    
-    const closeOtpBtn = document.getElementById('btn-close-otp');
-    if (closeOtpBtn) {
-        closeOtpBtn.addEventListener('click', closeModal);
-    }
-
-    // 3. GOOGLE OAUTH ORQALI KIRISH
-    const googleBtn = document.getElementById('btn-google-login');
-    if (googleBtn) {
-        googleBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const provider = new GoogleAuthProvider();
-            try {
-                googleBtn.disabled = true;
-                googleBtn.style.opacity = "0.7";
-
-                const result = await signInWithPopup(auth, provider);
-                const token = await result.user.getIdToken();
-
-                document.getElementById('firebase_id_token').value = token;
-                document.getElementById('login_type').value = 'google';
-
-                // Google orqali kirilayotganda parol kiritilishi shart emas
-                const passInput = document.getElementById('password');
-                if (passInput) passInput.required = false;
-
-                const form = document.getElementById('loginForm');
-                form.action = "{{ url_for('auth.google_login_callback') }}";
-                form.submit();
-            } catch (error) {
-                googleBtn.disabled = false;
-                googleBtn.style.opacity = "1";
-
-                if (error.code !== 'auth/popup-closed-by-user' && error.code !== 'auth/cancelled-popup-request') {
-                    console.error("Google Login Error:", error);
-                    alert("Google orqali kirishda xatolik yuz berdi: " + error.message);
-                }
-            }
-        });
-    }
-
-    // 4. SMS OTP KOD YUBORISH
-    const requestOtpBtn = document.getElementById('btn-request-otp');
-    if (requestOtpBtn) {
-        requestOtpBtn.addEventListener('click', async () => {
-            const countryCode = document.getElementById('country_code').value;
-            const phoneRaw = document.getElementById('phone').value.replace(/\D/g, '');
-
-            if (!phoneRaw) {
-                alert("Iltimos, avval telefon raqamingizni kiriting!");
-                document.getElementById('phone').focus();
-                return;
-            }
-
-            const fullPhoneNumber = countryCode + phoneRaw;
-
-            try {
-                requestOtpBtn.disabled = true;
-                requestOtpBtn.innerText = "SMS Yuborilmoqda...";
-
-                if (!window.recaptchaVerifier) {
-                    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-                        'size': 'invisible'
-                    });
-                }
-
-                confirmationResultGlobal = await signInWithPhoneNumber(auth, fullPhoneNumber, window.recaptchaVerifier);
-
-                const statusBox = document.getElementById('otpModalStatus');
-                if (statusBox) {
-                    statusBox.innerText = "SMS kod yuborildi!";
-                    statusBox.style.color = "#10b981";
-                }
-
-                openModal();
-            } catch (error) {
-                console.error("SMS Sending Error:", error);
-                alert("SMS yuborishda xatolik yuz berdi: " + error.message);
-            } finally {
-                requestOtpBtn.innerText = "📩 Kod orqali kirish";
-                requestOtpBtn.disabled = false;
-            }
-        });
-    }
-
-    // 5. MODAL ICHIDA SMS KODNI TASDIQLASH
-    const verifyOtpBtn = document.getElementById('btn-verify-otp');
-    if (verifyOtpBtn) {
-        verifyOtpBtn.addEventListener('click', async () => {
-            const otpCode = document.getElementById('otpCode').value.trim();
-
-            if (otpCode.length !== 6) {
-                alert("Iltimos, 6 xonali tasdiqlash kodini to'liq kiriting!");
-                return;
-            }
-
-            try {
-                const result = await confirmationResultGlobal.confirm(otpCode);
-                const idToken = await result.user.getIdToken();
-
-                document.getElementById('firebase_id_token').value = idToken;
-                document.getElementById('login_type').value = 'otp';
-
-                const passInput = document.getElementById('password');
-                if (passInput) passInput.required = false;
-
-                const form = document.getElementById('loginForm');
-                form.submit();
-            } catch (error) {
-                console.error("OTP Verification Error:", error);
-                const statusBox = document.getElementById('otpModalStatus');
-                if (statusBox) {
-                    statusBox.innerText = "Kod noto'g'ri yoki uning vaqti o'tgan!";
-                    statusBox.style.color = "#ef4444";
-                }
-            }
-        });
-    }
-</script>
 
 </body>
+
+
 </html>
