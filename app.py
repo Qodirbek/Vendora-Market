@@ -171,6 +171,14 @@ def create_app():
         db.session.rollback()
         return render_template("errors/500.html"), 500
 
+ 
+    @app.after_request
+    def add_security_headers(response):
+        # Google Auth Popup brauzer tomonidan bloklanmasligi uchun COOP sarlavhasi
+        response.headers['Cross-Origin-Opener-Policy'] = 'same-origin-allow-popups'
+        return response
+
+
     # =====================================
     # SESSION CLEAR
     # =====================================
